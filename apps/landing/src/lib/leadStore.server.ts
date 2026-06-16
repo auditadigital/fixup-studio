@@ -2,7 +2,7 @@ import "server-only";
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import type { Lead, Prospecto } from "@fixup/types";
-import { type LeadStore, ConsoleLeadStore, leadToProspecto } from "./leads.js";
+import { type LeadStore, ConsoleLeadStore, leadToProspecto } from "./leads";
 
 const DEFAULT_PATH =
   process.env.PROSPECTOS_PATH ?? path.join(process.cwd(), "..", "..", "data", "prospectos.json");
