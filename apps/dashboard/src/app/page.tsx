@@ -1,3 +1,9 @@
-export default function Page() {
-  return <main className="p-6 font-display text-2xl">픽스업 스튜디오 대시보드</main>;
+import { getProspectos } from "@/lib/repo";
+import { PipelineBoard } from "@/components/PipelineBoard";
+
+export const dynamic = "force-dynamic";
+
+export default async function Page() {
+  const prospectos = await getProspectos();
+  return <PipelineBoard initial={prospectos} />;
 }
