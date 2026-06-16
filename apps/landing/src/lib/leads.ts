@@ -20,6 +20,9 @@ function slug(s: string): string {
 
 export function leadToProspecto(lead: Lead): Prospecto {
   const fecha = lead.creado.slice(0, 10);
+  // Prospecto has no contact-person field, so fold the owner name (and any message)
+  // into observacion — otherwise the file store loses who to contact by name.
+  const observacion = [`담당자: ${lead.nombre}`, lead.mensaje].filter(Boolean).join(" · ");
   return {
     id: slug(lead.업체명),
     업체명: lead.업체명,
@@ -28,7 +31,7 @@ export function leadToProspecto(lead: Lead): Prospecto {
     naver_place: lead.naver_place,
     telefono: lead.telefono,
     estado: "nuevo",
-    observacion: lead.mensaje,
+    observacion,
     fecha_contacto: fecha,
   };
 }

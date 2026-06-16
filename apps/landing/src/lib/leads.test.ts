@@ -21,6 +21,7 @@ describe("leadToProspecto", () => {
     expect(p.id.length).toBeGreaterThan(0);
     expect(p.fecha_contacto).toBe("2026-06-16");
     expect(p.instagram).toBe("gangnam_skin");
+    expect(p.observacion).toContain("홍길동");
   });
 });
 
