@@ -29,7 +29,7 @@ describe("ConsoleLeadStore", () => {
     const spy = vi.spyOn(console, "info").mockImplementation(() => {});
     const res = await new ConsoleLeadStore().save({ ...valid, creado: "2026-06-16T00:00:00.000Z" });
     expect(res.id.length).toBeGreaterThan(0);
-    const logged = JSON.parse(spy.mock.calls[0][0] as string);
+    const logged = JSON.parse(spy.mock.calls[0]![0] as string);
     expect(logged.kind).toBe("lead");
     expect(logged.prospecto.estado).toBe("nuevo");
     spy.mockRestore();
