@@ -54,7 +54,7 @@ export function Pricing() {
           ))}
         </div>
 
-        <p className="price-note rv">{PRICE_NOTE}</p>
+        <Reveal className="price-note">{PRICE_NOTE}</Reveal>
       </div>
     </section>
   );

@@ -63,11 +63,11 @@ export function Funnel() {
           ))}
         </div>
 
-        <p className="funnel-note rv">
+        <Reveal className="funnel-note">
           {noteParts[0]}
           <b>{noteBold}</b>
           {noteParts[1]}
-        </p>
+        </Reveal>
       </div>
     </section>
   );
