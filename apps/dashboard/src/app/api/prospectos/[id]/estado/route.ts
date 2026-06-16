@@ -28,6 +28,10 @@ export async function POST(
         { status: 503 },
       );
     }
-    return Response.json({ error: String(err) }, { status: 500 });
+    if (err instanceof Error && err.message.startsWith("Prospecto not found")) {
+      return Response.json({ error: "not_found" }, { status: 404 });
+    }
+    console.error("updateEstado failed", err);
+    return Response.json({ error: "internal_error" }, { status: 500 });
   }
 }

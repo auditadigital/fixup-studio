@@ -8,7 +8,9 @@ export interface ProspectoRepo {
   updateEstado(id: string, estado: Estado): Promise<Prospecto>;
 }
 
-const DATA_PATH = path.join(process.cwd(), "..", "..", "data", "prospectos.json");
+const DATA_PATH =
+  process.env.PROSPECTOS_PATH ??
+  path.join(process.cwd(), "..", "..", "data", "prospectos.json");
 
 class JsonProspectoRepo implements ProspectoRepo {
   async list(): Promise<Prospecto[]> {
@@ -17,6 +19,7 @@ class JsonProspectoRepo implements ProspectoRepo {
     return parsed.prospectos;
   }
 
+  // Read-modify-write with no locking (single-user MVP; concurrent writes can clobber — solved by the Supabase migration).
   async updateEstado(id: string, estado: Estado): Promise<Prospecto> {
     const all = await this.list();
     const idx = all.findIndex((p) => p.id === id);

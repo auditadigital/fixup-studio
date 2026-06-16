@@ -28,9 +28,10 @@ describe("computeMetrics", () => {
   });
 
   it("conversion = cerrado / reached-mini", () => {
-    // reached-mini = has scores_mini OR estado past mini: b,c,d,f => 4; cerrado with mini path = d => but count all cerrado as converted
+    // Prospecto e is cerrado but has no scores_mini, and cerrado is excluded from
+    // PAST_MINI, so e does NOT count toward reached-mini.
+    // reached-mini = {b,c,d,f} = 4, converted = {d} = 1 => 0.25.
     const m = computeMetrics(data);
-    // mini-reached set: b,c,d,f (4). cerrado: d,e (2). conversion uses cerrado that reached mini = d (1) / 4
     expect(m.miniToClient).toBeCloseTo(0.25, 5);
   });
 });
