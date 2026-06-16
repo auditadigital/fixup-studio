@@ -27,8 +27,16 @@ const preset: Partial<Config> = {
         "good-tint": "var(--good-tint)",
         "warn-tint": "var(--warn-tint)",
         "urgent-tint": "var(--urgent-tint)",
+        // Landing additions
+        "surface-2": "var(--surface-2)",
+        accent: "var(--accent)",
+        "accent-600": "var(--accent-600)",
+        "accent-press": "var(--accent-press)",
+        "accent-tint": "var(--accent-tint)",
+        "on-accent": "var(--on-accent)",
+        "kakao-ink": "var(--kakao-ink)",
       },
-      borderRadius: { DEFAULT: "var(--radius)", sm: "var(--radius-sm)" },
+      borderRadius: { DEFAULT: "var(--radius)", sm: "var(--radius-sm)", lg: "var(--radius-lg)" },
       fontFamily: {
         display: ["var(--font-jua)", "sans-serif"],
         sans: ["var(--font-noto-kr)", "sans-serif"],
