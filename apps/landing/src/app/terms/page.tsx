@@ -19,7 +19,7 @@ export default function Terms() {
       {/* TODO(legal): 실제 이용약관으로 교체 — 아래 항목 채우기 */}
       <h2 className="h-sec" style={{ fontSize: 22, marginTop: 32 }}>1. 목적</h2>
       <p className="lead">
-        본 약관은 픽스업 스튜디오(이하 "회사")가 제공하는 디지털 마케팅 진단 및 관련 서비스(이하 "서비스") 이용에 관한
+        본 약관은 픽스업 스튜디오(이하 &ldquo;회사&rdquo;)가 제공하는 디지털 마케팅 진단 및 관련 서비스(이하 &ldquo;서비스&rdquo;) 이용에 관한
         기본적인 사항을 규정함을 목적으로 합니다. {/* TODO 확정 */}
       </p>
       <h2 className="h-sec" style={{ fontSize: 22, marginTop: 24 }}>2. 서비스 내용</h2>
