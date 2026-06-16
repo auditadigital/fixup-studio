@@ -43,6 +43,7 @@ export interface Prospecto {
   fecha_mini?: string;
   fecha_completa?: string;
   fecha_propuesta?: string;
+  reportes?: { label: string; url: string }[];  // links a reportes/PDF (los escribe el engine)
 }
 
 // Lead que crea la landing (se convierte en Prospecto estado "nuevo")

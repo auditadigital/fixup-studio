@@ -106,8 +106,8 @@ export function ProspectoDrawer({
           <section className="mt-4">
             <h3 className="mb-2 text-xs font-medium text-ink-soft">리포트</h3>
             <div className="flex flex-col gap-2">
-              {p.reportes.map((r) => (
-                <a key={r.url} href={safeHref(r.url)} target="_blank" rel="noreferrer"
+              {p.reportes.map((r, i) => (
+                <a key={`${r.label}::${r.url}::${i}`} href={safeHref(r.url)} target="_blank" rel="noopener noreferrer"
                    className="text-sm text-coral underline">
                   {r.label}
                 </a>

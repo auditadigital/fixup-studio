@@ -15,7 +15,10 @@ const DATA_PATH =
 class JsonProspectoRepo implements ProspectoRepo {
   async list(): Promise<Prospecto[]> {
     const raw = await fs.readFile(DATA_PATH, "utf8");
-    const parsed = JSON.parse(raw) as { prospectos: Prospecto[] };
+    const parsed = JSON.parse(raw) as { prospectos?: Prospecto[] };
+    if (!Array.isArray(parsed?.prospectos)) {
+      throw new Error("prospectos.json: unexpected shape (missing prospectos array)");
+    }
     return parsed.prospectos;
   }
 
