@@ -1,0 +1,27 @@
+:root {
+  --bg: #FBF8F2;
+  --bg-2: #F4EEE3;
+  --surface: #FFFFFF;
+  --cream: #F0E9DB;
+  --sand: #E8DCC9;
+  --ink: #2A2520;
+  --ink-2: #5C544A;
+  --ink-soft: #8C8175;
+  --line: #EAE1D2;
+  --line-2: #DFD4C0;
+  --coral: #D85A40;
+  --coral-600: #BE4733;
+  --coral-press: #A53C2A;
+  --coral-tint: #FBEAE4;
+  --naver: #2E9E5B;
+  --insta: #D24A8B;
+  --kakao: #F4C20D;
+  --good: #3E9E5B;
+  --warn: #E0A52E;
+  --urgent: #D8492F;
+  --good-tint: #E6F3EA;
+  --warn-tint: #F8EFD9;
+  --urgent-tint: #FBE6E2;
+  --radius: 18px;
+  --radius-sm: 12px;
+}
