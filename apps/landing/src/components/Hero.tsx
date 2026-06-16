@@ -55,6 +55,9 @@ export default function Hero() {
               label={HERO.hero_photo.label}
               brief={HERO.hero_photo.brief}
               aspect="4/5"
+              src="/images/hero-owner.jpg"
+              priority
+              sizes="(max-width: 960px) 90vw, 460px"
             />
             <div className="float f-naver">
               <span className="fi" style={{ background: "var(--naver)" }}>

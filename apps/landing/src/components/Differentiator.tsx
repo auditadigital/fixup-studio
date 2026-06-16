@@ -18,6 +18,8 @@ export function Differentiator() {
               label="Foto · 담당자"
               brief="실제 담당자가 노트북 앞에서 사장님과 통화하는 자연스러운 장면. 정면 미소, 진짜 사람."
               aspect="1/1"
+              src="/images/manager.jpg"
+              sizes="(max-width: 880px) 90vw, 440px"
             />
             {/* TODO: casos reales */}
             <div className="tag">
