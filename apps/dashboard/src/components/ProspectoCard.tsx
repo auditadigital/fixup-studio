@@ -12,8 +12,11 @@ export function ProspectoCard({
   return (
     <article
       draggable
+      role="button"
+      tabIndex={0}
       onDragStart={() => onDragStart(prospecto.id)}
       onClick={() => onOpen(prospecto)}
+      onKeyDown={(e) => { if (e.key === "Enter") onOpen(prospecto); }}
       className="cursor-pointer rounded-sm border border-line bg-surface p-3 hover:border-line-2"
     >
       <div className="font-display text-sm text-ink">{prospecto["업체명"]}</div>

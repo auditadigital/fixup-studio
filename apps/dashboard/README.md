@@ -16,4 +16,8 @@ read-only: el drag se aplica en la vista pero no persiste hasta migrar a Supabas
 (`SupabaseProspectoRepo` con la misma interfaz).
 
 ## Deploy (Vercel)
-Root del proyecto = `apps/dashboard`. Setear `DASHBOARD_USER` / `DASHBOARD_PASS`.
+Root del proyecto = `apps/dashboard`.
+
+- **Build Command:** `cd ../.. && npm run build -w @fixup/dashboard`
+- **Output Directory:** `apps/dashboard/.next`
+- **Env vars:** setear `DASHBOARD_USER` / `DASHBOARD_PASS` (y opcionalmente `PROSPECTOS_PATH`).

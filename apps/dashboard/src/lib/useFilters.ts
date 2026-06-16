@@ -1,10 +1,10 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Estado } from "@fixup/types";
 
 export interface Filters {
-  rubro: string;   // "" = all
-  zona: string;    // "" = all
+  rubro: string;
+  zona: string;
   estado: Estado | "";
   query: string;
 }
@@ -14,6 +14,7 @@ const DEFAULTS: Filters = { rubro: "", zona: "", estado: "", query: "" };
 
 export function useFilters() {
   const [filters, setFilters] = useState<Filters>(DEFAULTS);
+  const hydrated = useRef(false);
 
   useEffect(() => {
     try {
@@ -22,9 +23,11 @@ export function useFilters() {
     } catch {
       /* ignore corrupt prefs */
     }
+    hydrated.current = true;
   }, []);
 
   useEffect(() => {
+    if (!hydrated.current) return;
     try {
       localStorage.setItem(KEY, JSON.stringify(filters));
     } catch {

@@ -1,7 +1,12 @@
 "use client";
+import { useEffect } from "react";
 import type { Prospecto, Scores } from "@fixup/types";
 import { ESTADO_LABELS } from "@fixup/types";
 import { Badge, Button, Card, FunnelSteps, PlanCard, Pill, ScoreRing, scoreColor } from "@fixup/ui";
+
+function safeHref(url: string): string {
+  return /^https?:\/\//i.test(url) ? url : "#";
+}
 
 const SCORE_LABELS: { key: keyof Scores; label: string }[] = [
   { key: "global", label: "종합" },
@@ -24,8 +29,17 @@ function history(p: Prospecto): { label: string; date: string }[] {
 export function ProspectoDrawer({
   prospecto, onClose,
 }: { prospecto: Prospecto | null; onClose: () => void }) {
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose();
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
   if (!prospecto) return null;
   const p = prospecto;
+  const hist = history(p);
   return (
     <div className="fixed inset-0 z-50 flex justify-end bg-ink/20" onClick={onClose}>
       <aside
@@ -74,11 +88,11 @@ export function ProspectoDrawer({
           <PlanCard plan={p.plan_recomendado} precio={p.monto_cerrado ?? p.precio_propuesto} />
         </section>
 
-        {history(p).length ? (
+        {hist.length ? (
           <section className="mt-4">
             <h3 className="mb-2 text-xs font-medium text-ink-soft">상태 이력</h3>
             <Card className="space-y-1">
-              {history(p).map((h) => (
+              {hist.map((h) => (
                 <div key={h.label} className="flex justify-between text-sm">
                   <span className="text-ink-2">{h.label}</span>
                   <span className="font-mono text-ink-soft">{h.date}</span>
@@ -93,7 +107,7 @@ export function ProspectoDrawer({
             <h3 className="mb-2 text-xs font-medium text-ink-soft">리포트</h3>
             <div className="flex flex-col gap-2">
               {p.reportes.map((r) => (
-                <a key={r.url} href={r.url} target="_blank" rel="noreferrer"
+                <a key={r.url} href={safeHref(r.url)} target="_blank" rel="noreferrer"
                    className="text-sm text-coral underline">
                   {r.label}
                 </a>

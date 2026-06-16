@@ -1,5 +1,5 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import type { Estado, Prospecto } from "@fixup/types";
 import { PIPELINE_COLUMNS, columnForEstado } from "@fixup/types";
 import { Metrics } from "./Metrics";
@@ -15,6 +15,13 @@ export function PipelineBoard({ initial }: { initial: Prospecto[] }) {
   const [reloading, setReloading] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
   const { filters, setFilters } = useFilters();
+
+  const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  function showToast(msg: string) {
+    setToast(msg);
+    if (toastTimer.current) clearTimeout(toastTimer.current);
+    toastTimer.current = setTimeout(() => setToast(null), 3000);
+  }
 
   const filtered = useMemo(() => {
     const q = filters.query.trim().toLowerCase();
@@ -34,8 +41,11 @@ export function PipelineBoard({ initial }: { initial: Prospecto[] }) {
     setReloading(true);
     try {
       const res = await fetch("/api/prospectos", { cache: "no-store" });
+      if (!res.ok) throw new Error(`reload failed: ${res.status}`);
       const data = (await res.json()) as { prospectos: Prospecto[] };
       setProspectos(data.prospectos);
+    } catch {
+      showToast("새로고침 실패");
     } finally {
       setReloading(false);
     }
@@ -45,8 +55,11 @@ export function PipelineBoard({ initial }: { initial: Prospecto[] }) {
     if (!dragId) return;
     const id = dragId;
     setDragId(null);
-    const prev = prospectos;
-    setProspectos((cur) => cur.map((p) => (p.id === id ? { ...p, estado } : p)));
+    let snapshot: Prospecto[] = [];
+    setProspectos((cur) => {
+      snapshot = cur;
+      return cur.map((p) => (p.id === id ? { ...p, estado } : p));
+    });
     try {
       const res = await fetch(`/api/prospectos/${id}/estado`, {
         method: "POST",
@@ -54,14 +67,14 @@ export function PipelineBoard({ initial }: { initial: Prospecto[] }) {
         body: JSON.stringify({ estado }),
       });
       if (res.status === 503) {
-        setToast("적용됨 (뷰) — Supabase 전 영구저장 안 됨");
+        showToast("적용됨 (뷰) — Supabase 전 영구저장 안 됨");
       } else if (!res.ok) {
-        setProspectos(prev); // hard failure → rollback
-        setToast("변경 실패");
+        setProspectos(snapshot);
+        showToast("변경 실패");
       }
     } catch {
-      setProspectos(prev);
-      setToast("변경 실패");
+      setProspectos(snapshot);
+      showToast("변경 실패");
     }
   }
 
@@ -105,10 +118,7 @@ export function PipelineBoard({ initial }: { initial: Prospecto[] }) {
       <ProspectoDrawer prospecto={selected} onClose={() => setSelected(null)} />
 
       {toast ? (
-        <div
-          className="fixed bottom-4 left-1/2 -translate-x-1/2 rounded-sm bg-ink px-4 py-2 text-sm text-white"
-          onAnimationEnd={() => setToast(null)}
-        >
+        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 rounded-sm bg-ink px-4 py-2 text-sm text-white">
           {toast}
         </div>
       ) : null}

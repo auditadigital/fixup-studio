@@ -12,9 +12,11 @@ const EMPTY: Record<Estado, number> = {
   "propuesta-enviada": 0, "negociacion": 0, "cerrado": 0, "perdido": 0,
 };
 
-// Estados strictly past the mini stage that still imply a mini was reached.
-// Terminal states (cerrado / perdido) only count as reached-mini when a
-// scores_mini value is actually recorded — see reachedMini below.
+// PAST_MINI intentionally EXCLUDES `cerrado` / `perdido` (unlike a naive
+// "all post-mini stages" list) so that a deal closed or lost WITHOUT a
+// recorded `scores_mini` does not inflate the mini-reached denominator.
+// Terminal states only count as reached-mini when `scores_mini` is present
+// (handled by the `scores_mini != null` check in reachedMini).
 const PAST_MINI: Estado[] = [
   "mini-lista", "mini-enviada", "propuesta-enviada", "negociacion",
 ];
