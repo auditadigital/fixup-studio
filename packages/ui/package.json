@@ -5,6 +5,7 @@
   "exports": {
     ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
     "./tokens.css": "./src/tokens.css",
+    "./buttons.css": "./src/buttons.css",
     "./tailwind-preset": "./tailwind-preset.ts"
   },
   "scripts": {

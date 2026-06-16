@@ -1,4 +1,5 @@
 @import "@fixup/ui/tokens.css";
+@import "@fixup/ui/buttons.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
