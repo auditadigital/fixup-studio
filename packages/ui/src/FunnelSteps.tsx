@@ -15,7 +15,7 @@ export function FunnelSteps({ channels }: { channels: Channel }) {
         const on = Boolean(channels[s.key]);
         return (
           <React.Fragment key={s.key}>
-            {i > 0 ? <span className="text-ink-soft">→</span> : null}
+            {i > 0 ? <span className="text-ink-soft" aria-hidden="true">→</span> : null}
             <span
               className={`text-xs font-medium ${on ? s.color : "text-ink-soft opacity-40"}`}
             >

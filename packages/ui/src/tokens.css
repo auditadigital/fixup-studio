@@ -13,10 +13,10 @@
   --coral-600: #BE4733;
   --coral-press: #A53C2A;
   --coral-tint: #FBEAE4;
-  --naver: #2E9E5B;
+  --naver: #2E9E5B; /* Naver brand green */
   --insta: #D24A8B;
   --kakao: #F4C20D;
-  --good: #3E9E5B;
+  --good: #3E9E5B; /* semantic success green (differs from --naver by one hex digit, intentional) */
   --warn: #E0A52E;
   --urgent: #D8492F;
   --good-tint: #E6F3EA;

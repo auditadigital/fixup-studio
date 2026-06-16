@@ -12,7 +12,7 @@ export function PlanCard({ plan, precio }: { plan?: Plan; precio?: number }) {
       <div className="text-right">
         <div className="text-xs text-ink-soft">가격</div>
         <div className="font-mono text-ink">
-          {precio ? `₩${precio.toLocaleString("ko-KR")}` : "—"}
+          {precio != null ? `₩${precio.toLocaleString("ko-KR")}` : "—"}
         </div>
       </div>
     </Card>
