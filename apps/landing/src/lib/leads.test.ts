@@ -23,6 +23,17 @@ describe("leadToProspecto", () => {
     expect(p.instagram).toBe("gangnam_skin");
     expect(p.observacion).toContain("홍길동");
   });
+
+  it("passes through both instagram and naver_place when present", () => {
+    const p = leadToProspecto({
+      ...valid,
+      instagram: "my_insta",
+      naver_place: "https://naver.me/abc",
+      creado: "2026-06-16T00:00:00.000Z",
+    });
+    expect(p.instagram).toBe("my_insta");
+    expect(p.naver_place).toBe("https://naver.me/abc");
+  });
 });
 
 describe("ConsoleLeadStore", () => {

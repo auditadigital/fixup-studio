@@ -5,6 +5,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "server-only": path.resolve(__dirname, "apps/landing/test/server-only-stub.ts"),
+      "@": path.resolve(__dirname, "apps/landing/src"),
     },
   },
   test: { include: ["packages/**/*.test.ts", "apps/**/*.test.ts"], environment: "node" },

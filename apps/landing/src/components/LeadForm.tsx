@@ -9,7 +9,8 @@ export function LeadForm() {
   const [업체명, set업체명] = React.useState("");
   const [telefono, setTelefono] = React.useState("");
   const [rubro, setRubro] = React.useState<string>(BIZ[0]);
-  const [link, setLink] = React.useState("");
+  const [instagram, setInstagram] = React.useState("");
+  const [naver_place, setNaverPlace] = React.useState("");
   const [mensaje, setMensaje] = React.useState("");
   const [errors, setErrors] = React.useState<Record<string, boolean>>({});
   const [sent, setSent] = React.useState(false);
@@ -40,7 +41,8 @@ export function LeadForm() {
       업체명: 업체명.trim(),
       rubro: rubro.trim(),
       telefono: telefono.trim(),
-      naver_place: link.trim() || undefined,
+      instagram: instagram.trim() || undefined,
+      naver_place: naver_place.trim() || undefined,
       mensaje: mensaje.trim() || undefined,
     };
 
@@ -158,15 +160,27 @@ export function LeadForm() {
             </div>
           </div>
 
-          {/* Instagram / 네이버 플레이스 (선택) */}
+          {/* 인스타그램 (선택) */}
           <div className="field">
-            <label htmlFor="lf-link">Instagram / 네이버 플레이스 (선택)</label>
+            <label htmlFor="lf-instagram">인스타그램 (선택)</label>
             <input
-              id="lf-link"
+              id="lf-instagram"
               type="text"
-              value={link}
-              onChange={(e) => setLink(e.target.value)}
-              placeholder="@handle 또는 네이버 플레이스 링크"
+              value={instagram}
+              onChange={(e) => setInstagram(e.target.value)}
+              placeholder="@handle 또는 instagram.com/..."
+            />
+          </div>
+
+          {/* 네이버 플레이스 (선택) */}
+          <div className="field">
+            <label htmlFor="lf-naver">네이버 플레이스 (선택)</label>
+            <input
+              id="lf-naver"
+              type="text"
+              value={naver_place}
+              onChange={(e) => setNaverPlace(e.target.value)}
+              placeholder="네이버 플레이스 링크"
             />
           </div>
 

@@ -12,10 +12,11 @@ export const zLead = z.object({
 });
 export type LeadInput = z.infer<typeof zLead>;
 
-function slug(s: string): string {
-  const base = s.trim().toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9가-힣\-]/g, "");
-  const sum = Array.from(s).reduce((a, c) => a + (c.codePointAt(0) ?? 0), 0);
-  return `${base || "lead"}-${(sum % 9000) + 1000}`;
+function slug(name: string, creado: string): string {
+  const base = name.trim().toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9가-힣\-]/g, "");
+  const t = Date.parse(creado);
+  const suffix = Number.isNaN(t) ? "0000" : (t % 100000).toString(36);
+  return `${base || "lead"}-${suffix}`;
 }
 
 export function leadToProspecto(lead: Lead): Prospecto {
@@ -24,7 +25,7 @@ export function leadToProspecto(lead: Lead): Prospecto {
   // into observacion — otherwise the file store loses who to contact by name.
   const observacion = [`담당자: ${lead.nombre}`, lead.mensaje].filter(Boolean).join(" · ");
   return {
-    id: slug(lead.업체명),
+    id: slug(lead.업체명, lead.creado),
     업체명: lead.업체명,
     rubro: lead.rubro,
     instagram: lead.instagram,
