@@ -11,7 +11,7 @@ Versión coreana de la mini-auditoría. Es la **introducción de valor** con la 
 **Regla de formato:** el resultado SIEMPRE es un archivo HTML en coreano + su exportación a imagen/PDF para Instagram DM.
 **Idioma:** instrucciones en español (operativo); TODO lo visible al cliente, en **coreano**.
 
-> Dependencia: el template HTML rebrandeado (`fixup-reports/mini-auditoria.html`) y el `shared.css` de Fixup Studio se crean a partir del nuevo style guide (`Korea/brand/prompt-styleguide-fixup-studio.md`). Hasta entonces, podés usar como base estructural el template de LATAM (`Latam/auditorias/auditadigital-reports-extracted/mini-auditoria.html`) reemplazando marca, idioma y factores.
+> Dependencia: el template HTML rebrandeado (`fixup-reports/mini-auditoria.html`) y el `shared.css` de Fixup Studio se crean a partir del nuevo style guide (`docs/korea-staging/brand/prompt-styleguide-fixup-studio.md`). Hasta entonces, podés usar como base estructural el template de LATAM (`Latam/auditorias/auditadigital-reports-extracted/mini-auditoria.html`) reemplazando marca, idioma y factores.
 
 ---
 
@@ -133,7 +133,7 @@ Recomendado: PNG (más natural en DM). Confirmá que el coreano renderice bien (
 
 ## Paso 5b — Generar el texto del DM (coreano)
 
-No es email: es el mensaje de Instagram DM que acompaña la imagen. Usá la plantilla de `Korea/captacion-canales-corea.md` y personalizá:
+No es email: es el mensaje de Instagram DM que acompaña la imagen. Usá la plantilla de `docs/korea-staging/captacion-canales-corea.md` y personalizá:
 
 ```
 [업체명] 사장님, 약속드린 무료 진단 보내드려요 📋
@@ -178,7 +178,7 @@ Mostrá en el chat:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
-> Recordatorio legal/marca: es una introducción personalizada de valor, no publicidad masiva. Nada de blasting, bots ni (광고) electrónico masivo (정보통신망법). Ver `Korea/captacion-canales-corea.md`.
+> Recordatorio legal/marca: es una introducción personalizada de valor, no publicidad masiva. Nada de blasting, bots ni (광고) electrónico masivo (정보통신망법). Ver `docs/korea-staging/captacion-canales-corea.md`.
 
 ---
 

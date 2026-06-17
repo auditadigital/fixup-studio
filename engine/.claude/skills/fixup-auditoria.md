@@ -11,8 +11,8 @@ El producto cuña pago (**진단 ₩99.000**, entrega 48–72h, descontable si c
 **Regla de formato:** el resultado SIEMPRE es HTML coreano + exportación a **PDF** (el entregable pago).
 **Idioma:** instrucciones en español (operativo); TODO lo visible al cliente, en **coreano**.
 
-> Dependencia: el template `fixup-reports/index.html` + `shared.css` (tipografía coreana) salen del rebrand del style guide (`Korea/brand/prompt-styleguide-fixup-studio.md`). Base estructural mientras tanto: `Latam/auditorias/auditadigital-reports-extracted/index.html`.
-> Plantilla de scoring de referencia (pesos/semáforo): `Korea/Plantillas/픽스업스튜디오_진단_템플릿.xlsx`.
+> Dependencia: el template `fixup-reports/index.html` + `shared.css` (tipografía coreana) salen del rebrand del style guide (`docs/korea-staging/brand/prompt-styleguide-fixup-studio.md`). Base estructural mientras tanto: `Latam/auditorias/auditadigital-reports-extracted/index.html`.
+> Plantilla de scoring de referencia (pesos/semáforo): `docs/korea-staging/Plantillas/픽스업스튜디오_진단_템플릿.xlsx`.
 
 ---
 

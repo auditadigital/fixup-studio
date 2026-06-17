@@ -8,7 +8,7 @@ Skills operativas para el negocio coreano, adaptadas del orquestador de AuditaDi
 3. Invocá por trigger (ej: "mini-auditoría de [업체명]").
 
 ## Dependencias compartidas
-- **`fixup-reports/`** — design system de reportes (HTML templates + `shared.css`). ✅ **Alineado al style guide final** (Jua + Noto Sans KR + Space Mono, paleta crema/coral). Archivos en `Korea/fixup-reports/`: `assets/shared.css`, `mini-auditoria.html`, `index.html`, `propuesta.html`, `dashboard.html`. Para correr las skills, copiá `Korea/fixup-reports/` a la raíz del proyecto de Claude Code.
+- **`fixup-reports/`** — design system de reportes (HTML templates + `shared.css`). ✅ **Alineado al style guide final** (Jua + Noto Sans KR + Space Mono, paleta crema/coral). Archivos en `engine/fixup-reports/`: `assets/shared.css`, `mini-auditoria.html`, `index.html`, `propuesta.html`, `dashboard.html`. Para correr las skills, copiá `engine/fixup-reports/` a la raíz del proyecto de Claude Code.
 - **Supabase** (tabla `prospectos`) — pipeline de prospectos (mismos estados que LATAM + `contactado`), accedido vía `scripts/db.mjs`. `data/prospectos.json` quedó como backup (`db.mjs dump`).
 
 ## Set de skills (roadmap)

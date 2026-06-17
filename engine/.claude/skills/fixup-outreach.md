@@ -5,7 +5,7 @@ description: "Procesa un CSV de prospectos coreanos y prepara el outreach por In
 
 # Outreach Outbound desde CSV — Instagram DM (Fixup Studio / 픽스업 스튜디오)
 
-Adaptación de `campana-csv` de LATAM. En vez de crear borradores de Gmail, prepara **paquetes de Instagram DM** listos para envío **manual**. Respeta la decisión legal/marca (ver `Korea/captacion-canales-corea.md`).
+Adaptación de `campana-csv` de LATAM. En vez de crear borradores de Gmail, prepara **paquetes de Instagram DM** listos para envío **manual**. Respeta la decisión legal/marca (ver `docs/korea-staging/captacion-canales-corea.md`).
 
 **Reglas fundamentales:**
 - **NO auto-enviar.** Esta skill PREPARA; el envío es manual, uno a uno (정보통신망법 + reglas de Instagram). Nada de bots ni (광고) masivo.
@@ -60,7 +60,7 @@ Diferencias en modo batch:
   - SÍ generar mini-auditoria-[id].html y exportarlo a PNG (mini-auditoria-[id].png)
 
 ━━━ PASO B — DM PERSONALIZADO (coreano) ━━━
-Construí el DM inicial anclado en la `관찰메모` real, usando la plantilla de Korea/captacion-canales-corea.md:
+Construí el DM inicial anclado en la `관찰메모` real, usando la plantilla de docs/korea-staging/captacion-canales-corea.md:
 
   안녕하세요, [업체명] 사장님 😊
   [관찰메모 기반 한 줄 — 예: "인스타 사진 분위기가 정말 좋아서 연락드려요"].
@@ -123,4 +123,4 @@ Cola de envío (manual, uno a uno):
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
-> Esta skill PREPARA. El envío lo hacés vos/tu esposa a mano, lo que mantiene el outreach legal, humano y de marca. Ver `Korea/captacion-canales-corea.md`.
+> Esta skill PREPARA. El envío lo hacés vos/tu esposa a mano, lo que mantiene el outreach legal, humano y de marca. Ver `docs/korea-staging/captacion-canales-corea.md`.
