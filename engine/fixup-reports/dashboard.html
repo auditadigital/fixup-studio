@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>파이프라인 — 픽스업 스튜디오</title>
+<link rel="stylesheet" href="assets/shared.css">
+<style>
+  body { background: var(--paper); }
+  .dash { max-width: 1040px; margin: 0 auto; padding: 24px 20px 56px; }
+  .dash-head { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2px solid var(--ink); padding-bottom: 14px; margin-bottom: 18px; }
+  .dash-head .brand { font-size: 20px; }
+  .dash-head .upd { font-size: 12px; color: var(--ink-3); }
+  .pipe { display: grid; grid-template-columns: repeat(5,1fr); gap: 12px; margin-bottom: 22px; }
+  .pcell { background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--c,var(--ink-3)); border-radius: 12px; padding: 16px; text-align: center; }
+  .pcell .n { font-family: var(--font-display); font-size: 28px; font-weight: 700; color: var(--c,var(--ink)); }
+  .pcell .l { font-size: 12px; color: var(--ink-3); margin-top: 2px; }
+  table { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-3); padding: 12px 14px; border-bottom: 1px solid var(--line); }
+  td { padding: 12px 14px; border-bottom: 1px solid var(--line); font-size: 14px; vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  .pname { font-weight: 700; }
+  .psub { font-size: 12px; color: var(--ink-3); }
+  .st { font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 999px; white-space: nowrap; }
+  .sc-tag { font-family: var(--font-display); font-size: 12px; font-weight: 700; padding: 1px 7px; border-radius: 6px; }
+  .sc-red { background: rgba(216,73,47,.12); color: var(--urgent); }
+  .sc-amber { background: rgba(224,165,46,.16); color: #B9831F; }
+  .sc-green { background: rgba(62,158,91,.12); color: var(--good); }
+  .help { margin-top: 22px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; font-size: 13px; color: var(--ink-2); }
+  .help code { background: var(--paper); padding: 1px 6px; border-radius: 5px; font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="dash">
+
+  <div class="dash-head">
+    <div class="brand">픽스업 <span class="ko" style="color:var(--accent)">스튜디오</span> · 파이프라인</div>
+    <div class="upd">업데이트: [FECHA]</div>
+  </div>
+
+  <div class="pipe">
+    <div class="pcell" style="--c:#8C8175"><div class="n">[N_NUEVO]</div><div class="l">신규</div></div>
+    <div class="pcell" style="--c:#E0A52E"><div class="n">[N_CONTACTO_MINI]</div><div class="l">접촉 · 미니</div></div>
+    <div class="pcell" style="--c:#D85A40"><div class="n">[N_PROPUESTA]</div><div class="l">제안 발송</div></div>
+    <div class="pcell" style="--c:#8A4FBF"><div class="n">[N_NEGOCIACION]</div><div class="l">협의 중</div></div>
+    <div class="pcell" style="--c:#3E9E5B"><div class="n">[MONTO_CERRADO]</div><div class="l">계약 완료 (₩)</div></div>
+  </div>
+
+  <table>
+    <thead><tr><th>업체</th><th>업종 · 지역</th><th>상태</th><th>점수</th><th>플랜 · 금액</th><th>최근</th></tr></thead>
+    <tbody>
+      [FILAS_PROSPECTOS]
+    </tbody>
+  </table>
+
+  <div class="help">
+    다음 작업 빠른 실행 (Claude Code에 붙여넣기):
+    <code>mini-auditoría de [업체명]</code> ·
+    <code>auditoría completa de [업체명]</code> ·
+    <code>propuesta para [업체명]</code> ·
+    <code>Actualizá [업체명] a [estado]</code>
+  </div>
+
+</div>
+</body>
+</html>

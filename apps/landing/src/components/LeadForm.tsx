@@ -1,5 +1,6 @@
 "use client";
 import * as React from "react";
+import Link from "next/link";
 import { Icon } from "@/components/icons";
 import { zLead } from "@/lib/leads";
 import { BIZ } from "@/lib/content";
@@ -12,6 +13,7 @@ export function LeadForm() {
   const [instagram, setInstagram] = React.useState("");
   const [naver_place, setNaverPlace] = React.useState("");
   const [mensaje, setMensaje] = React.useState("");
+  const [consent, setConsent] = React.useState(false);
   const [errors, setErrors] = React.useState<Record<string, boolean>>({});
   const [sent, setSent] = React.useState(false);
   const [toast, setToast] = React.useState("");
@@ -56,6 +58,12 @@ export function LeadForm() {
       if (fieldErrors.telefono?.length) newErrors.telefono = true;
       setErrors(newErrors);
       showToast("입력을 확인해 주세요");
+      return;
+    }
+
+    if (!consent) {
+      setErrors({ consent: true });
+      showToast("개인정보 수집·이용에 동의해 주세요");
       return;
     }
 
@@ -193,6 +201,26 @@ export function LeadForm() {
               onChange={(e) => setMensaje(e.target.value)}
               placeholder="가게 이름·지역만 적어주셔도 됩니다."
             />
+          </div>
+
+          {/* 개인정보 수집·이용 동의 (정보통신망법) */}
+          <div className={`field consent${errors.consent ? " err" : ""}`}>
+            <label className="consent-row" htmlFor="lf-consent">
+              <input
+                id="lf-consent"
+                type="checkbox"
+                checked={consent}
+                onChange={(e) => setConsent(e.target.checked)}
+                aria-invalid={errors.consent ? true : undefined}
+              />
+              <span>
+                <Link href="/privacy" target="_blank" rel="noopener noreferrer">
+                  개인정보 수집·이용
+                </Link>
+                에 동의합니다. (진단·상담 목적) <span className="rq">*</span>
+              </span>
+            </label>
+            <div className="em" role="alert">개인정보 수집·이용에 동의해 주세요.</div>
           </div>
 
           <button

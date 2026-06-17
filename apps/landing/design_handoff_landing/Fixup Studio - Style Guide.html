@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fixup Studio · 픽스업 스튜디오 — Style Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@300;400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   FIXUP STUDIO — STYLE GUIDE
+   Dirección B · "Aire y Luz" · fresca-clara
+   Tokens via CSS custom properties; dark theme on [data-theme]
+   ============================================================ */
+
+:root{
+  /* --- neutros cálidos (light) --- */
+  --bg:#FBF8F2;        /* blanco cálido — fondo base */
+  --bg-2:#F4EEE3;      /* secciones alternas */
+  --surface:#FFFFFF;   /* cards */
+  --surface-2:#FBF8F2; /* cards anidadas */
+  --cream:#F0E9DB;
+  --sand:#E8DCC9;
+  --ink:#2A2520;       /* texto principal */
+  --ink-2:#5C544A;     /* texto secundario */
+  --ink-soft:#8C8175;  /* terciario / labels (solo grande) */
+  --line:#EAE1D2;      /* hairlines */
+  --line-2:#DFD4C0;
+
+  /* --- acento de marca --- */
+  --coral:#D85A40;      /* Coral 500 — marca / acentos grandes */
+  --coral-600:#BE4733;  /* Coral 600 — interactivo / texto AA */
+  --coral-press:#A53C2A;
+  --coral-tint:#FBEAE4; /* fondo coral suave */
+
+  /* --- plataforma --- */
+  --naver:#2E9E5B;
+  --insta:#D24A8B;
+  --insta-grad:linear-gradient(135deg,#F7A04A 0%,#D24A8B 52%,#8A4FBF 100%);
+  --kakao:#F4C20D;
+  --kakao-ink:#3A2D00;
+
+  /* --- semáforo de auditoría --- */
+  --good:#3E9E5B;
+  --warn:#E0A52E;
+  --urgent:#D8492F;
+  --good-tint:#E7F1E9;
+  --warn-tint:#F8EFD8;
+  --urgent-tint:#FBE6E1;
+
+  --shadow:0 1px 0 rgba(255,255,255,.7) inset, 0 22px 48px -32px rgba(60,45,30,.55);
+  --shadow-sm:0 1px 0 rgba(255,255,255,.6) inset, 0 10px 24px -18px rgba(60,45,30,.5);
+  --radius:18px;
+  --radius-sm:12px;
+  --maxw:1200px;
+}
+
+[data-theme="dark"]{
+  --bg:#1E1A15;
+  --bg-2:#181410;
+  --surface:#2A251F;
+  --surface-2:#221E18;
+  --cream:#322B22;
+  --sand:#3A3228;
+  --ink:#F3ECDD;
+  --ink-2:#CBC1B0;
+  --ink-soft:#998E7C;
+  --line:#39312A;
+  --line-2:#473D33;
+
+  --coral:#EE6E52;
+  --coral-600:#EE6E52;
+  --coral-press:#D85A40;
+  --coral-tint:#3A241C;
+
+  --good-tint:#1F2E23;
+  --warn-tint:#332A18;
+  --urgent-tint:#33201B;
+
+  --shadow:0 1px 0 rgba(255,255,255,.04) inset, 0 22px 48px -30px rgba(0,0,0,.7);
+  --shadow-sm:0 1px 0 rgba(255,255,255,.03) inset, 0 12px 26px -20px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;scroll-padding-top:84px;}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Noto Sans KR",system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;line-height:1.6;
+  transition:background .4s ease,color .4s ease;
+}
+.kr{font-family:"Noto Sans KR",sans-serif;}
+.mono{font-family:"Space Mono",ui-monospace,monospace;}
+.jua{font-family:"Jua",sans-serif;font-weight:400;}
+
+/* ---------- layout helpers ---------- */
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;}
+section{padding:88px 0;border-top:1px solid var(--line);scroll-margin-top:80px;}
+section.alt{background:var(--bg-2);}
+.sec-head{margin-bottom:44px;max-width:62ch;}
+.sec-num{
+  font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--coral-600);margin:0 0 14px;font-weight:700;
+}
+.sec-title{
+  font-family:"Jua",sans-serif;font-size:clamp(26px,3.4vw,40px);line-height:1.12;
+  color:var(--ink);margin:0 0 14px;letter-spacing:-.01em;
+}
+.sec-desc{font-size:15px;line-height:1.72;color:var(--ink-2);margin:0;}
+.note{
+  font-family:"Space Mono",monospace;font-size:11.5px;line-height:1.6;
+  letter-spacing:.02em;color:var(--ink-soft);
+}
+.eyebrow{
+  font-family:"Space Mono",monospace;font-size:10.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-soft);margin:0 0 14px;font-weight:700;
+}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+header.nav{
+  position:sticky;top:0;z-index:50;
+  background:color-mix(in srgb, var(--bg) 86%, transparent);
+  backdrop-filter:saturate(1.4) blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.nav-in{
+  max-width:var(--maxw);margin:0 auto;padding:12px 28px;
+  display:flex;align-items:center;gap:20px;
+}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;flex:0 0 auto;}
+.brand .mk{flex:0 0 auto;}
+.brand .bt{display:flex;flex-direction:column;line-height:1;}
+.brand .bt b{font-family:"Jua";font-size:16px;color:var(--ink);letter-spacing:-.01em;}
+.brand .bt span{font-family:"Space Mono";font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-top:3px;}
+.nav-links{display:flex;gap:3px;margin-left:auto;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none;}
+.nav-links::-webkit-scrollbar{display:none;}
+.nav-links a{
+  text-decoration:none;color:var(--ink-2);font-size:13px;font-weight:500;
+  padding:7px 12px;border-radius:9px;white-space:nowrap;transition:.18s;
+}
+.nav-links a:hover{background:var(--cream);color:var(--ink);}
+.nav-links a.active{color:var(--coral-600);background:var(--coral-tint);}
+.theme-btn{
+  flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;
+  background:var(--surface);border:1px solid var(--line-2);border-radius:999px;
+  padding:7px 13px 7px 11px;cursor:pointer;color:var(--ink);font-size:12px;
+  font-family:"Space Mono";letter-spacing:.04em;transition:.18s;
+}
+.theme-btn:hover{border-color:var(--coral);color:var(--coral-600);}
+.theme-btn svg{display:block;}
+@media(max-width:880px){
+  .nav-links{display:none;}
+}
+
+/* ============================================================
+   HERO / PORTADA
+   ============================================================ */
+.hero{
+  padding:96px 0 92px;text-align:center;position:relative;overflow:hidden;
+  border-top:none;
+}
+.hero .glow{
+  position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(60% 52% at 50% 8%, color-mix(in srgb,var(--coral) 14%, transparent), transparent 70%);
+}
+.hero-inner{position:relative;}
+.hero .kick{
+  display:inline-flex;align-items:center;gap:9px;margin:0 auto 30px;
+  font-family:"Space Mono";font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--coral-600);background:var(--coral-tint);border:1px solid color-mix(in srgb,var(--coral) 24%, transparent);
+  padding:8px 15px;border-radius:999px;
+}
+.hero .logo-lockup{display:flex;flex-direction:column;align-items:center;gap:18px;margin-bottom:26px;}
+.hero .wm{
+  font-family:"Jua";font-size:clamp(33px,8vw,82px);line-height:1;color:var(--ink);
+  letter-spacing:-.01em;white-space:nowrap;
+}
+.hero .wm .dot{color:var(--coral);}
+.hero .latin{
+  font-family:"Space Mono";font-weight:700;font-size:clamp(13px,1.6vw,17px);
+  letter-spacing:.42em;text-transform:uppercase;color:var(--coral-600);
+  padding-left:.42em;
+}
+.hero .tagline{
+  font-family:"Jua";font-size:clamp(20px,2.7vw,32px);line-height:1.3;color:var(--ink);
+  max-width:20ch;margin:34px auto 18px;
+}
+.hero .pos{font-size:15.5px;line-height:1.74;color:var(--ink-2);max-width:48ch;margin:0 auto 14px;}
+.hero .pos b{color:var(--coral-600);font-weight:700;}
+.hero .diff{
+  font-size:13.5px;color:var(--ink-2);max-width:46ch;margin:6px auto 0;
+  padding-top:16px;border-top:1px dashed var(--line-2);
+}
+.mood{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin-top:38px;}
+.mood span{
+  font-size:13px;font-weight:500;color:var(--ink-2);background:var(--surface);
+  border:1px solid var(--line);border-radius:999px;padding:8px 16px;box-shadow:var(--shadow-sm);
+}
+.mood span b{color:var(--coral-600);font-weight:700;margin-right:1px;}
+.hero-meta{
+  display:flex;gap:26px;justify-content:center;flex-wrap:wrap;margin-top:46px;
+  font-family:"Space Mono";font-size:11px;letter-spacing:.06em;color:var(--ink-soft);
+}
+.hero-meta b{color:var(--ink);}
+
+/* ============================================================
+   LOGO
+   ============================================================ */
+.grid{display:grid;gap:22px;}
+.g2{grid-template-columns:repeat(2,1fr);}
+.g3{grid-template-columns:repeat(3,1fr);}
+.g4{grid-template-columns:repeat(4,1fr);}
+@media(max-width:900px){.g3,.g4{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:620px){.g2,.g3,.g4{grid-template-columns:1fr;}}
+
+.panel{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:var(--shadow-sm);overflow:hidden;
+}
+.panel .pbody{padding:26px;}
+.panel .pcap{
+  padding:13px 18px;border-top:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  font-family:"Space Mono";font-size:11px;color:var(--ink-soft);letter-spacing:.03em;
+}
+.panel .pcap b{color:var(--ink);font-weight:700;}
+
+.logo-stage{
+  display:flex;align-items:center;justify-content:center;min-height:170px;padding:30px;
+  border-radius:var(--radius-sm);
+}
+.stage-light{background:var(--bg);border:1px solid var(--line);}
+.stage-dark{background:#1E1A15;border:1px solid #39312A;}
+.stage-color{background:var(--coral);}
+
+/* lockup component (reused) */
+.lock{display:inline-flex;align-items:center;gap:14px;}
+.lock .txt{display:flex;flex-direction:column;line-height:1;gap:7px;}
+.lock .txt .ko{font-family:"Jua";font-size:30px;letter-spacing:-.01em;}
+.lock .txt .la{font-family:"Space Mono";font-weight:700;font-size:10px;letter-spacing:.32em;text-transform:uppercase;}
+.lock.on-light .ko{color:var(--ink);}
+.lock.on-light .la{color:var(--coral-600);}
+.lock.on-dark .ko{color:#F3ECDD;}
+.lock.on-dark .la{color:#EE6E52;}
+.lock.on-color .ko{color:#FFF7F0;}
+.lock.on-color .la{color:#3A1208;}
+
+/* monogram (squircle + check) */
+.mono-mk{flex:0 0 auto;display:block;}
+
+/* clear space */
+.clear-demo{position:relative;display:inline-block;margin:6px auto;}
+.clear-demo .pad{
+  position:absolute;inset:0;border:1px dashed var(--coral);border-radius:10px;
+  margin:-34px;pointer-events:none;
+}
+.clear-demo .pad::before,.clear-demo .pad::after,
+.clear-demo .padlbl{position:absolute;font-family:"Space Mono";font-size:10px;color:var(--coral-600);}
+.clear-grid{
+  display:grid;grid-template-columns:1fr;gap:0;place-items:center;padding:46px 50px;
+}
+.minsize{display:flex;align-items:flex-end;gap:30px;flex-wrap:wrap;}
+.minsize .item{display:flex;flex-direction:column;align-items:center;gap:10px;}
+.minsize .mlbl{font-family:"Space Mono";font-size:10px;color:var(--ink-soft);letter-spacing:.04em;}
+
+/* do / dont */
+.usage{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px;}
+.use{border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden;background:var(--surface);}
+.use .vis{height:108px;display:flex;align-items:center;justify-content:center;background:var(--bg);position:relative;}
+.use .vis.bad{background:repeating-linear-gradient(45deg,var(--bg),var(--bg) 9px,var(--bg-2) 9px,var(--bg-2) 18px);}
+.use .tip{display:flex;gap:9px;padding:13px 14px;font-size:12.5px;line-height:1.5;color:var(--ink-2);border-top:1px solid var(--line);}
+.use .mk{flex:0 0 auto;width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;margin-top:1px;}
+.use.ok .mk{background:var(--good);}
+.use.no .mk{background:var(--urgent);}
+
+/* ============================================================
+   COLOR
+   ============================================================ */
+.swatch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:16px;}
+.swatch{
+  border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface);
+  cursor:pointer;transition:.18s;box-shadow:var(--shadow-sm);
+}
+.swatch:hover{transform:translateY(-3px);box-shadow:var(--shadow);}
+.swatch .chip{height:88px;position:relative;display:flex;align-items:flex-start;justify-content:flex-end;padding:9px;}
+.swatch .role{
+  font-family:"Space Mono";font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;
+  padding:3px 7px;border-radius:5px;font-weight:700;
+}
+.swatch .info{padding:13px 14px 15px;}
+.swatch .nm{font-size:13.5px;font-weight:700;color:var(--ink);line-height:1.2;}
+.swatch .hx{font-family:"Space Mono";font-size:11px;color:var(--ink-soft);margin-top:3px;text-transform:uppercase;}
+.swatch .use{font-size:11.5px;color:var(--ink-2);margin-top:9px;line-height:1.45;border:none;padding:0;display:block;}
+.aa{
+  display:inline-flex;align-items:center;gap:5px;margin-top:10px;font-family:"Space Mono";
+  font-size:10px;letter-spacing:.03em;padding:3px 8px;border-radius:999px;font-weight:700;
+}
+.aa.pass{background:var(--good-tint);color:var(--good);}
+.aa.large{background:var(--warn-tint);color:#9a6d12;}
+[data-theme="dark"] .aa.large{color:var(--warn);}
+
+.platform-set{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+@media(max-width:720px){.platform-set{grid-template-columns:1fr;}}
+.pcard{border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow-sm);background:var(--surface);}
+.pcard .top{height:96px;display:flex;align-items:center;justify-content:center;color:#fff;position:relative;}
+.pcard .top .pico{width:42px;height:42px;}
+.pcard .pinfo{padding:16px 18px 18px;}
+.pcard .pname{display:flex;align-items:baseline;gap:8px;}
+.pcard .pname b{font-size:16px;color:var(--ink);}
+.pcard .pname .en{font-family:"Space Mono";font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);}
+.pcard .phx{font-family:"Space Mono";font-size:11px;color:var(--ink-soft);margin-top:6px;}
+.pcard .prole{font-size:12.5px;color:var(--ink-2);margin-top:10px;line-height:1.5;}
+
+.semaforo{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+@media(max-width:720px){.semaforo{grid-template-columns:1fr;}}
+.sem{border-radius:var(--radius-sm);padding:20px;border:1px solid var(--line);display:flex;gap:14px;align-items:flex-start;}
+.sem .led{width:26px;height:26px;border-radius:50%;flex:0 0 auto;margin-top:2px;box-shadow:0 0 0 4px color-mix(in srgb,currentColor 16%, transparent);}
+.sem .st{font-size:15px;font-weight:700;color:var(--ink);}
+.sem .sd{font-size:12.5px;color:var(--ink-2);margin-top:4px;line-height:1.5;}
+.sem .shx{font-family:"Space Mono";font-size:10.5px;color:var(--ink-soft);margin-top:8px;}
+
+/* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
+.type-intro{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:40px;}
+@media(max-width:820px){.type-intro{grid-template-columns:1fr;}}
+.font-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow-sm);}
+.font-card .big{font-size:46px;line-height:1;color:var(--ink);margin-bottom:16px;}
+.font-card .fn{font-size:15px;font-weight:700;color:var(--ink);}
+.font-card .fr{font-size:12.5px;color:var(--ink-2);margin-top:7px;line-height:1.55;}
+.font-card .fmeta{font-family:"Space Mono";font-size:10.5px;color:var(--ink-soft);margin-top:12px;letter-spacing:.03em;}
+
+.scale-row{
+  display:grid;grid-template-columns:130px 1fr;gap:26px;align-items:baseline;
+  padding:22px 0;border-bottom:1px solid var(--line);
+}
+@media(max-width:680px){.scale-row{grid-template-columns:1fr;gap:8px;}}
+.scale-row .spec{font-family:"Space Mono";font-size:11px;color:var(--ink-soft);line-height:1.6;}
+.scale-row .spec b{display:block;color:var(--ink);font-size:12px;letter-spacing:.04em;text-transform:uppercase;margin-bottom:4px;}
+.scale-row .samp{color:var(--ink);min-width:0;}
+.s-display{font-family:"Jua";font-size:52px;line-height:1.05;letter-spacing:-.01em;}
+.s-h1{font-family:"Jua";font-size:36px;line-height:1.12;}
+.s-h2{font-family:"Noto Sans KR";font-weight:700;font-size:26px;line-height:1.25;}
+.s-h3{font-family:"Noto Sans KR";font-weight:700;font-size:19px;line-height:1.35;}
+.s-body{font-family:"Noto Sans KR";font-weight:400;font-size:16px;line-height:1.75;color:var(--ink-2);max-width:54ch;}
+.s-cap{font-family:"Noto Sans KR";font-weight:500;font-size:13px;line-height:1.5;color:var(--ink-soft);letter-spacing:.01em;}
+.s-mono{font-family:"Space Mono";font-size:12.5px;letter-spacing:.04em;color:var(--ink-2);}
+
+/* ============================================================
+   COMPONENTS
+   ============================================================ */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  font-family:"Noto Sans KR";font-weight:700;font-size:15px;cursor:pointer;
+  border-radius:12px;padding:13px 22px;border:1.5px solid transparent;transition:.18s;
+  text-decoration:none;line-height:1;
+}
+.btn .ar{font-family:"Space Mono";font-weight:700;}
+.btn-primary{background:var(--coral-600);color:#fff;}
+.btn-primary:hover{background:var(--coral-press);transform:translateY(-1px);}
+.btn-secondary{background:var(--surface);color:var(--ink);border-color:var(--line-2);}
+.btn-secondary:hover{border-color:var(--coral);color:var(--coral-600);}
+.btn-ghost{background:transparent;color:var(--coral-600);}
+.btn-ghost:hover{background:var(--coral-tint);}
+.btn-sm{padding:9px 15px;font-size:13px;border-radius:10px;}
+.btn-lg{padding:16px 28px;font-size:16px;border-radius:14px;}
+.btn:disabled,.btn[aria-disabled]{opacity:.45;cursor:not-allowed;}
+
+.comp-row{display:flex;flex-wrap:wrap;gap:14px;align-items:center;}
+.demo-card{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:24px;box-shadow:var(--shadow-sm);
+}
+.demo-card .dc-cat{font-family:"Space Mono";font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--coral-600);font-weight:700;}
+.demo-card h4{font-family:"Jua";font-size:20px;color:var(--ink);margin:10px 0 8px;}
+.demo-card p{font-size:13.5px;color:var(--ink-2);margin:0;line-height:1.6;}
+
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:5px 11px;border-radius:999px;font-family:"Noto Sans KR";}
+.badge .d{width:7px;height:7px;border-radius:50%;}
+.badge.good{background:var(--good-tint);color:var(--good);}
+.badge.warn{background:var(--warn-tint);color:#9a6d12;}
+.badge.urgent{background:var(--urgent-tint);color:var(--urgent);}
+.badge.neutral{background:var(--cream);color:var(--ink-2);}
+[data-theme="dark"] .badge.warn{color:var(--warn);}
+
+/* form */
+.field{margin-bottom:18px;}
+.field label{display:block;font-size:13px;font-weight:700;color:var(--ink);margin-bottom:8px;}
+.field label .req{color:var(--coral-600);}
+.field input,.field select,.field textarea{
+  width:100%;font-family:"Noto Sans KR";font-size:14px;color:var(--ink);
+  background:var(--surface-2);border:1.5px solid var(--line-2);border-radius:11px;
+  padding:12px 14px;transition:.18s;
+}
+.field input::placeholder,.field textarea::placeholder{color:var(--ink-soft);}
+.field input:focus,.field select:focus,.field textarea:focus{
+  outline:none;border-color:var(--coral);box-shadow:0 0 0 4px var(--coral-tint);
+}
+.field .hint{font-size:11.5px;color:var(--ink-soft);margin-top:6px;}
+
+/* pricing */
+.pricing{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;align-items:stretch;}
+@media(max-width:980px){.pricing{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.pricing{grid-template-columns:1fr;}}
+.plan{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:26px 22px;display:flex;flex-direction:column;box-shadow:var(--shadow-sm);position:relative;
+}
+.plan.feat{border-color:var(--coral);box-shadow:0 0 0 1px var(--coral), var(--shadow);}
+.plan .pop{
+  position:absolute;top:-12px;left:22px;background:var(--coral);color:#fff;
+  font-size:11px;font-weight:700;padding:5px 12px;border-radius:999px;font-family:"Noto Sans KR";
+}
+.plan .pn{font-family:"Jua";font-size:22px;color:var(--ink);}
+.plan .pd{font-size:12.5px;color:var(--ink-2);margin:7px 0 18px;line-height:1.5;min-height:38px;}
+.plan .pr{display:flex;align-items:baseline;gap:4px;margin-bottom:4px;}
+.plan .pr .w{font-family:"Jua";font-size:30px;color:var(--ink);letter-spacing:-.01em;}
+.plan .pr .per{font-size:12px;color:var(--ink-soft);}
+.plan .pone{font-family:"Space Mono";font-size:10.5px;color:var(--coral-600);letter-spacing:.04em;margin-bottom:20px;}
+.plan ul{list-style:none;margin:0 0 22px;padding:0;display:flex;flex-direction:column;gap:11px;flex:1;}
+.plan li{display:flex;gap:9px;font-size:13px;color:var(--ink-2);line-height:1.45;}
+.plan li svg{flex:0 0 auto;margin-top:2px;}
+.plan .btn{width:100%;}
+
+/* ============================================================
+   FUNNEL / ICONOS
+   ============================================================ */
+.funnel-big{
+  display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:0;align-items:stretch;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:14px;box-shadow:var(--shadow-sm);
+}
+@media(max-width:760px){.funnel-big{grid-template-columns:1fr;}.funnel-big .fconn{display:none;}}
+.fstage{padding:26px 22px;text-align:center;display:flex;flex-direction:column;align-items:center;}
+.fstage .fic{width:54px;height:54px;border-radius:16px;display:flex;align-items:center;justify-content:center;color:#fff;margin-bottom:16px;}
+.fstage .fstep{font-family:"Space Mono";font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);font-weight:700;}
+.fstage .fname{font-family:"Jua";font-size:21px;color:var(--ink);margin:7px 0 4px;}
+.fstage .fkr{font-size:13px;font-weight:700;color:var(--ink);}
+.fstage .fdesc{font-size:12.5px;color:var(--ink-2);margin-top:9px;line-height:1.55;max-width:24ch;}
+.fconn{display:flex;align-items:center;justify-content:center;color:var(--coral);padding:0 4px;}
+.fconn svg{display:block;}
+
+.icon-set{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:12px;}
+.ico{
+  background:var(--surface);border:1px solid var(--line);border-radius:14px;
+  padding:18px 10px 14px;display:flex;flex-direction:column;align-items:center;gap:11px;box-shadow:var(--shadow-sm);
+}
+.ico svg{color:var(--ink);}
+.ico .il{font-family:"Space Mono";font-size:9.5px;letter-spacing:.03em;color:var(--ink-soft);text-align:center;}
+
+/* ============================================================
+   AUDIT REPORT
+   ============================================================ */
+.report{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  overflow:hidden;box-shadow:var(--shadow);
+}
+.report .r-cover{
+  padding:34px 32px;background:linear-gradient(135deg,var(--coral) 0%, #C44A33 100%);color:#fff;
+  display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;
+}
+.report .r-cover .rk{font-family:"Space Mono";font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#3A1208;opacity:.85;}
+.report .r-cover h3{font-family:"Jua";font-size:28px;margin:12px 0 6px;line-height:1.15;}
+.report .r-cover .rsub{font-size:13.5px;color:#FFF0EA;max-width:34ch;line-height:1.55;}
+.report .r-score{text-align:center;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);border-radius:16px;padding:16px 22px;}
+.report .r-score .num{font-family:"Jua";font-size:44px;line-height:1;}
+.report .r-score .den{font-size:13px;opacity:.85;}
+.report .r-score .lbl{font-family:"Space Mono";font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-top:8px;}
+.report .r-body{padding:28px 32px 32px;}
+.r-scorecard{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:30px;}
+@media(max-width:680px){.r-scorecard{grid-template-columns:1fr;}}
+.r-item{border:1px solid var(--line);border-radius:14px;padding:18px;}
+.r-item .rih{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.r-item .led{width:18px;height:18px;border-radius:50%;flex:0 0 auto;}
+.r-item .rin{font-size:14px;font-weight:700;color:var(--ink);}
+.r-item .rib{display:flex;align-items:center;justify-content:space-between;font-size:12.5px;color:var(--ink-2);padding:7px 0;border-top:1px dashed var(--line);}
+.r-item .rib:first-of-type{border-top:none;}
+.action-plan{border-top:1px solid var(--line);padding-top:24px;}
+.action-plan h4{font-family:"Jua";font-size:18px;color:var(--ink);margin:0 0 16px;}
+.step-item{display:flex;gap:14px;padding:13px 0;border-bottom:1px dashed var(--line);}
+.step-item .sn{flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:var(--coral-tint);color:var(--coral-600);font-family:"Space Mono";font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;}
+.step-item .stx{font-size:13.5px;color:var(--ink);line-height:1.5;}
+.step-item .stx b{font-weight:700;}
+.step-item .stx span{display:block;color:var(--ink-2);font-size:12.5px;margin-top:2px;}
+
+/* ============================================================
+   PHOTOGRAPHY
+   ============================================================ */
+.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+@media(max-width:820px){.photo-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:520px){.photo-grid{grid-template-columns:1fr;}}
+.ph{
+  border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--line);
+  aspect-ratio:4/3;position:relative;display:flex;align-items:flex-end;
+  background-image:
+    repeating-linear-gradient(135deg, var(--cream), var(--cream) 11px, var(--sand) 11px, var(--sand) 22px);
+}
+.ph.tall{aspect-ratio:3/4;}
+.ph .pl{
+  width:100%;padding:13px 14px;background:linear-gradient(0deg, color-mix(in srgb,var(--ink) 78%, transparent), transparent);
+  font-family:"Space Mono";font-size:11px;color:#FBF8F2;letter-spacing:.02em;line-height:1.45;
+}
+.ph .pl b{display:block;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.8;margin-bottom:3px;}
+.art-do{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px;}
+@media(max-width:620px){.art-do{grid-template-columns:1fr;}}
+.art-col{border-radius:var(--radius-sm);padding:20px 22px;border:1px solid var(--line);}
+.art-col.do{background:var(--good-tint);border-color:color-mix(in srgb,var(--good) 28%,transparent);}
+.art-col.dont{background:var(--urgent-tint);border-color:color-mix(in srgb,var(--urgent) 28%,transparent);}
+.art-col h5{margin:0 0 12px;font-size:14px;display:flex;align-items:center;gap:8px;color:var(--ink);}
+.art-col ul{margin:0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:8px;}
+.art-col li{font-size:13px;color:var(--ink-2);line-height:1.5;display:flex;gap:8px;}
+.art-col li::before{content:"·";color:var(--ink-soft);font-weight:700;}
+
+/* ============================================================
+   VOICE & TONE
+   ============================================================ */
+.voice-principles{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:38px;}
+@media(max-width:860px){.voice-principles{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:480px){.voice-principles{grid-template-columns:1fr;}}
+.vp{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:22px;box-shadow:var(--shadow-sm);}
+.vp .vn{font-family:"Jua";font-size:18px;color:var(--ink);margin-bottom:8px;}
+.vp .vk{font-size:13px;color:var(--coral-600);font-weight:700;margin-bottom:10px;}
+.vp .vd{font-size:12.5px;color:var(--ink-2);line-height:1.6;}
+.examples{display:flex;flex-direction:column;gap:14px;}
+.ex{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media(max-width:680px){.ex{grid-template-columns:1fr;}}
+.ex-card{border-radius:var(--radius-sm);padding:18px 20px;border:1px solid var(--line);}
+.ex-card.yes{background:var(--good-tint);border-color:color-mix(in srgb,var(--good) 26%,transparent);}
+.ex-card.no{background:var(--urgent-tint);border-color:color-mix(in srgb,var(--urgent) 26%,transparent);}
+.ex-card .et{display:flex;align-items:center;gap:8px;font-family:"Space Mono";font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin-bottom:12px;}
+.ex-card.yes .et{color:var(--good);}
+.ex-card.no .et{color:var(--urgent);}
+.ex-card .eq{font-size:14.5px;color:var(--ink);line-height:1.6;}
+.ex-card .ewhy{font-size:11.5px;color:var(--ink-2);margin-top:10px;font-style:italic;}
+
+/* ============================================================
+   ACCESSIBILITY / DODONT
+   ============================================================ */
+.acc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+@media(max-width:820px){.acc-grid{grid-template-columns:1fr;}}
+.acc{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:22px;box-shadow:var(--shadow-sm);}
+.acc .ah{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.acc .ah .aic{width:34px;height:34px;border-radius:10px;background:var(--coral-tint);color:var(--coral-600);display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+.acc .ah b{font-size:14.5px;color:var(--ink);}
+.acc p{font-size:12.5px;color:var(--ink-2);margin:0;line-height:1.6;}
+.acc .demo{margin-top:14px;padding:12px;border-radius:9px;background:var(--bg);border:1px solid var(--line);}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer.foot{padding:54px 0 60px;border-top:1px solid var(--line);background:var(--bg-2);}
+.foot-in{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;}
+.foot .fl{display:flex;align-items:center;gap:12px;}
+.foot .fmeta{font-family:"Space Mono";font-size:11px;color:var(--ink-soft);letter-spacing:.04em;line-height:1.7;text-align:right;}
+.foot .fmeta b{color:var(--ink-2);}
+
+/* toast */
+.toast{
+  position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:var(--ink);color:var(--bg);font-family:"Space Mono";font-size:12px;
+  padding:11px 18px;border-radius:999px;opacity:0;pointer-events:none;transition:.25s;z-index:80;
+  letter-spacing:.03em;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* misc */
+.divider{height:1px;background:var(--line);margin:38px 0;}
+.lead-tag{font-family:"Space Mono";font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:18px;font-weight:700;}
+</style>
+</head>
+<body>
+
+<template id="__bundler_thumbnail" data-bg-color="#FBF8F2">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#FBF8F2"/>
+    <rect x="468" y="232" width="264" height="264" rx="68" fill="#D85A40"/>
+    <path d="M540 372l52 52 96-118" fill="none" stroke="#FFF7F0" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="600" y="588" text-anchor="middle" font-family="'Jua',sans-serif" font-size="62" fill="#2A2520">픽스업 스튜디오</text>
+  </svg>
+</template>
+
+<!-- ====================== NAV ====================== -->
+<header class="nav">
+  <div class="nav-in">
+    <a class="brand" href="#portada">
+      <span class="mk">
+        <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+          <rect x="1" y="1" width="32" height="32" rx="9" fill="#D85A40"/>
+          <path d="M10.5 17.5l4 4 9-10.5" stroke="#FFF7F0" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="bt"><b>픽스업 스튜디오</b><span>Fixup Studio · Style Guide</span></span>
+    </a>
+    <nav class="nav-links" id="navlinks">
+      <a href="#logo">로고</a>
+      <a href="#color">색상</a>
+      <a href="#tipografia">타이포</a>
+      <a href="#componentes">컴포넌트</a>
+      <a href="#funnel">퍼널</a>
+      <a href="#reporte">리포트</a>
+      <a href="#voz">보이스</a>
+      <a href="#acceso">접근성</a>
+    </nav>
+    <button class="theme-btn" id="themeBtn" aria-label="Cambiar tema">
+      <svg id="themeIcon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <span id="themeLabel">DARK</span>
+    </button>
+  </div>
+</header>
+
+<!-- ====================== HERO ====================== -->
+<section class="hero" id="portada">
+  <div class="glow"></div>
+  <div class="wrap hero-inner">
+    <span class="kick">Brand Identity · v1.0 · 2026</span>
+    <div class="logo-lockup">
+      <div class="wm">픽스업 스튜디오<span class="dot">.</span></div>
+      <div class="latin">FIXUP&nbsp;STUDIO</div>
+    </div>
+    <p class="tagline">우리 가게, 온라인에서 제대로 보이고 있나요?</p>
+    <p class="pos">네이버 · 인스타그램 · 카카오톡 통합 마케팅. <b>광고대행사가 아니라, 솔직하게 진단하고 직접 실행하는 파트너.</b></p>
+    <p class="diff">가짜 리뷰가 아니라, 실제로 응대하는 한국인 담당자가 직접 운영합니다.</p>
+    <div class="mood">
+      <span><b>#</b>따뜻한</span>
+      <span><b>#</b>솔직한</span>
+      <span><b>#</b>사람다운</span>
+      <span><b>#</b>세심한</span>
+      <span><b>#</b>동시대적인</span>
+      <span><b>#</b>가까운</span>
+    </div>
+    <div class="hero-meta">
+      <span>DIRECCIÓN · <b>Aire y Luz</b></span>
+      <span>DISPLAY · <b>Jua</b></span>
+      <span>TEXTO · <b>Noto Sans KR</b></span>
+      <span>ACENTO · <b>Coral</b></span>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== LOGO ====================== -->
+<section id="logo">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="sec-num">01 — Logo &amp; Wordmark</p>
+      <h2 class="sec-title">El nombre, puesto a punto.</h2>
+      <p class="sec-desc">El wordmark coreano 픽스업 스튜디오 es la forma de cara al cliente y lleva el carácter del studio (Jua). El monograma — un check dentro de un squircle cálido — resume la promesa: <b>diagnosticar y dejar el negocio listo</b>. El punto coral tras el wordmark es el guiño "studio".</p>
+    </div>
+
+    <!-- versions -->
+    <div class="grid g3" style="margin-bottom:22px;">
+      <div class="panel">
+        <div class="pbody"><div class="logo-stage stage-light">
+          <div class="lock on-light"><span class="mono-mk">
+            <svg width="52" height="52" viewBox="0 0 34 34" fill="none"><rect x="1" y="1" width="32" height="32" rx="9" fill="#D85A40"/><path d="M10.5 17.5l4 4 9-10.5" stroke="#FFF7F0" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span><span class="txt"><span class="ko">픽스업 스튜디오</span><span class="la">Fixup Studio</span></span></div>
+        </div></div>
+        <div class="pcap"><span><b>Principal</b> · sobre claro</span><span>uso por defecto</span></div>
+      </div>
+      <div class="panel">
+        <div class="pbody"><div class="logo-stage stage-dark">
+          <div class="lock on-dark"><span class="mono-mk">
+            <svg width="52" height="52" viewBox="0 0 34 34" fill="none"><rect x="1" y="1" width="32" height="32" rx="9" fill="#EE6E52"/><path d="M10.5 17.5l4 4 9-10.5" stroke="#1E1A15" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span><span class="txt"><span class="ko">픽스업 스튜디오</span><span class="la">Fixup Studio</span></span></div>
+        </div></div>
+        <div class="pcap"><span><b>Inverso</b> · sobre oscuro</span><span>fondos tinta</span></div>
+      </div>
+      <div class="panel">
+        <div class="pbody"><div class="logo-stage stage-color">
+          <div class="lock on-color"><span class="mono-mk">
+            <svg width="52" height="52" viewBox="0 0 34 34" fill="none"><rect x="1" y="1" width="32" height="32" rx="9" fill="#FFF7F0"/><path d="M10.5 17.5l4 4 9-10.5" stroke="#D85A40" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span><span class="txt"><span class="ko">픽스업 스튜디오</span><span class="la">Fixup Studio</span></span></div>
+        </div></div>
+        <div class="pcap"><span><b>Sobre color</b> · coral</span><span>headers / cover</span></div>
+      </div>
+    </div>
+
+    <!-- monogram + clearspace + minsize -->
+    <div class="grid g3">
+      <div class="panel">
+        <div class="pbody" style="display:flex;align-items:center;justify-content:center;min-height:200px;">
+          <svg width="96" height="96" viewBox="0 0 34 34" fill="none"><rect x="1" y="1" width="32" height="32" rx="9" fill="#D85A40"/><path d="M10.5 17.5l4 4 9-10.5" stroke="#FFF7F0" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="pcap"><span><b>Monograma</b> · check</span><span>app icon · favicon · avatar</span></div>
+      </div>
+      <div class="panel">
+        <div class="pbody" style="min-height:200px;display:flex;align-items:center;justify-content:center;">
+          <div class="clear-demo">
+            <div class="pad"></div>
+            <svg width="68" height="68" viewBox="0 0 34 34" fill="none"><rect x="1" y="1" width="32" height="32" rx="9" fill="#D85A40"/><path d="M10.5 17.5l4 4 9-10.5" stroke="#FFF7F0" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+        <div class="pcap"><span><b>Zona de protección</b></span><span class="mono">= altura del check (×1)</span></div>
+      </div>
+      <div class="panel">
+        <div class="pbody" style="min-height:200px;display:flex;align-items:center;justify-content:center;">
+          <div class="minsize">
+            <div class="item"><svg width="24" height="24" viewBox="0 0 34 34" fill="none"><rect x="1" y="1" width="32" height="32" rx="9" fill="#D85A40"/><path d="M10.5 17.5l4 4 9-10.5" stroke="#FFF7F0" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="mlbl">24px · icon</span></div>
+            <div class="item"><div class="lock on-light" style="transform:scale(.62);transform-origin:left bottom;"><span><svg width="34" height="34" viewBox="0 0 34 34" fill="none"><rect x="1" y="1" width="32" height="32" rx="9" fill="#D85A40"/><path d="M10.5 17.5l4 4 9-10.5" stroke="#FFF7F0" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div><span class="mlbl" style="margin-top:-6px;">120px · lockup mín.</span></div>
+          </div>
+        </div>
+        <div class="pcap"><span><b>Tamaños mínimos</b></span><span>legibilidad del 한글</span></div>
+      </div>
+    </div>
+
+    <!-- correct / incorrect -->
+    <p class="lead-tag" style="margin-top:42px;">Usos correctos &amp; incorrectos</p>
+    <div class="usage">
+      <div class="use ok">
+        <div class="vis"><div class="lock on-light" style="transform:scale(.66);"><span><svg width="34" height="34" viewBox="0 0 34 34" fill="none"><rect x="1" y="1" width="32" height="32" rx="9" fill="#D85A40"/><path d="M10.5 17.5l4 4 9-10.5" stroke="#FFF7F0" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="txt"><span class="ko">픽스업 스튜디오</span><span class="la">Fixup Studio</span></span></div></div>
+        <div class="tip"><span class="mk">✓</span><span>Espacio y proporción originales. Coral de marca.</span></div>
+      </div>
+      <div class="use no">
+        <div class="vis bad"><div class="lock on-light" style="transform:scale(.66) skewX(-12deg);filter:hue-rotate(180deg);"><span><svg width="34" height="34" viewBox="0 0 34 34" fill="none"><rect x="1" y="1" width="32" height="32" rx="9" fill="#3A7BD8"/><path d="M10.5 17.5l4 4 9-10.5" stroke="#FFF7F0" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="txt"><span class="ko">픽스업 스튜디오</span><span class="la">Fixup Studio</span></span></div></div>
+        <div class="tip"><span class="mk">✕</span><span>No inclinar, deformar ni cambiar el color a azul corporativo.</span></div>
+      </div>
+      <div class="use no">
+        <div class="vis bad" style="background:#1E1A15;"><div class="lock" style="transform:scale(.66);"><span><svg width="34" height="34" viewBox="0 0 34 34" fill="none"><rect x="1" y="1" width="32" height="32" rx="9" fill="#D85A40"/><path d="M10.5 17.5l4 4 9-10.5" stroke="#FFF7F0" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="txt"><span class="ko" style="color:#5C544A;">픽스업 스튜디오</span><span class="la" style="color:#5C544A;">Fixup Studio</span></span></div></div>
+        <div class="tip"><span class="mk">✕</span><span>No usar la versión oscura del texto sobre fondo oscuro (bajo contraste).</span></div>
+      </div>
+      <div class="use no">
+        <div class="vis bad"><div style="font-family:'Times New Roman',serif;font-size:22px;color:var(--ink);">픽스업 스튜디오</div></div>
+        <div class="tip"><span class="mk">✕</span><span>No recomponer el wordmark con otra tipografía. Solo Jua.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== COLOR ====================== -->
+<section id="color" class="alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="sec-num">02 — Color</p>
+      <h2 class="sec-title">Cálido, claro, de fiar.</h2>
+      <p class="sec-desc">Base de neutros cálidos (off-white luminoso → arena) que bajan la barrera de entrada y se sienten acogedores para el dueño de negocio local. Un único acento <b>coral</b> con carácter — amable pero memorable, lejos del azul de agencia. <span class="note">Tip: hacé clic en cualquier swatch para copiar el HEX.</span></p>
+    </div>
+
+    <p class="lead-tag">Marca &amp; neutros cálidos</p>
+    <div class="swatch-grid" id="neutros">
+      <div class="swatch" data-hex="#D85A40">
+        <div class="chip" style="background:#D85A40;"><span class="role" style="background:#3A1208;color:#FFD9CC;">Marca · 500</span></div>
+        <div class="info"><div class="nm">Coral</div><div class="hx">#D85A40</div><span class="use">Acento de marca, display grande, fills con texto blanco bold.</span><span class="aa large">AA Large · 3.8:1</span></div>
+      </div>
+      <div class="swatch" data-hex="#BE4733">
+        <div class="chip" style="background:#BE4733;"><span class="role" style="background:#FFF7F0;color:#BE4733;">Interactivo · 600</span></div>
+        <div class="info"><div class="nm">Coral 600</div><div class="hx">#BE4733</div><span class="use">Botones, links y texto coral sobre claro. Versión accesible.</span><span class="aa pass">AA · 5.1:1 (white)</span></div>
+      </div>
+      <div class="swatch" data-hex="#FBF8F2">
+        <div class="chip" style="background:#FBF8F2;border-bottom:1px solid var(--line);"><span class="role" style="background:#F0E9DB;color:#8C8175;">Fondo</span></div>
+        <div class="info"><div class="nm">Blanco cálido</div><div class="hx">#FBF8F2</div><span class="use">Fondo base de toda la app. Off-white, nunca blanco puro.</span></div>
+      </div>
+      <div class="swatch" data-hex="#F0E9DB">
+        <div class="chip" style="background:#F0E9DB;"><span class="role" style="background:#FBF8F2;color:#8C8175;">Superficie</span></div>
+        <div class="info"><div class="nm">Crema</div><div class="hx">#F0E9DB</div><span class="use">Cards anidadas, hovers suaves, secciones alternas.</span></div>
+      </div>
+      <div class="swatch" data-hex="#E8DCC9">
+        <div class="chip" style="background:#E8DCC9;"><span class="role" style="background:#FBF8F2;color:#8C8175;">Borde</span></div>
+        <div class="info"><div class="nm">Arena</div><div class="hx">#E8DCC9</div><span class="use">Bordes con presencia, separadores, placeholders.</span></div>
+      </div>
+      <div class="swatch" data-hex="#8C8175">
+        <div class="chip" style="background:#8C8175;"><span class="role" style="background:#2A2520;color:#E8DCC9;">Texto 3°</span></div>
+        <div class="info"><div class="nm">Tinta suave</div><div class="hx">#8C8175</div><span class="use">Texto terciario, captions, labels. Solo en tamaño grande.</span><span class="aa large">AA Large · 3.6:1</span></div>
+      </div>
+      <div class="swatch" data-hex="#5C544A">
+        <div class="chip" style="background:#5C544A;"><span class="role" style="background:#FBF8F2;color:#5C544A;">Texto 2°</span></div>
+        <div class="info"><div class="nm">Tinta media</div><div class="hx">#5C544A</div><span class="use">Texto secundario, párrafos de apoyo.</span><span class="aa pass">AA · 7.2:1</span></div>
+      </div>
+      <div class="swatch" data-hex="#2A2520">
+        <div class="chip" style="background:#2A2520;"><span class="role" style="background:#FBF8F2;color:#2A2520;">Texto 1°</span></div>
+        <div class="info"><div class="nm">Tinta</div><div class="hx">#2A2520</div><span class="use">Texto principal y titulares. Café cálido, no negro puro.</span><span class="aa pass">AAA · 14.6:1</span></div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- platform -->
+    <p class="lead-tag">Sistema de plataforma — el embudo es producto</p>
+    <p class="sec-desc" style="margin-bottom:24px;max-width:60ch;">Tres canales, un solo camino de compra. Colores derivados de cada plataforma pero <b>armonizados</b> con la identidad cálida para convivir en reportes, badges y el embudo.</p>
+    <div class="platform-set">
+      <div class="pcard">
+        <div class="top" style="background:#2E9E5B;">
+          <svg class="pico" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="pinfo"><div class="pname"><b>네이버</b><span class="en">Naver · Find</span></div><div class="phx">#2E9E5B</div><div class="prole">Que te encuentren. Plus 플레이스, búsqueda, mapa, reseñas reales.</div></div>
+      </div>
+      <div class="pcard">
+        <div class="top" style="background:var(--insta-grad);">
+          <svg class="pico" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.1" fill="#fff"/></svg>
+        </div>
+        <div class="pinfo"><div class="pname"><b>인스타그램</b><span class="en">Insta · Recall</span></div><div class="phx">#D24A8B → grad</div><div class="prole">Que te recuerden. Feed, reels, identidad visual del negocio.</div></div>
+      </div>
+      <div class="pcard">
+        <div class="top" style="background:#F4C20D;">
+          <svg class="pico" viewBox="0 0 24 24" fill="none" stroke="#3A2D00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5c0 4-4 7-9 7a10 10 0 01-3-.5L4 20l1.2-3.3A6.5 6.5 0 013 11.5C3 7.5 7 4.5 12 4.5s9 3 9 7z"/></svg>
+        </div>
+        <div class="pinfo"><div class="pname"><b>카카오톡</b><span class="en">Kakao · Return</span></div><div class="phx">#F4C20D</div><div class="prole">Que vuelvan. 채널, mensajes, cupones, reservas, fidelización.</div></div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- semaforo -->
+    <p class="lead-tag">Semáforo de auditoría</p>
+    <div class="semaforo">
+      <div class="sem" style="background:var(--good-tint);color:var(--good);">
+        <div class="led" style="background:var(--good);"></div>
+        <div><div class="st">🟢 좋음</div><div class="sd">Funciona bien. Mantener y optimizar.</div><div class="shx">#3E9E5B · Good</div></div>
+      </div>
+      <div class="sem" style="background:var(--warn-tint);color:var(--warn);">
+        <div class="led" style="background:var(--warn);"></div>
+        <div><div class="st">🟡 개선 필요</div><div class="sd">Hay oportunidad. Plan de mejora a corto plazo.</div><div class="shx">#E0A52E · Needs work</div></div>
+      </div>
+      <div class="sem" style="background:var(--urgent-tint);color:var(--urgent);">
+        <div class="led" style="background:var(--urgent);"></div>
+        <div><div class="st">🔴 시급</div><div class="sd">Pérdida activa de clientes. Acción inmediata.</div><div class="shx">#D8492F · Urgent</div></div>
+      </div>
+    </div>
+    <p class="note" style="margin-top:20px;">Accesibilidad: el semáforo nunca comunica solo por color — siempre acompaña el ícono (🟢🟡🔴) y la etiqueta coreana (좋음/개선 필요/시급) para usuarios con daltonismo. Contraste de texto sobre cada tinte ≥ 4.5:1.</p>
+  </div>
+</section>
+
+<!-- ====================== TIPOGRAFÍA ====================== -->
+<section id="tipografia">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="sec-num">03 — Tipografía</p>
+      <h2 class="sec-title">Coreano primero, con carácter.</h2>
+      <p class="sec-desc">La marca es de cara al cliente coreano, así que el 한글 es el centro del sistema. <b>Jua</b> aporta el gesto cálido y redondo del "studio" en titulares; <b>Noto Sans KR</b> sostiene todo el copy con su excelente legibilidad en coreano, latín y números; <b>Space Mono</b> marca datos, labels y anotaciones.</p>
+    </div>
+
+    <div class="type-intro">
+      <div class="font-card">
+        <div class="big jua">픽스업<br/>Aa 한글 123</div>
+        <div class="fn">Jua — Display</div>
+        <div class="fr">Redonda, cálida, amistosa sin ser infantil. Solo para titulares, wordmark y números destacados. Nunca en párrafos.</div>
+        <div class="fmeta">Google Fonts · 1 peso · 한글+Latin</div>
+      </div>
+      <div class="font-card">
+        <div class="big" style="font-weight:700;">가게 Aa<br/><span style="font-weight:300;">본문 123</span></div>
+        <div class="fn">Noto Sans KR — Texto</div>
+        <div class="fr">Cuerpo de todo el producto. Pesos 300/400/500/700/900. Métrica coreana cómoda, números tabulares claros.</div>
+        <div class="fmeta">Google Fonts · 5 pesos · 한글+Latin</div>
+      </div>
+      <div class="font-card">
+        <div class="big mono" style="font-size:34px;">Naver→<br/>Kakao 99k</div>
+        <div class="fn">Space Mono — Labels</div>
+        <div class="fr">Datos, métricas, código de plataforma, anotaciones del style guide. Aporta el aire "técnico/honesto" del diagnóstico.</div>
+        <div class="fmeta">Google Fonts · 2 pesos · Latin</div>
+      </div>
+    </div>
+
+    <p class="lead-tag">Escala — specimens en vivo</p>
+    <div class="scale">
+      <div class="scale-row">
+        <div class="spec"><b>Display</b>Jua · 52/56<br/>tracking -1%</div>
+        <div class="samp"><div class="s-display">우리 가게, 제대로 보이게</div></div>
+      </div>
+      <div class="scale-row">
+        <div class="spec"><b>H1</b>Jua · 36/40</div>
+        <div class="samp"><div class="s-h1">솔직하게 진단하고 직접 실행합니다</div></div>
+      </div>
+      <div class="scale-row">
+        <div class="spec"><b>H2</b>Noto Sans KR 700<br/>26/32</div>
+        <div class="samp"><div class="s-h2">네이버 · 인스타그램 · 카카오톡 통합 마케팅</div></div>
+      </div>
+      <div class="scale-row">
+        <div class="spec"><b>H3</b>Noto Sans KR 700<br/>19/26</div>
+        <div class="samp"><div class="s-h3">한국인 담당자가 직접 운영합니다</div></div>
+      </div>
+      <div class="scale-row">
+        <div class="spec"><b>Body</b>Noto Sans KR 400<br/>16/28</div>
+        <div class="samp"><div class="s-body">가게를 운영하다 보면 온라인까지 챙기기 어렵죠. 픽스업 스튜디오는 먼저 현재 상태를 진단하고, 네이버부터 인스타그램, 카카오까지 하나의 흐름으로 정리해 드립니다. El cuerpo mezcla 한글 y Latin sin saltos: misma línea base, interlineado generoso (1.75) para que el coreano respire.</div></div>
+      </div>
+      <div class="scale-row">
+        <div class="spec"><b>Caption</b>Noto Sans KR 500<br/>13/20</div>
+        <div class="samp"><div class="s-cap">진단 리포트는 영업일 기준 3일 이내에 전달됩니다 · El reporte llega en 3 días hábiles</div></div>
+      </div>
+      <div class="scale-row">
+        <div class="spec"><b>Mono / Data</b>Space Mono<br/>12.5 · +4% track</div>
+        <div class="samp"><div class="s-mono">NAVER PLACE · 검색노출 2페이지 → 1페이지 · +38% 저장수 · ₩99,000</div></div>
+      </div>
+    </div>
+
+    <p class="note" style="margin-top:28px;max-width:64ch;">Convivencia 한글 + Latin + números: el coreano tiene una altura-x mayor y no usa espacios entre sílabas, así que pedimos <b>interlineado ≥ 1.7</b> en cuerpo y pesos 400–500 (evitar 300 en tamaños chicos). Los números usan Noto Sans KR (alineados) salvo en contexto de datos/métricas, donde Space Mono los tabula. Nunca justificar texto coreano: siempre alineado a la izquierda.</p>
+  </div>
+</section>
+
+<!-- ====================== COMPONENTES ====================== -->
+<section id="componentes" class="alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="sec-num">04 — Componentes UI</p>
+      <h2 class="sec-title">Bloques claros y honestos.</h2>
+      <p class="sec-desc">Esquinas suaves (radio 12–18px), un solo acento, mucha respiración. Todo táctil ≥ 44px. Componentes que un dueño de negocio no técnico entiende sin pensar.</p>
+    </div>
+
+    <!-- buttons -->
+    <div class="grid g2" style="margin-bottom:22px;">
+      <div class="demo-card">
+        <div class="dc-cat">Botones</div>
+        <h4>Primario · Secundario · Ghost</h4>
+        <p style="margin-bottom:20px;">El primario coral guía la acción principal (una por pantalla). El secundario para alternativas; el ghost para acciones terciarias.</p>
+        <div class="comp-row" style="margin-bottom:16px;">
+          <button class="btn btn-primary">무료 진단 받기 <span class="ar">→</span></button>
+          <button class="btn btn-secondary">더 알아보기</button>
+          <button class="btn btn-ghost">나중에</button>
+        </div>
+        <div class="comp-row">
+          <button class="btn btn-primary btn-sm">신청</button>
+          <button class="btn btn-primary">상담 예약</button>
+          <button class="btn btn-primary btn-lg">시작하기 <span class="ar">→</span></button>
+          <button class="btn btn-primary" aria-disabled="true" disabled>처리 중…</button>
+        </div>
+      </div>
+      <div class="demo-card">
+        <div class="dc-cat">Badges de estado</div>
+        <h4>Auditoría &amp; sistema</h4>
+        <p style="margin-bottom:20px;">Reutilizan el semáforo. Siempre con punto + texto, nunca color solo.</p>
+        <div class="comp-row" style="margin-bottom:16px;">
+          <span class="badge good"><span class="d" style="background:var(--good);"></span>좋음</span>
+          <span class="badge warn"><span class="d" style="background:var(--warn);"></span>개선 필요</span>
+          <span class="badge urgent"><span class="d" style="background:var(--urgent);"></span>시급</span>
+          <span class="badge neutral">미진단</span>
+        </div>
+        <div class="comp-row">
+          <span class="badge neutral" style="color:#2E9E5B;"><span class="d" style="background:#2E9E5B;"></span>네이버</span>
+          <span class="badge neutral" style="color:#D24A8B;"><span class="d" style="background:#D24A8B;"></span>인스타</span>
+          <span class="badge neutral" style="color:#B58A00;"><span class="d" style="background:#F4C20D;"></span>카카오</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- cards + form -->
+    <div class="grid g2" style="margin-bottom:42px;">
+      <div class="demo-card">
+        <div class="dc-cat">Card</div>
+        <h4 style="margin-bottom:4px;">콘텐츠 카드</h4>
+        <p style="margin-bottom:20px;">Patrón base: ícono/etiqueta, título, descripción, acción.</p>
+        <div style="background:var(--surface-2);border:1px solid var(--line);border-radius:14px;padding:20px;">
+          <span class="badge neutral" style="color:#2E9E5B;margin-bottom:14px;"><span class="d" style="background:#2E9E5B;"></span>네이버 플레이스</span>
+          <div style="font-family:'Jua';font-size:18px;color:var(--ink);margin:6px 0 8px;">검색 노출 최적화</div>
+          <p style="font-size:13px;color:var(--ink-2);margin:0 0 16px;line-height:1.6;">'강남 피부과' 검색 시 1페이지 노출을 목표로 플레이스 정보·사진·키워드를 정비합니다.</p>
+          <button class="btn btn-ghost btn-sm" style="padding-left:0;">자세히 <span class="ar">→</span></button>
+        </div>
+      </div>
+      <div class="demo-card">
+        <div class="dc-cat">Formulario</div>
+        <h4 style="margin-bottom:18px;">무료 진단 신청</h4>
+        <div class="field"><label>가게 이름 <span class="req">*</span></label><input type="text" placeholder="예) 봄빛 피부과" /></div>
+        <div class="field"><label>업종 <span class="req">*</span></label>
+          <select><option>피부과 · 에스테틱</option><option>카페 · 디저트</option><option>음식점</option><option>미용실 · 네일</option><option>기타</option></select>
+        </div>
+        <div class="field"><label>연락처</label><input type="tel" placeholder="010-0000-0000" /><div class="hint">카카오톡으로 진단 결과를 보내드려요.</div></div>
+        <button class="btn btn-primary" style="width:100%;">무료 진단 받기 <span class="ar">→</span></button>
+      </div>
+    </div>
+
+    <!-- pricing -->
+    <p class="lead-tag">Pricing — 4 planes</p>
+    <p class="sec-desc" style="margin-bottom:26px;max-width:58ch;">El diagnóstico (진단) es la puerta de entrada honesta: pagás poco, ves la verdad. Los planes mensuales escalan por canales. <b>성장</b> es el recomendado.</p>
+    <div class="pricing">
+      <div class="plan">
+        <div class="pn">진단</div>
+        <div class="pd">현재 온라인 상태를 정밀 진단하고 리포트로 보여드립니다.</div>
+        <div class="pr"><span class="w">₩99,000</span></div>
+        <div class="pone">일회성 · 영업일 3일</div>
+        <ul>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3E9E5B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4L19 6"/></svg>3채널 현황 진단</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3E9E5B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4L19 6"/></svg>리포트 + 액션 플랜</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3E9E5B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4L19 6"/></svg>30분 상담</li>
+        </ul>
+        <button class="btn btn-secondary">진단 신청</button>
+      </div>
+      <div class="plan">
+        <div class="pn">기본</div>
+        <div class="pd">막 시작하는 가게를 위한 네이버 중심 운영.</div>
+        <div class="pr"><span class="w">₩350,000</span><span class="per">/월</span></div>
+        <div class="pone">시작하는 가게</div>
+        <ul>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3E9E5B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4L19 6"/></svg>네이버 플레이스 최적화</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3E9E5B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4L19 6"/></svg>기본 콘텐츠 월 4건</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3E9E5B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4L19 6"/></svg>월간 리포트</li>
+        </ul>
+        <button class="btn btn-secondary">시작하기</button>
+      </div>
+      <div class="plan feat">
+        <div class="pop">가장 인기</div>
+        <div class="pn">성장</div>
+        <div class="pd">네이버 + 인스타그램 통합 운영으로 단골을 만듭니다.</div>
+        <div class="pr"><span class="w">₩650,000</span><span class="per">/월</span></div>
+        <div class="pone">통합 운영</div>
+        <ul>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3E9E5B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4L19 6"/></svg>기본 플랜 전체 포함</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3E9E5B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4L19 6"/></svg>인스타 운영 월 8건</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3E9E5B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4L19 6"/></svg>한국인 담당자 배정</li>
+        </ul>
+        <button class="btn btn-primary">성장 시작 <span class="ar">→</span></button>
+      </div>
+      <div class="plan">
+        <div class="pn">프리미엄</div>
+        <div class="pd">3채널 풀 운영 + 전담 담당자로 모든 걸 맡기세요.</div>
+        <div class="pr"><span class="w">₩1,200,000</span><span class="per">+/월</span></div>
+        <div class="pone">맞춤 견적</div>
+        <ul>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3E9E5B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4L19 6"/></svg>네이버+인스타+카카오 풀</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3E9E5B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4L19 6"/></svg>전담 담당자 + 주간 소통</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3E9E5B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4L19 6"/></svg>광고 집행 · 카카오 채널</li>
+        </ul>
+        <button class="btn btn-secondary">상담 문의</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== FUNNEL + ICONOS ====================== -->
+<section id="funnel">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="sec-num">05 — Embudo &amp; Iconografía</p>
+      <h2 class="sec-title">Tres plataformas, un camino.</h2>
+      <p class="sec-desc">El embudo es el corazón del producto: <b>네이버</b> para que te encuentren, <b>인스타그램</b> para que te recuerden, <b>카카오톡</b> para que vuelvan. Se representa siempre de izquierda a derecha, con los colores de plataforma armonizados.</p>
+    </div>
+
+    <div class="funnel-big">
+      <div class="fstage">
+        <div class="fic" style="background:#2E9E5B;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div>
+        <div class="fstep">01 · Find</div>
+        <div class="fname">네이버</div>
+        <div class="fkr">발견되기</div>
+        <div class="fdesc">검색하면 우리 가게가 1페이지에 보이도록.</div>
+      </div>
+      <div class="fconn"><svg width="34" height="20" viewBox="0 0 34 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10h27M22 4l7 6-7 6"/></svg></div>
+      <div class="fstage">
+        <div class="fic" style="background:var(--insta-grad);"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.1" fill="#fff"/></svg></div>
+        <div class="fstep">02 · Recall</div>
+        <div class="fname">인스타그램</div>
+        <div class="fkr">기억되기</div>
+        <div class="fdesc">꾸준한 콘텐츠로 가게의 분위기를 각인시키기.</div>
+      </div>
+      <div class="fconn"><svg width="34" height="20" viewBox="0 0 34 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10h27M22 4l7 6-7 6"/></svg></div>
+      <div class="fstage">
+        <div class="fic" style="background:#F4C20D;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#3A2D00" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5c0 4-4 7-9 7a10 10 0 01-3-.5L4 20l1.2-3.3A6.5 6.5 0 013 11.5C3 7.5 7 4.5 12 4.5s9 3 9 7z"/></svg></div>
+        <div class="fstep">03 · Return</div>
+        <div class="fname">카카오톡</div>
+        <div class="fkr">돌아오기</div>
+        <div class="fdesc">메시지·쿠폰·예약으로 단골이 다시 찾게.</div>
+      </div>
+    </div>
+
+    <p class="lead-tag" style="margin-top:44px;">Estilo de iconografía</p>
+    <p class="sec-desc" style="margin-bottom:24px;max-width:58ch;">Línea de <b>2.2px</b>, esquinas y terminales redondeadas (stroke-linecap round), geometría simple y amable. Acompañan la calidez de Jua. Mono-color (tinta o coral); nunca rellenos pesados.</p>
+    <div class="icon-set">
+      <div class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><span class="il">진단 / search</span></div>
+      <div class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4L19 6"/></svg><span class="il">완료 / check</span></div>
+      <div class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-5 4 4 8-8"/><path d="M16 8h4v4"/></svg><span class="il">성장 / growth</span></div>
+      <div class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5c0 4-4 7-9 7a10 10 0 01-3-.5L4 20l1.2-3.3A6.5 6.5 0 013 11.5C3 7.5 7 4.5 12 4.5s9 3 9 7z"/></svg><span class="il">상담 / chat</span></div>
+      <div class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg><span class="il">위치 / place</span></div>
+      <div class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 8.6a5 5 0 00-8.8-2.6A5 5 0 003.2 8.6c0 4 8.8 9.4 8.8 9.4s8.8-5.4 8.8-9.4z"/></svg><span class="il">단골 / loyal</span></div>
+      <div class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M3 9h18M8 2v4M16 2v4"/></svg><span class="il">예약 / book</span></div>
+      <div class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg><span class="il">담당자 / person</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== AUDIT REPORT ====================== -->
+<section id="reporte" class="alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="sec-num">06 — Reporte de Auditoría</p>
+      <h2 class="sec-title">Primero la verdad, después el plan.</h2>
+      <p class="sec-desc">El entregable estrella del posicionamiento honesto. Portada con score global, semáforo por canal, y un plan de acción concreto. Sin promesas infladas — solo el estado real y los próximos pasos.</p>
+    </div>
+
+    <div class="report">
+      <div class="r-cover">
+        <div>
+          <div class="rk">온라인 presence 진단 리포트</div>
+          <h3>봄빛 피부과 · 강남</h3>
+          <div class="rsub">2026년 6월 기준 · 네이버 · 인스타그램 · 카카오톡 통합 진단</div>
+        </div>
+        <div class="r-score">
+          <div><span class="num">58</span><span class="den">/100</span></div>
+          <div class="lbl">개선 여지 많음</div>
+        </div>
+      </div>
+      <div class="r-body">
+        <div class="r-scorecard">
+          <div class="r-item">
+            <div class="rih"><span class="led" style="background:var(--warn);"></span><span class="rin">네이버</span><span class="badge warn" style="margin-left:auto;"><span class="d" style="background:var(--warn);"></span>개선 필요</span></div>
+            <div class="rib"><span>검색 노출</span><b>2페이지</b></div>
+            <div class="rib"><span>플레이스 사진</span><b>4장 · 부족</b></div>
+            <div class="rib"><span>실제 리뷰</span><b>12개</b></div>
+          </div>
+          <div class="r-item">
+            <div class="rih"><span class="led" style="background:var(--urgent);"></span><span class="rin">인스타그램</span><span class="badge urgent" style="margin-left:auto;"><span class="d" style="background:var(--urgent);"></span>시급</span></div>
+            <div class="rib"><span>최근 게시물</span><b>87일 전</b></div>
+            <div class="rib"><span>프로필 정보</span><b>불완전</b></div>
+            <div class="rib"><span>팔로워</span><b>210</b></div>
+          </div>
+          <div class="r-item">
+            <div class="rih"><span class="led" style="background:var(--good);"></span><span class="rin">카카오톡</span><span class="badge good" style="margin-left:auto;"><span class="d" style="background:var(--good);"></span>좋음</span></div>
+            <div class="rib"><span>채널 개설</span><b>완료</b></div>
+            <div class="rib"><span>응답률</span><b>92%</b></div>
+            <div class="rib"><span>쿠폰 운영</span><b>활성</b></div>
+          </div>
+        </div>
+        <div class="action-plan">
+          <h4>액션 플랜 — 30일</h4>
+          <div class="step-item"><span class="sn">1</span><span class="stx"><b>인스타그램 운영 재개 (시급)</b><span>주 2회 게시물 + 프로필 정비. 87일의 공백을 먼저 메웁니다.</span></span></div>
+          <div class="step-item"><span class="sn">2</span><span class="stx"><b>네이버 플레이스 사진 보강</b><span>실제 매장·시술 전후 사진 15장 이상으로 검색 노출과 신뢰도 상승.</span></span></div>
+          <div class="step-item"><span class="sn">3</span><span class="stx"><b>실제 단골 리뷰 유도</b><span>가짜 리뷰 ✕ — 카카오 쿠폰으로 진짜 방문 고객의 리뷰를 자연스럽게.</span></span></div>
+        </div>
+      </div>
+    </div>
+    <p class="note" style="margin-top:18px;">Ética: el reporte muestra números reales y nunca sugiere reviews falsas. El plan de acción es honesto sobre qué toma tiempo. Esa transparencia ES el diferencial de marca.</p>
+  </div>
+</section>
+
+<!-- ====================== FOTOGRAFÍA ====================== -->
+<section id="foto">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="sec-num">07 — Fotografía &amp; Imágenes</p>
+      <h2 class="sec-title">Negocios reales, luz cálida.</h2>
+      <p class="sec-desc">La dirección de arte refuerza el "una persona real": fotos cálidas y honestas de negocios locales coreanos y de la gente que los atiende. Luz natural, tonos arena/crema, momentos genuinos. <b>Nunca</b> stock corporativo genérico, manos sobre teclados, ni nada que insinúe reseñas o testimonios fabricados.</p>
+    </div>
+
+    <div class="photo-grid">
+      <div class="ph"><div class="pl"><b>Hero · 사장님</b>El dueño real en su local — retrato cálido, mirada a cámara, luz de ventana.</div></div>
+      <div class="ph"><div class="pl"><b>Producto · 디테일</b>Detalle del negocio (café servido, sala de 피부과) — textura, calidez, sin gente.</div></div>
+      <div class="ph"><div class="pl"><b>Equipo · 담당자</b>El担당자 coreano trabajando — humano, cercano, nada de stock.</div></div>
+      <div class="ph tall"><div class="pl"><b>Local · 공간</b>Fachada / interior del negocio coreano con luz natural cálida.</div></div>
+      <div class="ph"><div class="pl"><b>En contexto · 손님</b>Cliente genuino siendo atendido — momento real, no posado.</div></div>
+      <div class="ph"><div class="pl"><b>Detalle UI · 화면</b>Pantalla de Naver/Insta del negocio sobre superficie cálida (mockup honesto).</div></div>
+    </div>
+
+    <div class="art-do">
+      <div class="art-col do">
+        <h5><span class="use" style="display:inline-flex;"><span class="mk" style="background:var(--good);width:18px;height:18px;border-radius:50%;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;">✓</span></span> Sí</h5>
+        <ul>
+          <li>Luz natural cálida, tonos crema/arena.</li>
+          <li>Personas y negocios coreanos reales.</li>
+          <li>Momentos genuinos, ligeramente imperfectos.</li>
+          <li>Foco en el oficio y el detalle del negocio.</li>
+        </ul>
+      </div>
+      <div class="art-col dont">
+        <h5><span class="mk" style="background:var(--urgent);width:18px;height:18px;border-radius:50%;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;">✕</span> No</h5>
+        <ul>
+          <li>Stock corporativo genérico (handshakes, headsets).</li>
+          <li>Reseñas/estrellas falsas o testimonios inventados.</li>
+          <li>Filtros fríos azulados o saturación artificial.</li>
+          <li>Gráficos de "+300% garantizado".</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== VOZ & TONO ====================== -->
+<section id="voz" class="alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="sec-num">08 — Voz &amp; Tono</p>
+      <h2 class="sec-title">한 사람처럼 말하기.</h2>
+      <p class="sec-desc">Hablamos como una persona real y de confianza — no como una agencia sin rostro. Claro, cálido, honesto. Sin jerga, sin promesas infladas. Todo el copy de cara al cliente, en coreano.</p>
+    </div>
+
+    <div class="voice-principles">
+      <div class="vp"><div class="vn">솔직하게</div><div class="vk">Honesto</div><div class="vd">Decimos el estado real, incluso cuando no es bueno. La verdad es el producto.</div></div>
+      <div class="vp"><div class="vn">쉽게</div><div class="vk">Claro</div><div class="vd">Sin jerga técnica. Si un dueño de café no lo entiende, lo reescribimos.</div></div>
+      <div class="vp"><div class="vn">사람처럼</div><div class="vk">Humano</div><div class="vd">Cálido y cercano, como un vecino que sabe del tema. Nunca robótico.</div></div>
+      <div class="vp"><div class="vn">신중하게</div><div class="vk">Sin inflar</div><div class="vd">Cero garantías de resultados. Mostramos progreso real, no humo.</div></div>
+    </div>
+
+    <p class="lead-tag">Ejemplos — ✅ así / ❌ así no</p>
+    <div class="examples">
+      <div class="ex">
+        <div class="ex-card yes">
+          <div class="et">✅ 이렇게</div>
+          <div class="eq">"지금 네이버에서 '강남 피부과'로 검색하면 사장님 가게는 2페이지에 있어요. 같이 1페이지로 올려볼까요?"</div>
+          <div class="ewhy">Concreto, honesto, invita a colaborar. Habla del negocio del cliente.</div>
+        </div>
+        <div class="ex-card no">
+          <div class="et">❌ 이렇게는 NO</div>
+          <div class="eq">"최첨단 AI 마케팅 솔루션으로 귀사의 디지털 트랜스포메이션을 실현합니다."</div>
+          <div class="ewhy">Jerga vacía, distante, corporativa. El dueño no entiende nada.</div>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-card yes">
+          <div class="et">✅ 이렇게</div>
+          <div class="eq">"가짜 리뷰는 만들지 않아요. 대신 진짜 단골이 리뷰를 남기고 싶게 만들어요."</div>
+          <div class="ewhy">Ético y claro sobre el diferencial. Genera confianza.</div>
+        </div>
+        <div class="ex-card no">
+          <div class="et">❌ 이렇게는 NO</div>
+          <div class="eq">"리뷰 100개 한 달 안에 보장해 드립니다!"</div>
+          <div class="ewhy">Promete reseñas falsas. Va contra la ética de la marca.</div>
+        </div>
+      </div>
+      <div class="ex">
+        <div class="ex-card yes">
+          <div class="et">✅ 이렇게</div>
+          <div class="eq">"이번 달은 인스타 게시물 8개를 올렸고, 저장 수가 지난달보다 40% 늘었어요."</div>
+          <div class="ewhy">Dato real y específico. Progreso medible, sin exagerar.</div>
+        </div>
+        <div class="ex-card no">
+          <div class="et">❌ 이렇게는 NO</div>
+          <div class="eq">"이번 달도 엄청난 성과를 거두고 있습니다! 매출 폭발 중! 🚀🔥"</div>
+          <div class="ewhy">Vago, inflado, con emojis de hype. Cero sustancia.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== ACCESIBILIDAD ====================== -->
+<section id="acceso">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="sec-num">09 — Accesibilidad &amp; Do's / Don'ts</p>
+      <h2 class="sec-title">Que todos entiendan en 30 segundos.</h2>
+      <p class="sec-desc">La audiencia no es técnica y muchas veces es mayor. Legibilidad y contraste no son opcionales — son parte de la honestidad de la marca.</p>
+    </div>
+
+    <div class="acc-grid">
+      <div class="acc">
+        <div class="ah"><span class="aic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg></span><b>Contraste AA</b></div>
+        <p>Texto normal ≥ 4.5:1, grande ≥ 3:1. Tinta #2A2520 sobre fondo cálido alcanza 14.6:1. El coral interactivo (#BE4733) pasa AA con texto blanco.</p>
+        <div class="demo"><span style="color:#2A2520;font-weight:700;">진단부터 시작하세요</span> <span style="color:#8C8175;font-size:12px;">14.6:1 ✓</span></div>
+      </div>
+      <div class="acc">
+        <div class="ah"><span class="aic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg></span><b>Tamaño legible</b></div>
+        <p>Cuerpo mínimo 16px (coreano necesita más cuerpo que el latín). Botones e hit-targets ≥ 44px. Nunca peso 300 bajo 16px.</p>
+        <div class="demo"><span style="font-size:16px;color:var(--ink);">16px 본문 — 편하게 읽혀요</span></div>
+      </div>
+      <div class="acc">
+        <div class="ah"><span class="aic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="9"/></svg></span><b>Color + ícono</b></div>
+        <p>El semáforo nunca comunica por color solo: siempre 🟢🟡🔴 + etiqueta (좋음/개선/시급). Funciona en daltonismo y en B/N.</p>
+        <div class="demo"><span class="badge good"><span class="d" style="background:var(--good);"></span>좋음</span> <span class="badge urgent"><span class="d" style="background:var(--urgent);"></span>시급</span></div>
+      </div>
+    </div>
+
+    <div class="art-do" style="margin-top:24px;">
+      <div class="art-col do">
+        <h5><span class="mk" style="background:var(--good);width:18px;height:18px;border-radius:50%;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;">✓</span> Do's</h5>
+        <ul>
+          <li>Un solo acento coral; el resto, neutros cálidos.</li>
+          <li>Una acción primaria clara por pantalla.</li>
+          <li>Mucho aire; dejar respirar el coreano.</li>
+          <li>Copy honesto y concreto, siempre en coreano.</li>
+        </ul>
+      </div>
+      <div class="art-col dont">
+        <h5><span class="mk" style="background:var(--urgent);width:18px;height:18px;border-radius:50%;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;">✕</span> Don'ts</h5>
+        <ul>
+          <li>Azul corporativo o gradientes de agencia.</li>
+          <li>Texto coral chico sobre fondo claro (usar 600).</li>
+          <li>Jua en párrafos o textos largos.</li>
+          <li>Promesas garantizadas o reseñas falsas.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== FOOTER ====================== -->
+<footer class="foot">
+  <div class="wrap foot-in">
+    <div class="fl">
+      <svg width="40" height="40" viewBox="0 0 34 34" fill="none"><rect x="1" y="1" width="32" height="32" rx="9" fill="#D85A40"/><path d="M10.5 17.5l4 4 9-10.5" stroke="#FFF7F0" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div>
+        <div style="font-family:'Jua';font-size:18px;color:var(--ink);">픽스업 스튜디오</div>
+        <div class="note">Fixup Studio — Brand Style Guide</div>
+      </div>
+    </div>
+    <div class="fmeta">
+      <b>v1.0 · Dirección "Aire y Luz"</b><br/>
+      Jua · Noto Sans KR · Space Mono<br/>
+      솔직하게 진단하고 직접 실행합니다
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast">복사됨</div>
+
+<script>
+(function(){
+  /* ---------- THEME TOGGLE ---------- */
+  var root=document.documentElement;
+  var btn=document.getElementById('themeBtn');
+  var label=document.getElementById('themeLabel');
+  var icon=document.getElementById('themeIcon');
+  var SUN='<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>';
+  var MOON='<path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/>';
+  function apply(t){
+    root.setAttribute('data-theme',t);
+    if(t==='dark'){label.textContent='LIGHT';icon.innerHTML=MOON;}
+    else{label.textContent='DARK';icon.innerHTML=SUN;}
+    try{localStorage.setItem('fixup-theme',t);}catch(e){}
+  }
+  var saved='light';
+  try{saved=localStorage.getItem('fixup-theme')||'light';}catch(e){}
+  apply(saved);
+  btn.addEventListener('click',function(){
+    apply(root.getAttribute('data-theme')==='dark'?'light':'dark');
+  });
+
+  /* ---------- COPY HEX ---------- */
+  var toast=document.getElementById('toast');var tt;
+  function showToast(msg){
+    toast.textContent=msg;toast.classList.add('show');
+    clearTimeout(tt);tt=setTimeout(function(){toast.classList.remove('show');},1300);
+  }
+  document.querySelectorAll('.swatch').forEach(function(s){
+    s.addEventListener('click',function(){
+      var hex=s.getAttribute('data-hex');if(!hex)return;
+      if(navigator.clipboard){navigator.clipboard.writeText(hex).then(function(){showToast(hex+' 복사됨');},function(){showToast(hex);});}
+      else{showToast(hex);}
+    });
+  });
+
+  /* ---------- ACTIVE NAV (scroll spy) ---------- */
+  var links=[].slice.call(document.querySelectorAll('#navlinks a'));
+  var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        links.forEach(function(l){l.classList.remove('active');});
+        var id=e.target.getAttribute('id');
+        if(map[id])map[id].classList.add('active');
+      }
+    });
+  },{rootMargin:'-45% 0px -50% 0px',threshold:0});
+  document.querySelectorAll('section[id]').forEach(function(sec){obs.observe(sec);});
+})();
+</script>
+</body>
+</html>

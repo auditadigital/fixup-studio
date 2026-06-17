@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>제안서 — <span data-field="업체명">업체명</span> · 픽스업 스튜디오</title>
+<link rel="stylesheet" href="assets/shared.css">
+<style>
+  .plans { display: grid; gap: 12px; margin-top: 8px; }
+  .plan { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; position: relative; }
+  .plan.rec { border: 2px solid var(--accent); box-shadow: var(--shadow); }
+  .plan .badge { position: absolute; top: -11px; right: 16px; background: var(--accent); color: #fff; font-size: 11px; font-weight: 800; padding: 3px 12px; border-radius: 999px; }
+  .plan .pname { font-weight: 900; font-size: 17px; }
+  .plan .pprice { font-family: var(--font-display); font-weight: 700; font-size: 22px; margin: 2px 0 8px; }
+  .plan ul { list-style: none; }
+  .plan li { font-size: 14px; color: var(--ink-2); padding: 3px 0 3px 20px; position: relative; }
+  .plan li::before { content: "✓"; position: absolute; left: 0; color: var(--good); font-weight: 800; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="report-head">
+    <div class="kicker">픽스업 스튜디오 · 월 운영 제안서</div>
+    <h1 data-field="업체명">업체명</h1>
+    <div class="meta">담당: <span data-field="contacto">사장님</span> · <span data-field="fecha">2026년 6월 16일</span></div>
+  </header>
+
+  <!-- 진단 요약 -->
+  <h2>진단에서 확인한 점</h2>
+  <div class="summary" data-field="resumen-venta">진단 결과를 매출 관점에서 2~3문장으로 요약합니다.</div>
+  <div style="margin-top:12px;">
+    <div class="action"><span class="chip 높음">놓치는 중</span><div class="t" data-field="problema-1-title">문제 1</div><div class="d" data-field="problema-1-detail">매출 관점 설명</div></div>
+    <div class="action"><span class="chip 높음">놓치는 중</span><div class="t" data-field="problema-2-title">문제 2</div><div class="d" data-field="problema-2-detail">매출 관점 설명</div></div>
+    <div class="action"><span class="chip 보통">개선 여지</span><div class="t" data-field="problema-3-title">문제 3</div><div class="d" data-field="problema-3-detail">매출 관점 설명</div></div>
+  </div>
+
+  <!-- 추천 플랜 -->
+  <h2>추천 플랜</h2>
+  <p style="font-size:14px;color:var(--ink-2);margin:-6px 0 12px;" data-field="reco-razon">진단 결과를 바탕으로 가장 적합한 플랜을 추천드립니다.</p>
+
+  <div class="plans">
+    <div class="plan" id="plan-기본">
+      <div class="pname">기본</div>
+      <div class="pprice price">₩350,000 <span style="font-size:13px;color:var(--ink-3)">/ 월</span></div>
+      <ul>
+        <li>네이버 플레이스 최적화 및 운영</li>
+        <li>카카오톡 채널 세팅 및 관리</li>
+        <li>월간 성과 리포트</li>
+      </ul>
+    </div>
+    <div class="plan" id="plan-성장">
+      <div class="pname">성장</div>
+      <div class="pprice price">₩650,000 <span style="font-size:13px;color:var(--ink-3)">/ 월</span></div>
+      <ul>
+        <li>기본 플랜 전체 포함</li>
+        <li>블로그 SEO 포스팅 월 4건</li>
+        <li>인스타그램 콘텐츠 월 8건</li>
+        <li>카카오 알림톡·쿠폰 캠페인</li>
+      </ul>
+    </div>
+    <div class="plan" id="plan-프리미엄">
+      <div class="pname">프리미엄</div>
+      <div class="pprice price">₩1,200,000~ <span style="font-size:13px;color:var(--ink-3)">/ 월</span></div>
+      <ul>
+        <li>성장 플랜 전체 포함</li>
+        <li>맞춤 랜딩페이지·간단 홈페이지 제작</li>
+        <li>예약·리마인드·리뷰 자동화</li>
+        <li>네이버·인스타 광고 운영</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout warn" style="margin-top:14px;">진단비 <span class="price">₩99,000</span>은 첫 달 운영비에서 할인 적용됩니다.</div>
+
+  <!-- CTA -->
+  <div class="cta-card">
+    <h3 data-field="cta-title">함께 시작해요</h3>
+    <p>편하게 답장 주시거나, 15분 상담으로 더 자세히 안내드릴게요.</p>
+    <a class="cta" href="{{CONTACT_URL}}">상담 시작하기 →</a>
+  </div>
+
+  <div class="foot">픽스업 스튜디오 · 정직한 진단, 직접 실행 — 가짜 리뷰 없이 실제 운영으로 성과를 만듭니다.</div>
+
+</div>
+</body>
+</html>

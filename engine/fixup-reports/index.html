@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>완전 진단 — <span data-field="업체명">업체명</span> · 픽스업 스튜디오</title>
+<link rel="stylesheet" href="assets/shared.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="report-head">
+    <div class="kicker">픽스업 스튜디오 · 완전 진단 리포트</div>
+    <h1 data-field="업체명">업체명</h1>
+    <div class="meta"><span data-field="rubro">업종</span> · <span data-field="zona">지역</span> · <span data-field="fecha">2026년 6월 16일</span></div>
+  </header>
+
+  <!-- Resumen ejecutivo -->
+  <div class="summary" data-field="resumen">현재 가장 큰 문제, 가장 강한 채널, 가장 분명한 기회를 2~3문장으로 요약합니다.</div>
+
+  <!-- (opcional) nota de conciliación con la mini -->
+  <!-- <div class="callout warn" data-field="sync-note"></div> -->
+
+  <!-- Score global -->
+  <section class="score-hero" style="margin-top:18px;">
+    <div class="score-ring" style="--score:0; --ring-color:var(--accent);">
+      <div class="inner"><div class="num warn" data-field="score-global">0</div></div>
+      <div class="den" style="position:absolute;bottom:14px;">/100</div>
+    </div>
+    <div class="score-info">
+      <div class="label">종합 점수</div>
+      <div class="sub">15개 항목 · 4개 영역 가중 평가</div>
+      <span class="pill warn" data-field="score-global-label">개선 필요</span>
+    </div>
+  </section>
+
+  <!-- Scores por categoría -->
+  <div class="cat-grid" style="margin-top:14px;">
+    <div class="cat naver"><div class="name">네이버 (30%)</div><div class="val" data-field="score-naver">0</div><span class="pill warn" data-field="naver-label">개선 필요</span></div>
+    <div class="cat instagram"><div class="name">인스타그램 (25%)</div><div class="val" data-field="score-instagram">0</div><span class="pill warn" data-field="instagram-label">개선 필요</span></div>
+    <div class="cat kakao"><div class="name">카카오톡 (25%)</div><div class="val" data-field="score-kakao">0</div><span class="pill warn" data-field="kakao-label">개선 필요</span></div>
+    <div class="cat compra"><div class="name">구매까지의 길 (20%)</div><div class="val" data-field="score-compra">0</div><span class="pill warn" data-field="compra-label">개선 필요</span></div>
+  </div>
+
+  <!-- Detalle por categoría -->
+  <h2>네이버 <span class="tag" style="background:rgba(46,158,91,.12);color:var(--naver)">플레이스 + 블로그</span></h2>
+  <div class="item s3"><div class="sc" data-field="item-1-score">0</div><div class="body"><div class="t">대표 사진 품질 (첫인상)</div><div class="d" data-field="item-1-nota">메모</div></div></div>
+  <div class="item s3"><div class="sc" data-field="item-2-score">0</div><div class="body"><div class="t">키워드·업종 최적화</div><div class="d" data-field="item-2-nota">메모</div></div></div>
+  <div class="item s3"><div class="sc" data-field="item-3-score">0</div><div class="body"><div class="t">정보 최신화 (영업시간·주소·메뉴)</div><div class="d" data-field="item-3-nota">메모</div></div></div>
+  <div class="item s3"><div class="sc" data-field="item-4-score">0</div><div class="body"><div class="t">리뷰 수·응답 관리</div><div class="d" data-field="item-4-nota">메모</div></div></div>
+  <div class="item s3"><div class="sc" data-field="item-5-score">0</div><div class="body"><div class="t">블로그 활동 (포스팅 빈도)</div><div class="d" data-field="item-5-nota">메모</div></div></div>
+
+  <h2>인스타그램 <span class="tag" style="background:rgba(210,74,139,.1);color:var(--instagram)">브랜딩</span></h2>
+  <div class="item s3"><div class="sc" data-field="item-6-score">0</div><div class="body"><div class="t">프로필·바이오·CTA</div><div class="d" data-field="item-6-nota">메모</div></div></div>
+  <div class="item s3"><div class="sc" data-field="item-7-score">0</div><div class="body"><div class="t">링크인바이오 활용도</div><div class="d" data-field="item-7-nota">메모</div></div></div>
+  <div class="item s3"><div class="sc" data-field="item-8-score">0</div><div class="body"><div class="t">게시 일관성 (꾸준함)</div><div class="d" data-field="item-8-nota">메모</div></div></div>
+  <div class="item s3"><div class="sc" data-field="item-9-score">0</div><div class="body"><div class="t">비주얼 퀄리티</div><div class="d" data-field="item-9-nota">메모</div></div></div>
+  <div class="item s3"><div class="sc" data-field="item-10-score">0</div><div class="body"><div class="t">하이라이트 정리</div><div class="d" data-field="item-10-nota">메모</div></div></div>
+
+  <h2>카카오톡 <span class="tag" style="background:rgba(244,194,13,.22);color:#9a7b00">재방문</span></h2>
+  <div class="item s3"><div class="sc" data-field="item-11-score">0</div><div class="body"><div class="t">채널 개설·운영</div><div class="d" data-field="item-11-nota">메모</div></div></div>
+  <div class="item s3"><div class="sc" data-field="item-12-score">0</div><div class="body"><div class="t">알림톡 설정</div><div class="d" data-field="item-12-nota">메모</div></div></div>
+  <div class="item s3"><div class="sc" data-field="item-13-score">0</div><div class="body"><div class="t">고객·단골 확보 (DB)</div><div class="d" data-field="item-13-nota">메모</div></div></div>
+
+  <h2>구매까지의 길 <span class="tag" style="background:rgba(138,79,191,.12);color:var(--buy)">전환</span></h2>
+  <div class="item s3"><div class="sc" data-field="item-14-score">0</div><div class="body"><div class="t">구매·예약 경로의 명확성</div><div class="d" data-field="item-14-nota">메모</div></div></div>
+  <div class="item s3"><div class="sc" data-field="item-15-score">0</div><div class="body"><div class="t">DM·문의 응답 속도</div><div class="d" data-field="item-15-nota">메모</div></div></div>
+
+  <!-- Plan de acción priorizado -->
+  <h2>우선순위 실행 플랜</h2>
+  <p style="font-size:14px;color:var(--ink-2);margin:-6px 0 14px;">점수가 낮은 항목부터, 매출에 영향이 큰 순서로 정리했습니다.</p>
+
+  <div class="action">
+    <span class="chip 높음" data-field="accion-1-nivel">높음</span>
+    <div class="t" data-field="accion-1-accion">실행 항목 1</div>
+    <div class="d" data-field="accion-1-por_que">왜 중요한지 (매출 관점)</div>
+  </div>
+  <div class="action">
+    <span class="chip 높음" data-field="accion-2-nivel">높음</span>
+    <div class="t" data-field="accion-2-accion">실행 항목 2</div>
+    <div class="d" data-field="accion-2-por_que">왜 중요한지</div>
+  </div>
+  <div class="action">
+    <span class="chip 보통" data-field="accion-3-nivel">보통</span>
+    <div class="t" data-field="accion-3-accion">실행 항목 3</div>
+    <div class="d" data-field="accion-3-por_que">왜 중요한지</div>
+  </div>
+  <div class="action">
+    <span class="chip 보통" data-field="accion-4-nivel">보통</span>
+    <div class="t" data-field="accion-4-accion">실행 항목 4</div>
+    <div class="d" data-field="accion-4-por_que">왜 중요한지</div>
+  </div>
+  <div class="action">
+    <span class="chip 낮음" data-field="accion-5-nivel">낮음</span>
+    <div class="t" data-field="accion-5-accion">실행 항목 5</div>
+    <div class="d" data-field="accion-5-por_que">왜 중요한지</div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-card">
+    <h3>이제 실행할 차례예요</h3>
+    <p>월 운영 플랜으로 직접 운영해 드립니다 · 진단비는 첫 달에서 할인 적용</p>
+    <a class="cta" href="{{CONTACT_URL}}">월 운영 플랜 상담하기 →</a>
+  </div>
+
+  <div class="foot">픽스업 스튜디오 · 정직한 진단, 직접 실행 — 본 리포트는 실제 데이터 기반입니다. 가짜 리뷰·허위 정보는 다루지 않습니다.</div>
+
+</div>
+</body>
+</html>
