@@ -23,9 +23,28 @@ Los negocios locales coreanos viven en Naver/Instagram/Kakao, no en una web. El 
 - **Kakao Channel** (si tiene)
 - **Screenshots** que pasa el operador (Nacho/esposa) de lo que no es fetchable
 
-Recolección:
-1. Intentá `WebFetch` del Naver Place URL y del perfil público de Instagram para extraer lo que se pueda (nombre, categoría, foto, bio, conteo de reseñas/seguidores). Mucho es JS/app-gated → **no fuerces ni inventes**.
-2. Para lo no fetchable (reseñas internas de Naver, calidad visual de IG, existencia/uso de Kakao, claridad de reserva), **usá los screenshots provistos**. Si falta un canal, preguntá al operador antes de puntuarlo.
+Recolección — **automatizá todo lo posible primero, pedí capturas solo para lo bloqueado.**
+
+**1. Auto-fetch con browser (skill `agent-browser`).** Antes de pedir nada al operador, sacá vos lo público:
+   ```bash
+   # Búsqueda Naver = la mina de oro (sin login, sin bot-block). Saca nombre, dirección,
+   # teléfono, horarios, menú/precios, fama (TV/YouTube), y reseñas vía blogs.
+   agent-browser open "https://search.naver.com/search.naver?query=[nombre]+[zona]"
+   agent-browser get text body   # leé direccion/telefono/horario/menu/estado
+   # versión móvil trae más reseñas de blog (contexto de sentimiento):
+   agent-browser open "https://m.search.naver.com/search.naver?query=[nombre]+[zona]&where=m"
+   agent-browser get text body
+   ```
+   Buscá señales de **estado del negocio** (폐업·영업종료·재개발·이전·휴업) — es go/no-go: si está por cerrar, **preguntá al operador antes de seguir** (puede saber por ser local).
+
+**2. Lo que el browser NO puede (bloqueos conocidos, junio 2026) → mostrá la URL al operador para que capture a mano:**
+   - **네이버 플레이스** (평점·리뷰수·대표사진·정보): el panel/iframe da error anti-bot. `https://map.naver.com/p/search/[nombre]` no rinde headless. **Pedí captura** (app o web): 상단 (대표사진+평점+카테고리) y 리뷰 탭 (방문자/블로그 리뷰 수 + si responde el dueño).
+   - **Instagram** (bio·link·#seguidores·grid): login-wall inmediato. El `<title>` confirma que el perfil existe, nada más. **Pedí captura** logueado: 프로필 상단 + 그리드 (9-12 fotos).
+   - **카카오 채널**: `https://pf.kakao.com/` o búsqueda en app. Preguntá existe/no.
+
+**3. Al pedir capturas, SIEMPRE mostrá las URLs exactas** (Naver Place, IG, Kakao, búsqueda Naver) en un bloque copiable, así el operador abre y captura directo. No le hagas adivinar la query.
+
+**4. Para lo no fetchable ni capturado** (reseñas internas Naver, calidad visual IG, uso de Kakao, claridad de reserva): **usá las capturas provistas**. Si falta un canal, preguntá antes de puntuarlo. **No inventes.**
 
 Variables a definir:
 - **업체명 / nombre del negocio**
