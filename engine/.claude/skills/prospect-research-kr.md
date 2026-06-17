@@ -32,14 +32,14 @@ Adaptación coreana de `prospect-research-ar`. Investiga PyMEs locales coreanas 
 - **관찰메모** — 1 frase específica y real para anclar el DM (ej: `인스타 피드 톤은 좋은데 예약 링크가 없음`). NO genérico.
 - **추가일자** — `YYYY-MM-DD` de hoy.
 
-Master por defecto: `Korea/Prospectos/MASTER-prospectos-KR.csv`.
+Master por defecto: `engine/prospectos/MASTER-prospectos-KR.csv` (relativo a `engine/`: `prospectos/MASTER-prospectos-KR.csv`).
 
 ---
 
 ## Workflow
 
 ### 1. Encontrar el master
-Buscá `MASTER-prospectos-KR.csv` en `Korea/Prospectos/`. Si no existe, crealo solo con el header (avisando).
+Buscá `MASTER-prospectos-KR.csv` en `engine/prospectos/`. Si no existe, crealo solo con el header (avisando).
 
 ### 2. Cargar y deduplicar
 Leé el master. Normalizá nombres (lowercase, sin espacios) e instagram handles (sin @). Guardá los sets para dedup.
@@ -64,8 +64,8 @@ Cada subagente busca con WebSearch/WebFetch en Naver e Instagram negocios reales
 Descartá si `업체명` normalizado o `인스타그램` coinciden con el master. Reportá cuántos y por qué.
 
 ### 7. Escribir dos archivos
-1. `Korea/Prospectos/prospectos-NUEVOS-KR-<fecha>.csv` (solo nuevos — input de `fixup-outreach`).
-2. `MASTER-prospectos-KR.csv` actualizado (append).
+1. `engine/prospectos/prospectos-NUEVOS-KR-<fecha>.csv` (solo nuevos — input de `fixup-outreach`).
+2. `engine/prospectos/MASTER-prospectos-KR.csv` actualizado (append).
 
 ### 8. Reportar
 Total y por rubro, distribución por zona, 3–5 highlights (observación más jugosa o score más bajo = más urgencia), y advertencias (datos inferidos, sin instagram, dudosos).

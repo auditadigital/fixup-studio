@@ -19,7 +19,7 @@ Adaptación de `campana-csv` de LATAM. En vez de crear borradores de Gmail, prep
 
 ## Paso 1 — Leer CSV y filtrar
 
-El usuario indica el CSV (ej: `Korea/Prospectos/prospectos-NUEVOS-KR-2026-06-16.csv`).
+El usuario indica el CSV (ej: `engine/prospectos/prospectos-NUEVOS-KR-2026-06-16.csv`).
 Leé cada fila (columnas en coreano): `업체명`, `업종`, `지역`, `인스타그램`, `네이버플레이스`, `카카오채널`, `관찰메모`, `DM준비일자` (si existe).
 
 **Filas a procesar:** (`인스타그램` o `네이버플레이스` no vacío) AND (`DM준비일자` vacío).
