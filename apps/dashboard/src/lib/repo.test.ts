@@ -1,19 +1,21 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 
 // Mock de la capa de datos: el repo no toca Supabase en los tests.
-const { getAll, get, update } = vi.hoisted(() => ({
+const { getAll, get, update, create } = vi.hoisted(() => ({
   getAll: vi.fn(),
   get: vi.fn(),
   update: vi.fn(),
+  create: vi.fn(),
 }));
-vi.mock("@fixup/db", () => ({ createStore: () => ({ getAll, get, update }) }));
+vi.mock("@fixup/db", () => ({ createStore: () => ({ getAll, get, update, create }) }));
 
-import { repo, zProspectoPatch } from "./repo.js";
+import { repo, zProspectoPatch, zProspectoCreate } from "./repo.js";
 
 beforeEach(() => {
   getAll.mockReset();
   get.mockReset();
   update.mockReset();
+  create.mockReset();
 });
 
 describe("zProspectoPatch", () => {
@@ -40,6 +42,27 @@ describe("zProspectoPatch", () => {
     const r = zProspectoPatch.safeParse({});
     expect(r.success).toBe(true);
     if (r.success) expect(Object.keys(r.data)).toHaveLength(0);
+  });
+});
+
+describe("zProspectoCreate", () => {
+  it("requiere 업체명", () => {
+    expect(zProspectoCreate.safeParse({ rubro: "카페" }).success).toBe(false);
+    expect(zProspectoCreate.safeParse({ 업체명: "  " }).success).toBe(false);
+  });
+  it("acepta 업체명 + opcionales y descarta extras", () => {
+    const r = zProspectoCreate.safeParse({ 업체명: "New", rubro: "카페", id: "hack", estado: "cerrado" });
+    expect(r.success).toBe(true);
+    if (r.success) expect(r.data).toEqual({ 업체명: "New", rubro: "카페" });
+  });
+});
+
+describe("repo.create", () => {
+  it("delega en store.create y devuelve el prospecto", async () => {
+    create.mockResolvedValue({ id: "new", 업체명: "New", rubro: "카페", estado: "nuevo" });
+    const out = await repo.create({ 업체명: "New", rubro: "카페" });
+    expect(create).toHaveBeenCalledWith({ 업체명: "New", rubro: "카페" });
+    expect(out.estado).toBe("nuevo");
   });
 });
 

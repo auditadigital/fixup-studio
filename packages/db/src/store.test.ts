@@ -86,6 +86,27 @@ describe("SupabaseStore.appendLead", () => {
   });
 });
 
+describe("SupabaseStore.create", () => {
+  it("crea con id derivado del 업체명 y estado 'nuevo'", async () => {
+    const { client, seen } = fakeClient((ctx) => {
+      if (ctx.op === "select") return { data: [], error: null }; // sin colisiones
+      return { data: { ...(ctx.payload as object), scores: null, reportes: [], created_at: "t", updated_at: "t" }, error: null };
+    });
+    const store = new SupabaseStore(client);
+
+    const out = await store.create({ "업체명": "New Biz", rubro: "카페", zona: "서울", instagram: "newbiz" });
+
+    const insert = (seen.find((c) => c.op === "insert")!.payload) as Record<string, unknown>;
+    expect(insert.id).toBe("new-biz");
+    expect(insert.nombre_negocio).toBe("New Biz");
+    expect(insert.estado).toBe("nuevo");
+    expect(insert.rubro).toBe("카페");
+    expect(insert.instagram).toBe("newbiz");
+    expect(out["업체명"]).toBe("New Biz");
+    expect(out.estado).toBe("nuevo");
+  });
+});
+
 describe("SupabaseStore.update", () => {
   it("aplica el patch mapeado y filtra por id", async () => {
     const { client, seen } = fakeClient(() => ({ error: null }));

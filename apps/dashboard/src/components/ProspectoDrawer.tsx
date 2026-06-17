@@ -1,8 +1,11 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import type { Prospecto, Scores } from "@fixup/types";
 import { ESTADO_LABELS } from "@fixup/types";
 import { Badge, Button, Card, FunnelSteps, PlanCard, Pill, ScoreRing, scoreColor } from "@fixup/ui";
+import { buildPrompt, PROMPT_LABELS, type PromptKind } from "@/lib/prompts";
+
+const PROMPT_KINDS: PromptKind[] = ["mini", "completa", "propuesta"];
 
 function safeHref(url: string): string {
   return /^https?:\/\//i.test(url) ? url : "#";
@@ -37,9 +40,22 @@ export function ProspectoDrawer({
     return () => window.removeEventListener("keydown", onKey);
   }, [onClose]);
 
+  const [copied, setCopied] = useState<PromptKind | null>(null);
+
   if (!prospecto) return null;
   const p = prospecto;
   const hist = history(p);
+
+  async function copyPrompt(kind: PromptKind) {
+    const text = buildPrompt(kind, p);
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(kind);
+      setTimeout(() => setCopied(null), 1500);
+    } catch {
+      // clipboard no disponible (contexto no seguro): el <details> permite copiar a mano
+    }
+  }
   return (
     <div className="fixed inset-0 z-50 flex justify-end bg-ink/20" onClick={onClose}>
       <aside
@@ -115,6 +131,23 @@ export function ProspectoDrawer({
             </div>
           </section>
         ) : null}
+
+        <section className="mt-6">
+          <h3 className="mb-2 text-xs font-medium text-ink-soft">프롬프트 생성 (엔진에 붙여넣기)</h3>
+          <div className="flex flex-wrap gap-2">
+            {PROMPT_KINDS.map((k) => (
+              <Button key={k} variant="secondary" onClick={() => copyPrompt(k)}>
+                {copied === k ? "복사됨 ✓" : PROMPT_LABELS[k]}
+              </Button>
+            ))}
+          </div>
+          <details className="mt-2">
+            <summary className="cursor-pointer text-xs text-ink-soft">미리보기 (미니 진단)</summary>
+            <pre className="mt-1 whitespace-pre-wrap rounded-sm bg-bg-2 p-2 font-mono text-xs text-ink-2">
+{buildPrompt("mini", p)}
+            </pre>
+          </details>
+        </section>
       </aside>
     </div>
   );

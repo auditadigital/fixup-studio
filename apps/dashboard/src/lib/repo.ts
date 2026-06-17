@@ -1,13 +1,14 @@
 import "server-only";
 import { z } from "zod";
 import type { Estado, Prospecto } from "@fixup/types";
-import { createStore } from "@fixup/db";
+import { createStore, type NewProspecto } from "@fixup/db";
 
 // Capa de datos del dashboard. La fuente de la verdad es la tabla `prospectos`
 // en Supabase (acceso server-side con service_role vía @fixup/db).
 export interface ProspectoRepo {
   list(): Promise<Prospecto[]>;
   get(id: string): Promise<Prospecto | null>;
+  create(input: NewProspecto): Promise<Prospecto>;
   updateEstado(id: string, estado: Estado): Promise<Prospecto>;
   update(id: string, patch: ProspectoPatch): Promise<Prospecto>;
 }
@@ -51,6 +52,21 @@ export const zProspectoPatch = z
 
 export type ProspectoPatch = z.infer<typeof zProspectoPatch>;
 
+// Alta manual desde el dashboard: 업체명 requerido, resto opcional. Claves desconocidas se descartan.
+export const zProspectoCreate = z.object({
+  업체명: z.string().trim().min(1),
+  rubro: z.string().trim().optional(),
+  zona: z.string().trim().optional(),
+  instagram: z.string().trim().optional(),
+  naver_place: z.string().trim().optional(),
+  kakao: z.string().trim().optional(),
+  telefono: z.string().trim().optional(),
+  decisor: z.string().trim().optional(),
+  observacion: z.string().trim().optional(),
+});
+
+export type ProspectoCreate = z.infer<typeof zProspectoCreate>;
+
 class SupabaseProspectoRepo implements ProspectoRepo {
   list(): Promise<Prospecto[]> {
     return createStore().getAll();
@@ -58,6 +74,10 @@ class SupabaseProspectoRepo implements ProspectoRepo {
 
   get(id: string): Promise<Prospecto | null> {
     return createStore().get(id);
+  }
+
+  create(input: NewProspecto): Promise<Prospecto> {
+    return createStore().create(input);
   }
 
   async updateEstado(id: string, estado: Estado): Promise<Prospecto> {

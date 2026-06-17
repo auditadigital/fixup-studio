@@ -6,6 +6,8 @@ import { Metrics } from "./Metrics";
 import { Toolbar } from "./Toolbar";
 import { ProspectoCard } from "./ProspectoCard";
 import { ProspectoDrawer } from "./ProspectoDrawer";
+import { AddProspectoModal } from "./AddProspectoModal";
+import { Button } from "@fixup/ui";
 import { useFilters } from "@/lib/useFilters";
 
 export function PipelineBoard({ initial }: { initial: Prospecto[] }) {
@@ -13,6 +15,7 @@ export function PipelineBoard({ initial }: { initial: Prospecto[] }) {
   const [selected, setSelected] = useState<Prospecto | null>(null);
   const [dragId, setDragId] = useState<string | null>(null);
   const [reloading, setReloading] = useState(false);
+  const [adding, setAdding] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
   const { filters, setFilters } = useFilters();
 
@@ -82,6 +85,7 @@ export function PipelineBoard({ initial }: { initial: Prospecto[] }) {
     <div className="space-y-4 p-6">
       <header className="flex items-center justify-between">
         <h1 className="font-display text-2xl text-ink">픽스업 파이프라인</h1>
+        <Button onClick={() => setAdding(true)}>+ 프로스펙트 추가</Button>
       </header>
 
       <Metrics prospectos={prospectos} />
@@ -116,6 +120,16 @@ export function PipelineBoard({ initial }: { initial: Prospecto[] }) {
       </div>
 
       <ProspectoDrawer prospecto={selected} onClose={() => setSelected(null)} />
+
+      {adding ? (
+        <AddProspectoModal
+          onClose={() => setAdding(false)}
+          onCreated={(p) => {
+            setProspectos((cur) => [p, ...cur]);
+            showToast(`${p["업체명"]} 추가됨`);
+          }}
+        />
+      ) : null}
 
       {toast ? (
         <div className="fixed bottom-4 left-1/2 -translate-x-1/2 rounded-sm bg-ink px-4 py-2 text-sm text-white">

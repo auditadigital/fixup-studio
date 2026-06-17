@@ -4,11 +4,15 @@ import type { Database } from "./database.types.js";
 import { getClient } from "./client.js";
 import { deriveId, mapRow, slugify, toRow } from "./mapping.js";
 
+/** Datos para crear un prospecto a mano (dashboard). `업체명` requerido; resto opcional. */
+export type NewProspecto = { "업체명": string } & Partial<Omit<Prospecto, "업체명" | "id">>;
+
 /** Capa de datos abstracta (ver docs/data-plane.md). La UI depende de esto, no de Supabase. */
 export interface ProspectoStore {
   getAll(): Promise<Prospecto[]>;
   get(id: string): Promise<Prospecto | null>;
   appendLead(lead: Lead): Promise<Prospecto>; // inserta estado 'nuevo'
+  create(input: NewProspecto): Promise<Prospecto>; // alta manual, estado 'nuevo'
   update(id: string, patch: Partial<Prospecto>): Promise<void>;
 }
 
@@ -38,16 +42,16 @@ export class SupabaseStore implements ProspectoStore {
     return data ? mapRow(data) : null;
   }
 
-  async appendLead(lead: Lead): Promise<Prospecto> {
-    // ids existentes con el mismo prefijo, para resolver colisiones.
-    const base = slugify(lead["업체명"]) || "prospecto";
-    const { data: existing, error: e1 } = await this.db
-      .from(TABLE)
-      .select("id")
-      .like("id", `${base}%`);
-    if (e1) throw new Error(e1.message);
+  // Deriva un id único desde el 업체명 (slug + sufijo si choca).
+  private async nextId(nombre: string): Promise<string> {
+    const base = slugify(nombre) || "prospecto";
+    const { data, error } = await this.db.from(TABLE).select("id").like("id", `${base}%`);
+    if (error) throw new Error(error.message);
+    return deriveId(nombre, (data ?? []).map((r) => r.id));
+  }
 
-    const id = deriveId(lead["업체명"], (existing ?? []).map((r) => r.id));
+  async appendLead(lead: Lead): Promise<Prospecto> {
+    const id = await this.nextId(lead["업체명"]);
 
     const insert = {
       id,
@@ -67,6 +71,19 @@ export class SupabaseStore implements ProspectoStore {
       .insert(insert)
       .select("*")
       .single();
+    if (error) throw new Error(error.message);
+    return mapRow(data);
+  }
+
+  async create(input: NewProspecto): Promise<Prospecto> {
+    const id = await this.nextId(input["업체명"]);
+    const row = {
+      ...toRow(input),
+      id,
+      nombre_negocio: input["업체명"],
+      estado: input.estado ?? ("nuevo" as const),
+    };
+    const { data, error } = await this.db.from(TABLE).insert(row).select("*").single();
     if (error) throw new Error(error.message);
     return mapRow(data);
   }
