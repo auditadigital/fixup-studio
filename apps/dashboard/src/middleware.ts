@@ -13,6 +13,16 @@ function safeEqual(a: string, b: string): boolean {
 }
 
 export function middleware(req: NextRequest) {
+  // Ingest acotado: el routine de research (cloud) crea/lista prospectos con un
+  // Bearer token. Solo aplica a la colección /api/prospectos (no a [id]/estado/patch/delete).
+  const ingest = process.env.INGEST_TOKEN;
+  if (ingest && req.nextUrl.pathname === "/api/prospectos") {
+    const auth = req.headers.get("authorization");
+    if (auth?.startsWith("Bearer ") && safeEqual(auth.slice(7), ingest)) {
+      return NextResponse.next();
+    }
+  }
+
   const user = process.env.DASHBOARD_USER;
   const pass = process.env.DASHBOARD_PASS;
 
