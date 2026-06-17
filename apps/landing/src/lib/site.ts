@@ -16,5 +16,5 @@ export const site = {
     { href: "#pricing", label: "요금제" },
     { href: "#faq", label: "자주 묻는 질문" },
   ],
-  legalUpdated: "2026-06-16", // privacy/terms 최종 수정일 (TODO 법무 검토)
+  legalUpdated: "2026-06-17", // privacy/terms 최종 수정일 (TODO 법무 검토)
 } as const;
