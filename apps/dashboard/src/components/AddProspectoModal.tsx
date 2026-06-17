@@ -59,11 +59,11 @@ export function AddProspectoModal({
   const input = "w-full rounded-sm border border-line-2 bg-surface px-2 py-1.5 text-sm text-ink";
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center bg-ink/20 p-4" onClick={onClose}>
+    <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/40 p-4" onClick={onClose}>
       <form
         onClick={(e) => e.stopPropagation()}
         onSubmit={submit}
-        className="mt-12 w-full max-w-md space-y-3 rounded bg-bg p-6"
+        className="mt-12 w-full max-w-md space-y-3 rounded-lg border border-line bg-bg p-6 shadow-2xl"
       >
         <div className="flex items-center justify-between">
           <h2 className="font-display text-lg text-ink">프로스펙트 추가</h2>

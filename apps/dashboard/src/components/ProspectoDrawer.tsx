@@ -57,9 +57,9 @@ export function ProspectoDrawer({
     }
   }
   return (
-    <div className="fixed inset-0 z-50 flex justify-end bg-ink/20" onClick={onClose}>
+    <div className="fixed inset-0 z-50 flex justify-end bg-black/40" onClick={onClose}>
       <aside
-        className="h-full w-full max-w-md overflow-y-auto bg-bg p-6"
+        className="h-full w-full max-w-md overflow-y-auto border-l border-line bg-bg p-6 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-start justify-between">
