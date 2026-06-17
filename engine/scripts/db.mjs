@@ -12,6 +12,7 @@
 //   set-estado <id|업체명> <estado> [--monto N]
 //   patch <id|업체명> '<json>'              merge de campos (scores, fechas, plan…)
 //   add-report <id|업체명> <label> <path>   push a reportes[]
+//   delete <id|업체명>                      borra un prospecto
 //   dump                                   snapshot {prospectos:[…]} a stdout
 //
 // Exit codes: 0 ok · 1 uso · 2 env faltante · 3 error DB · 4 no encontrado.
@@ -265,6 +266,15 @@ switch (cmd) {
     const { error } = await sb.from("prospectos").update({ reportes }).eq("id", id);
     if (error) die(3, error.message);
     out(mapRow(await fetchRow(sb, id)));
+    break;
+  }
+
+  case "delete": {
+    if (!args[0]) die(1, "uso: delete <id|업체명>");
+    const id = await resolveId(sb, args[0]);
+    const { error } = await sb.from("prospectos").delete().eq("id", id);
+    if (error) die(3, error.message);
+    out({ deleted: id });
     break;
   }
 

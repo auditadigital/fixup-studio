@@ -7,6 +7,7 @@ import { Toolbar } from "./Toolbar";
 import { ProspectoCard } from "./ProspectoCard";
 import { ProspectoDrawer } from "./ProspectoDrawer";
 import { AddProspectoModal } from "./AddProspectoModal";
+import { ConfirmDialog } from "./ConfirmDialog";
 import { Button } from "@fixup/ui";
 import { useFilters } from "@/lib/useFilters";
 
@@ -16,6 +17,8 @@ export function PipelineBoard({ initial }: { initial: Prospecto[] }) {
   const [dragId, setDragId] = useState<string | null>(null);
   const [reloading, setReloading] = useState(false);
   const [adding, setAdding] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState<Prospecto | null>(null);
+  const [deleting, setDeleting] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
   const { filters, setFilters } = useFilters();
 
@@ -81,6 +84,24 @@ export function PipelineBoard({ initial }: { initial: Prospecto[] }) {
     }
   }
 
+  async function doDelete() {
+    const target = confirmDelete;
+    if (!target) return;
+    setDeleting(true);
+    try {
+      const res = await fetch(`/api/prospectos/${encodeURIComponent(target.id)}`, { method: "DELETE" });
+      if (!res.ok) throw new Error(`${res.status}`);
+      setProspectos((cur) => cur.filter((p) => p.id !== target.id));
+      if (selected?.id === target.id) setSelected(null);
+      setConfirmDelete(null);
+      showToast(`${target["업체명"]} 삭제됨`);
+    } catch {
+      showToast("삭제 실패");
+    } finally {
+      setDeleting(false);
+    }
+  }
+
   return (
     <div className="space-y-4 p-6">
       <header className="flex items-center justify-between">
@@ -112,14 +133,14 @@ export function PipelineBoard({ initial }: { initial: Prospecto[] }) {
                 <span className="font-mono text-xs text-ink-soft">{cards.length}</span>
               </div>
               {cards.map((p) => (
-                <ProspectoCard key={p.id} prospecto={p} onOpen={setSelected} onDragStart={setDragId} />
+                <ProspectoCard key={p.id} prospecto={p} onOpen={setSelected} onDragStart={setDragId} onDelete={setConfirmDelete} />
               ))}
             </div>
           );
         })}
       </div>
 
-      <ProspectoDrawer prospecto={selected} onClose={() => setSelected(null)} />
+      <ProspectoDrawer prospecto={selected} onClose={() => setSelected(null)} onDelete={setConfirmDelete} />
 
       {adding ? (
         <AddProspectoModal
@@ -128,6 +149,17 @@ export function PipelineBoard({ initial }: { initial: Prospecto[] }) {
             setProspectos((cur) => [p, ...cur]);
             showToast(`${p["업체명"]} 추가됨`);
           }}
+        />
+      ) : null}
+
+      {confirmDelete ? (
+        <ConfirmDialog
+          title="프로스펙트 삭제"
+          message={`'${confirmDelete["업체명"]}' 프로스펙트를 삭제할까요? 되돌릴 수 없습니다.`}
+          confirmLabel="삭제"
+          busy={deleting}
+          onConfirm={doDelete}
+          onCancel={() => setConfirmDelete(null)}
         />
       ) : null}
 

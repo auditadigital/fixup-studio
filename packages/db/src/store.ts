@@ -14,6 +14,7 @@ export interface ProspectoStore {
   appendLead(lead: Lead): Promise<Prospecto>; // inserta estado 'nuevo'
   create(input: NewProspecto): Promise<Prospecto>; // alta manual, estado 'nuevo'
   update(id: string, patch: Partial<Prospecto>): Promise<void>;
+  remove(id: string): Promise<void>;
 }
 
 type Db = SupabaseClient<Database>;
@@ -91,6 +92,11 @@ export class SupabaseStore implements ProspectoStore {
   async update(id: string, patch: Partial<Prospecto>): Promise<void> {
     const row = toRow(patch);
     const { error } = await this.db.from(TABLE).update(row).eq("id", id);
+    if (error) throw new Error(error.message);
+  }
+
+  async remove(id: string): Promise<void> {
+    const { error } = await this.db.from(TABLE).delete().eq("id", id);
     if (error) throw new Error(error.message);
   }
 }

@@ -30,8 +30,8 @@ function history(p: Prospecto): { label: string; date: string }[] {
 }
 
 export function ProspectoDrawer({
-  prospecto, onClose,
-}: { prospecto: Prospecto | null; onClose: () => void }) {
+  prospecto, onClose, onDelete,
+}: { prospecto: Prospecto | null; onClose: () => void; onDelete: (p: Prospecto) => void }) {
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       if (e.key === "Escape") onClose();
@@ -147,6 +147,16 @@ export function ProspectoDrawer({
 {buildPrompt("mini", p)}
             </pre>
           </details>
+        </section>
+
+        <section className="mt-6 border-t border-line pt-4">
+          <button
+            type="button"
+            onClick={() => onDelete(p)}
+            className="rounded-sm border border-urgent px-3 py-1.5 text-sm font-medium text-urgent hover:bg-urgent-tint"
+          >
+            🗑 삭제
+          </button>
         </section>
       </aside>
     </div>

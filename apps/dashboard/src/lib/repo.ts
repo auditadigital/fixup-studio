@@ -11,6 +11,7 @@ export interface ProspectoRepo {
   create(input: NewProspecto): Promise<Prospecto>;
   updateEstado(id: string, estado: Estado): Promise<Prospecto>;
   update(id: string, patch: ProspectoPatch): Promise<Prospecto>;
+  remove(id: string): Promise<void>;
 }
 
 const ESTADOS = [
@@ -91,6 +92,10 @@ class SupabaseProspectoRepo implements ProspectoRepo {
     // update() sobre un id inexistente afecta 0 filas sin error → lo detectamos acá.
     if (!updated) throw new Error(`Prospecto not found: ${id}`);
     return updated;
+  }
+
+  remove(id: string): Promise<void> {
+    return createStore().remove(id);
   }
 }
 

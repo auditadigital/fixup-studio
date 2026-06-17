@@ -1,13 +1,14 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 
 // Mock de la capa de datos: el repo no toca Supabase en los tests.
-const { getAll, get, update, create } = vi.hoisted(() => ({
+const { getAll, get, update, create, remove } = vi.hoisted(() => ({
   getAll: vi.fn(),
   get: vi.fn(),
   update: vi.fn(),
   create: vi.fn(),
+  remove: vi.fn(),
 }));
-vi.mock("@fixup/db", () => ({ createStore: () => ({ getAll, get, update, create }) }));
+vi.mock("@fixup/db", () => ({ createStore: () => ({ getAll, get, update, create, remove }) }));
 
 import { repo, zProspectoPatch, zProspectoCreate } from "./repo.js";
 
@@ -16,6 +17,7 @@ beforeEach(() => {
   get.mockReset();
   update.mockReset();
   create.mockReset();
+  remove.mockReset();
 });
 
 describe("zProspectoPatch", () => {
@@ -63,6 +65,14 @@ describe("repo.create", () => {
     const out = await repo.create({ 업체명: "New", rubro: "카페" });
     expect(create).toHaveBeenCalledWith({ 업체명: "New", rubro: "카페" });
     expect(out.estado).toBe("nuevo");
+  });
+});
+
+describe("repo.remove", () => {
+  it("delega en store.remove", async () => {
+    remove.mockResolvedValue(undefined);
+    await repo.remove("seongsu-cafe");
+    expect(remove).toHaveBeenCalledWith("seongsu-cafe");
   });
 });
 

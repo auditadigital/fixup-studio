@@ -30,3 +30,19 @@ export async function PATCH(
     return Response.json({ error: "internal_error" }, { status: 500 });
   }
 }
+
+// Borrar un prospecto. Protegido por el Basic auth del middleware.
+export async function DELETE(
+  _req: Request,
+  { params }: { params: Promise<{ id: string }> },
+) {
+  const { id } = await params;
+  try {
+    await repo.remove(id);
+    revalidatePath("/");
+    return Response.json({ deleted: true });
+  } catch (err) {
+    console.error("delete prospecto failed", err);
+    return Response.json({ error: "internal_error" }, { status: 500 });
+  }
+}

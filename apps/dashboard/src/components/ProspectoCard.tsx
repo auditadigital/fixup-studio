@@ -3,11 +3,12 @@ import type { Prospecto } from "@fixup/types";
 import { Badge } from "@fixup/ui";
 
 export function ProspectoCard({
-  prospecto, onOpen, onDragStart,
+  prospecto, onOpen, onDragStart, onDelete,
 }: {
   prospecto: Prospecto;
   onOpen: (p: Prospecto) => void;
   onDragStart: (id: string) => void;
+  onDelete: (p: Prospecto) => void;
 }) {
   return (
     <article
@@ -17,9 +18,19 @@ export function ProspectoCard({
       onDragStart={() => onDragStart(prospecto.id)}
       onClick={() => onOpen(prospecto)}
       onKeyDown={(e) => { if (e.key === "Enter") onOpen(prospecto); }}
-      className="cursor-pointer rounded-sm border border-line bg-surface p-3 hover:border-line-2"
+      className="group relative cursor-pointer rounded-sm border border-line bg-surface p-3 hover:border-line-2"
     >
-      <div className="font-display text-sm text-ink">{prospecto["업체명"]}</div>
+      <button
+        type="button"
+        aria-label="삭제"
+        title="삭제"
+        onClick={(e) => { e.stopPropagation(); onDelete(prospecto); }}
+        onKeyDown={(e) => e.stopPropagation()}
+        className="absolute right-1 top-1 hidden rounded-sm px-1.5 text-ink-soft hover:text-urgent group-hover:block"
+      >
+        ✕
+      </button>
+      <div className="pr-5 font-display text-sm text-ink">{prospecto["업체명"]}</div>
       <div className="mt-1 flex flex-wrap items-center gap-1">
         <Badge>{prospecto.rubro}</Badge>
         {prospecto.zona ? <Badge>{prospecto.zona}</Badge> : null}

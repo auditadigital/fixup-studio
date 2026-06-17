@@ -8,7 +8,7 @@ import type { Database } from "./database.types.js";
 // devuelve el mismo builder; `then` resuelve con lo que devuelva `resolver(ctx)`.
 type Ctx = {
   table: string;
-  op: "select" | "insert" | "update";
+  op: "select" | "insert" | "update" | "delete";
   payload?: unknown;
   filters: Array<[string, string, string]>;
   single: boolean;
@@ -25,6 +25,7 @@ function fakeClient(resolver: (ctx: Ctx) => { data?: unknown; error: unknown }) 
         order: () => b,
         insert: (p: unknown) => ((ctx.op = "insert"), (ctx.payload = p), b),
         update: (p: unknown) => ((ctx.op = "update"), (ctx.payload = p), b),
+        delete: () => ((ctx.op = "delete"), b),
         like: (c: string, v: string) => (ctx.filters.push(["like", c, v]), b),
         eq: (c: string, v: string) => (ctx.filters.push(["eq", c, v]), b),
         single: () => ((ctx.single = true), b),
@@ -123,5 +124,21 @@ describe("SupabaseStore.update", () => {
     const { client } = fakeClient(() => ({ error: { message: "boom" } }));
     const store = new SupabaseStore(client);
     await expect(store.update("x", { estado: "perdido" })).rejects.toThrow("boom");
+  });
+});
+
+describe("SupabaseStore.remove", () => {
+  it("borra filtrando por id", async () => {
+    const { client, seen } = fakeClient(() => ({ error: null }));
+    const store = new SupabaseStore(client);
+    await store.remove("seongsu-cafe");
+    const ctx = seen.find((c) => c.op === "delete")!;
+    expect(ctx.filters).toContainEqual(["eq", "id", "seongsu-cafe"]);
+  });
+
+  it("propaga el error de Supabase", async () => {
+    const { client } = fakeClient(() => ({ error: { message: "nope" } }));
+    const store = new SupabaseStore(client);
+    await expect(store.remove("x")).rejects.toThrow("nope");
   });
 });
