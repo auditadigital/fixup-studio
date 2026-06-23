@@ -4,14 +4,15 @@ import type { Prospecto } from "@fixup/types";
 import { Button } from "@fixup/ui";
 
 const FIELDS: { key: string; label: string; required?: boolean; placeholder?: string }[] = [
-  { key: "업체명", label: "업체명", required: true, placeholder: "강남 OO 클리닉" },
-  { key: "rubro", label: "업종", placeholder: "에스테틱/피부과" },
-  { key: "zona", label: "지역", placeholder: "서울 강남구" },
-  { key: "telefono", label: "연락처", placeholder: "02-555-1010" },
-  { key: "instagram", label: "인스타그램", placeholder: "handle (@ 없이)" },
-  { key: "naver_place", label: "네이버 플레이스", placeholder: "https://..." },
-  { key: "kakao", label: "카카오", placeholder: "channel id" },
-  { key: "decisor", label: "담당자", placeholder: "이름" },
+  { key: "업체명", label: "Business name (KR)", required: true, placeholder: "강남 OO 클리닉" },
+  { key: "업체명_en", label: "Business name (EN)", placeholder: "e.g. Gangnam OO Clinic" },
+  { key: "rubro", label: "Industry", placeholder: "에스테틱/피부과" },
+  { key: "zona", label: "Area", placeholder: "서울 강남구" },
+  { key: "telefono", label: "Phone", placeholder: "02-555-1010" },
+  { key: "instagram", label: "Instagram", placeholder: "handle (without @)" },
+  { key: "naver_place", label: "Naver Place", placeholder: "https://..." },
+  { key: "kakao", label: "Kakao", placeholder: "channel id" },
+  { key: "decisor", label: "Contact person", placeholder: "name" },
 ];
 
 export function AddProspectoModal({
@@ -29,7 +30,7 @@ export function AddProspectoModal({
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     if (!values["업체명"]?.trim()) {
-      setError("업체명을 입력해 주세요.");
+      setError("Please enter a business name.");
       return;
     }
     // payload: solo claves no vacías
@@ -51,7 +52,7 @@ export function AddProspectoModal({
       onCreated(prospecto);
       onClose();
     } catch {
-      setError("저장 실패. 잠시 후 다시 시도해 주세요.");
+      setError("Save failed. Please try again.");
       setSubmitting(false);
     }
   }
@@ -66,7 +67,7 @@ export function AddProspectoModal({
         className="mt-12 w-full max-w-md space-y-3 rounded-lg border border-line bg-bg p-6 shadow-2xl"
       >
         <div className="flex items-center justify-between">
-          <h2 className="font-display text-lg text-ink">프로스펙트 추가</h2>
+          <h2 className="font-display text-lg text-ink">Add prospect</h2>
           <Button variant="ghost" type="button" onClick={onClose}>✕</Button>
         </div>
 
@@ -87,8 +88,8 @@ export function AddProspectoModal({
         {error ? <p className="text-xs text-urgent">{error}</p> : null}
 
         <div className="flex justify-end gap-2 pt-1">
-          <Button variant="secondary" type="button" onClick={onClose}>취소</Button>
-          <Button type="submit" disabled={submitting}>{submitting ? "..." : "추가"}</Button>
+          <Button variant="secondary" type="button" onClick={onClose}>Cancel</Button>
+          <Button type="submit" disabled={submitting}>{submitting ? "..." : "Add"}</Button>
         </div>
       </form>
     </div>

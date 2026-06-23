@@ -56,6 +56,7 @@ export type ProspectoPatch = z.infer<typeof zProspectoPatch>;
 // Alta manual desde el dashboard: 업체명 requerido, resto opcional. Claves desconocidas se descartan.
 export const zProspectoCreate = z.object({
   업체명: z.string().trim().min(1),
+  업체명_en: z.string().trim().optional(),
   rubro: z.string().trim().optional(),
   zona: z.string().trim().optional(),
   instagram: z.string().trim().optional(),

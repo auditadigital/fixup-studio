@@ -12,19 +12,19 @@ function safeHref(url: string): string {
 }
 
 const SCORE_LABELS: { key: keyof Scores; label: string }[] = [
-  { key: "global", label: "종합" },
+  { key: "global", label: "Overall" },
   { key: "naver", label: "Naver" },
   { key: "instagram", label: "Instagram" },
   { key: "kakao", label: "Kakao" },
-  { key: "compra", label: "구매까지" },
+  { key: "compra", label: "To purchase" },
 ];
 
 function history(p: Prospecto): { label: string; date: string }[] {
   const rows: { label: string; date?: string }[] = [
-    { label: "접촉", date: p.fecha_contacto },
-    { label: "미니", date: p.fecha_mini },
-    { label: "완전 진단", date: p.fecha_completa },
-    { label: "제안", date: p.fecha_propuesta },
+    { label: "Contacted", date: p.fecha_contacto },
+    { label: "Mini", date: p.fecha_mini },
+    { label: "Full audit", date: p.fecha_completa },
+    { label: "Proposal", date: p.fecha_propuesta },
   ];
   return rows.filter((r): r is { label: string; date: string } => Boolean(r.date));
 }
@@ -64,7 +64,10 @@ export function ProspectoDrawer({
       >
         <div className="flex items-start justify-between">
           <div>
-            <h2 className="font-display text-xl text-ink">{p["업체명"]}</h2>
+            <h2 className="font-display text-xl text-ink">
+              {p["업체명"]}
+              {p["업체명_en"] ? <span className="font-sans text-base text-ink-soft"> ({p["업체명_en"]})</span> : null}
+            </h2>
             <div className="mt-1 flex flex-wrap gap-1">
               <Badge>{p.rubro}</Badge>
               {p.zona ? <Badge>{p.zona}</Badge> : null}
@@ -76,7 +79,19 @@ export function ProspectoDrawer({
 
         <section className="mt-4 space-y-1 text-sm text-ink-2">
           {p.telefono ? <div>☎ {p.telefono}</div> : null}
-          {p.instagram ? <div>IG @{p.instagram}</div> : null}
+          {p.instagram ? (
+            <div>
+              IG{" "}
+              <a
+                href={`https://instagram.com/${p.instagram.replace(/^@/, "")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-coral underline"
+              >
+                {`https://instagram.com/${p.instagram.replace(/^@/, "")}`}
+              </a>
+            </div>
+          ) : null}
           {p.observacion ? <div className="text-ink-soft">{p.observacion}</div> : null}
         </section>
 
@@ -106,7 +121,7 @@ export function ProspectoDrawer({
 
         {hist.length ? (
           <section className="mt-4">
-            <h3 className="mb-2 text-xs font-medium text-ink-soft">상태 이력</h3>
+            <h3 className="mb-2 text-xs font-medium text-ink-soft">Status history</h3>
             <Card className="space-y-1">
               {hist.map((h) => (
                 <div key={h.label} className="flex justify-between text-sm">
@@ -120,7 +135,7 @@ export function ProspectoDrawer({
 
         {p.reportes?.length ? (
           <section className="mt-4">
-            <h3 className="mb-2 text-xs font-medium text-ink-soft">리포트</h3>
+            <h3 className="mb-2 text-xs font-medium text-ink-soft">Reports</h3>
             <div className="flex flex-col gap-2">
               {p.reportes.map((r, i) => (
                 <a key={`${r.label}::${r.url}::${i}`} href={safeHref(r.url)} target="_blank" rel="noopener noreferrer"
@@ -133,16 +148,16 @@ export function ProspectoDrawer({
         ) : null}
 
         <section className="mt-6">
-          <h3 className="mb-2 text-xs font-medium text-ink-soft">프롬프트 생성 (엔진에 붙여넣기)</h3>
+          <h3 className="mb-2 text-xs font-medium text-ink-soft">Generate prompt (paste into engine)</h3>
           <div className="flex flex-wrap gap-2">
             {PROMPT_KINDS.map((k) => (
               <Button key={k} variant="secondary" onClick={() => copyPrompt(k)}>
-                {copied === k ? "복사됨 ✓" : PROMPT_LABELS[k]}
+                {copied === k ? "Copied ✓" : PROMPT_LABELS[k]}
               </Button>
             ))}
           </div>
           <details className="mt-2">
-            <summary className="cursor-pointer text-xs text-ink-soft">미리보기 (미니 진단)</summary>
+            <summary className="cursor-pointer text-xs text-ink-soft">Preview (mini audit)</summary>
             <pre className="mt-1 whitespace-pre-wrap rounded-sm bg-bg-2 p-2 font-mono text-xs text-ink-2">
 {buildPrompt("mini", p)}
             </pre>
@@ -155,7 +170,7 @@ export function ProspectoDrawer({
             onClick={() => onDelete(p)}
             className="rounded-sm border border-urgent px-3 py-1.5 text-sm font-medium text-urgent hover:bg-urgent-tint"
           >
-            🗑 삭제
+            🗑 Delete
           </button>
         </section>
       </aside>

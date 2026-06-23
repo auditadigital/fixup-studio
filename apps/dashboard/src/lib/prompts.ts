@@ -11,9 +11,9 @@ const TRIGGER: Record<PromptKind, string> = {
 };
 
 export const PROMPT_LABELS: Record<PromptKind, string> = {
-  mini: "📋 미니 진단",
-  completa: "📋 완전 진단",
-  propuesta: "📋 제안서",
+  mini: "📋 Mini audit",
+  completa: "📋 Full audit",
+  propuesta: "📋 Proposal",
 };
 
 export function buildPrompt(kind: PromptKind, p: Prospecto): string {

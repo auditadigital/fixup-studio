@@ -2,7 +2,7 @@
 import { Button } from "@fixup/ui";
 
 export function ConfirmDialog({
-  title, message, confirmLabel = "확인", cancelLabel = "취소", busy, onConfirm, onCancel,
+  title, message, confirmLabel = "Confirm", cancelLabel = "Cancel", busy, onConfirm, onCancel,
 }: {
   title: string;
   message?: string;
