@@ -19,6 +19,8 @@ export interface Scores {
 export interface Prospecto {
   id: string;
   업체명: string;
+  /** Nombre del negocio en inglés (opcional). Se muestra entre paréntesis junto al coreano. */
+  업체명_en?: string;
   rubro: Rubro;
   zona?: string;
   instagram?: string;

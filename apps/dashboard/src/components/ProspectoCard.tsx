@@ -22,15 +22,18 @@ export function ProspectoCard({
     >
       <button
         type="button"
-        aria-label="삭제"
-        title="삭제"
+        aria-label="Delete"
+        title="Delete"
         onClick={(e) => { e.stopPropagation(); onDelete(prospecto); }}
         onKeyDown={(e) => e.stopPropagation()}
         className="absolute right-1 top-1 hidden rounded-sm px-1.5 text-ink-soft hover:text-urgent group-hover:block"
       >
         ✕
       </button>
-      <div className="pr-5 font-display text-sm text-ink">{prospecto["업체명"]}</div>
+      <div className="pr-5 font-display text-sm text-ink">
+        {prospecto["업체명"]}
+        {prospecto["업체명_en"] ? <span className="font-sans text-ink-soft"> ({prospecto["업체명_en"]})</span> : null}
+      </div>
       <div className="mt-1 flex flex-wrap items-center gap-1">
         <Badge>{prospecto.rubro}</Badge>
         {prospecto.zona ? <Badge>{prospecto.zona}</Badge> : null}

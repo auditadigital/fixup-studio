@@ -27,27 +27,27 @@ export function Toolbar({
     <div className="flex flex-wrap items-center gap-2">
       <input
         className={`${select} min-w-48`}
-        placeholder="검색 (업체명/지역/IG)"
+        placeholder="Search (name / area / IG)"
         value={filters.query}
         onChange={(e) => setFilters({ ...filters, query: e.target.value })}
       />
       <select className={select} value={filters.rubro}
               onChange={(e) => setFilters({ ...filters, rubro: e.target.value })}>
-        <option value="">전체 업종</option>
+        <option value="">All industries</option>
         {rubros.map((r) => <option key={r} value={r}>{r}</option>)}
       </select>
       <select className={select} value={filters.zona}
               onChange={(e) => setFilters({ ...filters, zona: e.target.value })}>
-        <option value="">전체 지역</option>
+        <option value="">All areas</option>
         {zonas.map((z) => <option key={z} value={z}>{z}</option>)}
       </select>
       <select className={select} value={filters.estado}
               onChange={(e) => setFilters({ ...filters, estado: e.target.value as Estado | "" })}>
-        <option value="">전체 상태</option>
+        <option value="">All statuses</option>
         {estados.map((s) => <option key={s} value={s}>{ESTADO_LABELS[s]}</option>)}
       </select>
       <Button variant="secondary" onClick={onReload} disabled={reloading}>
-        {reloading ? "..." : "↻ 새로고침"}
+        {reloading ? "..." : "↻ Reload"}
       </Button>
     </div>
   );

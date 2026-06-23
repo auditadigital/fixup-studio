@@ -5,7 +5,7 @@ import {
 import type { Estado } from "./index.js";
 
 describe("pipeline maps", () => {
-  it("labels every estado in korean", () => {
+  it("labels every estado", () => {
     const estados: Estado[] = [
       "nuevo","contactado","mini-lista","mini-enviada",
       "propuesta-enviada","negociacion","cerrado","perdido",
@@ -15,7 +15,7 @@ describe("pipeline maps", () => {
 
   it("has 7 ordered columns with the spec labels", () => {
     expect(PIPELINE_COLUMNS.map(c => c.label)).toEqual(
-      ["신규","접촉","미니","제안","협의","계약","종료"],
+      ["New","Contacted","Mini","Proposal","Negotiation","Closed","Lost"],
     );
   });
 
@@ -31,8 +31,8 @@ describe("pipeline maps", () => {
     }
   });
 
-  it("groups both mini estados under 미니 with dropTarget mini-enviada", () => {
-    const mini = PIPELINE_COLUMNS.find(c => c.label === "미니")!;
+  it("groups both mini estados under Mini with dropTarget mini-enviada", () => {
+    const mini = PIPELINE_COLUMNS.find(c => c.label === "Mini")!;
     expect(mini.estados).toEqual(["mini-lista","mini-enviada"]);
     expect(mini.dropTarget).toBe("mini-enviada");
   });

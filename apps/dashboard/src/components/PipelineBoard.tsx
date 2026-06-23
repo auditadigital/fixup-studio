@@ -36,7 +36,7 @@ export function PipelineBoard({ initial }: { initial: Prospecto[] }) {
       if (filters.zona && p.zona !== filters.zona) return false;
       if (filters.estado && p.estado !== filters.estado) return false;
       if (q) {
-        const hay = `${p["업체명"]} ${p.zona ?? ""} ${p.instagram ?? ""}`.toLowerCase();
+        const hay = `${p["업체명"]} ${p["업체명_en"] ?? ""} ${p.zona ?? ""} ${p.instagram ?? ""}`.toLowerCase();
         if (!hay.includes(q)) return false;
       }
       return true;
@@ -51,7 +51,7 @@ export function PipelineBoard({ initial }: { initial: Prospecto[] }) {
       const data = (await res.json()) as { prospectos: Prospecto[] };
       setProspectos(data.prospectos);
     } catch {
-      showToast("새로고침 실패");
+      showToast("Reload failed");
     } finally {
       setReloading(false);
     }
@@ -73,10 +73,10 @@ export function PipelineBoard({ initial }: { initial: Prospecto[] }) {
         body: JSON.stringify({ estado }),
       });
       if (res.status === 503) {
-        showToast("적용됨 (뷰) — Supabase 전 영구저장 안 됨");
+        showToast("Applied (view only) — not persisted until Supabase");
       } else if (!res.ok) {
         setProspectos(snapshot);
-        showToast("변경 실패");
+        showToast("Update failed");
       }
     } catch {
       setProspectos(snapshot);
@@ -94,9 +94,9 @@ export function PipelineBoard({ initial }: { initial: Prospecto[] }) {
       setProspectos((cur) => cur.filter((p) => p.id !== target.id));
       if (selected?.id === target.id) setSelected(null);
       setConfirmDelete(null);
-      showToast(`${target["업체명"]} 삭제됨`);
+      showToast(`${target["업체명"]} deleted`);
     } catch {
-      showToast("삭제 실패");
+      showToast("Delete failed");
     } finally {
       setDeleting(false);
     }
@@ -105,8 +105,8 @@ export function PipelineBoard({ initial }: { initial: Prospecto[] }) {
   return (
     <div className="space-y-4 p-6">
       <header className="flex items-center justify-between">
-        <h1 className="font-display text-2xl text-ink">픽스업 파이프라인</h1>
-        <Button onClick={() => setAdding(true)}>+ 프로스펙트 추가</Button>
+        <h1 className="font-display text-2xl text-ink">FixUp Pipeline</h1>
+        <Button onClick={() => setAdding(true)}>+ Add prospect</Button>
       </header>
 
       <Metrics prospectos={prospectos} />
@@ -147,16 +147,16 @@ export function PipelineBoard({ initial }: { initial: Prospecto[] }) {
           onClose={() => setAdding(false)}
           onCreated={(p) => {
             setProspectos((cur) => [p, ...cur]);
-            showToast(`${p["업체명"]} 추가됨`);
+            showToast(`${p["업체명"]} added`);
           }}
         />
       ) : null}
 
       {confirmDelete ? (
         <ConfirmDialog
-          title="프로스펙트 삭제"
-          message={`'${confirmDelete["업체명"]}' 프로스펙트를 삭제할까요? 되돌릴 수 없습니다.`}
-          confirmLabel="삭제"
+          title="Delete prospect"
+          message={`Delete prospect '${confirmDelete["업체명"]}'? This can't be undone.`}
+          confirmLabel="Delete"
           busy={deleting}
           onConfirm={doDelete}
           onCancel={() => setConfirmDelete(null)}

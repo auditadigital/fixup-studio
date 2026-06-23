@@ -86,7 +86,11 @@ export class SupabaseStore implements ProspectoStore {
     };
     const { data, error } = await this.db.from(TABLE).insert(row).select("*").single();
     if (error) throw new Error(error.message);
-    return mapRow(data);
+    const created = mapRow(data);
+    // 업체명_en aún no tiene columna en DB: lo arrastramos en memoria para la sesión.
+    // Cuando exista la columna `nombre_en`, mapearlo en mapRow/toRow y borrar esto.
+    if (input["업체명_en"]) created["업체명_en"] = input["업체명_en"];
+    return created;
   }
 
   async update(id: string, patch: Partial<Prospecto>): Promise<void> {
