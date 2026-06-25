@@ -24,6 +24,7 @@ const fullProspecto: Prospecto = {
   fecha_completa: "2026-06-20",
   fecha_propuesta: "2026-06-25",
   reportes: [{ label: "미니 진단", url: "https://x/mini.pdf" }],
+  updated_at: "2026-06-05T00:00:00Z",
 };
 
 describe("mapRow/toRow", () => {
@@ -78,7 +79,7 @@ describe("mapRow/toRow", () => {
       created_at: "t",
       updated_at: "t",
     } as ProspectoRow;
-    expect(mapRow(row)).toEqual({ id: "x", 업체명: "N", rubro: "", estado: "nuevo", reportes: [] });
+    expect(mapRow(row)).toEqual({ id: "x", 업체명: "N", rubro: "", estado: "nuevo", reportes: [], updated_at: "t" });
   });
 });
 

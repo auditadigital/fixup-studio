@@ -116,7 +116,9 @@ describe("SupabaseStore.update", () => {
     await store.update("seongsu-cafe", { estado: "contactado", scores_mini: 55 });
 
     const ctx = seen.find((c) => c.op === "update")!;
-    expect(ctx.payload).toEqual({ estado: "contactado", score_mini: 55 });
+    const { updated_at, ...rest } = ctx.payload as Record<string, unknown>;
+    expect(rest).toEqual({ estado: "contactado", score_mini: 55 });
+    expect(typeof updated_at).toBe("string"); // sellado en cada update
     expect(ctx.filters).toContainEqual(["eq", "id", "seongsu-cafe"]);
   });
 

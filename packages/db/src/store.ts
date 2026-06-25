@@ -94,7 +94,7 @@ export class SupabaseStore implements ProspectoStore {
   }
 
   async update(id: string, patch: Partial<Prospecto>): Promise<void> {
-    const row = toRow(patch);
+    const row = { ...toRow(patch), updated_at: new Date().toISOString() };
     const { error } = await this.db.from(TABLE).update(row).eq("id", id);
     if (error) throw new Error(error.message);
   }
