@@ -12,3 +12,6 @@ dist/
 
 # LibreOffice lock files
 .~lock.*#
+
+# Client data (PII / real client folders)
+engine/clientes/

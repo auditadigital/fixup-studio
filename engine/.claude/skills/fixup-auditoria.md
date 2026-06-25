@@ -10,6 +10,7 @@ El producto cuña pago (**진단 ₩99.000**, entrega 48–72h, descontable si c
 **Regla fundamental: datos reales.** No inventes scores, reseñas ni hallazgos. Si falta evidencia de un ítem, pedila; no la asumas.
 **Regla de formato:** el resultado SIEMPRE es HTML coreano + exportación a **PDF** (el entregable pago).
 **Idioma:** instrucciones en español (operativo); TODO lo visible al cliente, en **coreano**.
+**Regla bilingüe (preguntas al operador):** CUALQUIER pregunta, pedido de captura, confirmación o elección de siguiente paso que le hagas al operador va en **español + 한국어** (la esposa de Nacho, coreana, puede ejecutar). Instrucción en español primero, la misma en 한국어 debajo. Al pedir capturas, **re-listá las URLs exactas copiables** (Naver Place / Instagram / Kakao) para que no adivine la query. Las URLs aparecen una sola vez (no se traducen).
 
 > Dependencia: el template `fixup-reports/index.html` + `shared.css` (tipografía coreana) salen del rebrand del style guide (`docs/korea-staging/brand/prompt-styleguide-fixup-studio.md`). Base estructural mientras tanto: `Latam/auditorias/auditadigital-reports-extracted/index.html`.
 > Plantilla de scoring de referencia (pesos/semáforo): `docs/korea-staging/Plantillas/픽스업스튜디오_진단_템플릿.xlsx`.

@@ -43,6 +43,7 @@ Recolección — **automatizá todo lo posible primero, pedí capturas solo para
    - **카카오 채널**: `https://pf.kakao.com/` o búsqueda en app. Preguntá existe/no.
 
 **3. Al pedir capturas, SIEMPRE mostrá las URLs exactas** (Naver Place, IG, Kakao, búsqueda Naver) en un bloque copiable, así el operador abre y captura directo. No le hagas adivinar la query.
+   - **BILINGÜE obligatorio:** el pedido de capturas y las preguntas al operador van en **español + coreano**. Quien ejecuta puede ser la esposa de Nacho (coreana). Formato: instrucción en español y, debajo, la misma instrucción en 한국어 (qué captar, de qué pantalla). Las URLs van una sola vez (no se traducen).
 
 **4. Para lo no fetchable ni capturado** (reseñas internas Naver, calidad visual IG, uso de Kakao, claridad de reserva): **usá las capturas provistas**. Si falta un canal, preguntá antes de puntuarlo. **No inventes.**
 
@@ -177,6 +178,10 @@ Mostralo en el chat listo para copiar.
 2. **Adjuntá el reporte** (push a `reportes[]`):
    ```bash
    node scripts/db.mjs add-report "[id]" "미니 진단" "[output_dir]/mini-auditoria-[id].png"
+   ```
+3. **Cambios de estado posteriores** (ej: cuando el operador dice "Actualizá X a mini-enviada"): usá **`set-estado`**, NO `upsert`. `upsert` con solo `{id,estado}` re-inserta la fila y falla por `nombre_negocio` NOT NULL.
+   ```bash
+   node scripts/db.mjs set-estado "[id]" "[estado]"
    ```
 
 Estados válidos: `nuevo` · `contactado` · `mini-lista` · `mini-enviada` · `propuesta-enviada` · `negociacion` · `cerrado` · `perdido`.
