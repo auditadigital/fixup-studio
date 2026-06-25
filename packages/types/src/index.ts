@@ -39,6 +39,8 @@ export interface Prospecto {
   fecha_completa?: string;
   fecha_propuesta?: string;
   reportes?: { label: string; url: string }[];
+  /** Última modificación (ISO). La fija la DB; mapRow la expone, no es editable. */
+  updated_at?: string;
 }
 
 export interface Lead {

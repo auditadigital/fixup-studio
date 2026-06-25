@@ -4,9 +4,9 @@
 //   nombre_negocio ↔ 업체명
 //   score_mini     ↔ scores_mini
 // `scores` y `reportes` viajan como jsonb ↔ objetos. El resto, snake_case directo.
-// La fila tiene columnas que el tipo Prospecto no expone (decisor, created_at,
-// updated_at): mapRow las ignora; toRow no las escribe (decisor se setea aparte
-// en appendLead).
+// La fila tiene columnas que el tipo Prospecto no expone (decisor, created_at):
+// mapRow las ignora; toRow no las escribe (decisor se setea aparte en appendLead).
+// updated_at sí se expone (solo lectura): store.update la sella en cada cambio.
 
 import type { Plan, Prospecto, Scores } from "@fixup/types";
 import type { Json } from "./database.types.js";
@@ -36,6 +36,7 @@ export function mapRow(row: ProspectoRow): Prospecto {
   if (row.fecha_completa != null) p.fecha_completa = row.fecha_completa;
   if (row.fecha_propuesta != null) p.fecha_propuesta = row.fecha_propuesta;
   if (row.reportes != null) p.reportes = row.reportes as Prospecto["reportes"];
+  if (row.updated_at != null) p.updated_at = row.updated_at;
   return p;
 }
 

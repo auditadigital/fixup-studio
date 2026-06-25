@@ -2,6 +2,14 @@
 import type { Prospecto } from "@fixup/types";
 import { Badge } from "@fixup/ui";
 
+/** ISO → fecha corta (ej. "Jun 26"). Vacío si no hay fecha o es inválida. */
+function shortDate(iso?: string): string {
+  if (!iso) return "";
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "";
+  return d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+}
+
 export function ProspectoCard({
   prospecto, onOpen, onDragStart, onDelete,
 }: {
@@ -38,9 +46,12 @@ export function ProspectoCard({
         <Badge>{prospecto.rubro}</Badge>
         {prospecto.zona ? <Badge>{prospecto.zona}</Badge> : null}
       </div>
-      {prospecto.scores_mini != null ? (
-        <div className="mt-2 font-mono text-xs text-ink-soft">mini {prospecto.scores_mini}</div>
-      ) : null}
+      <div className="mt-2 flex items-center justify-between font-mono text-xs text-ink-soft">
+        {prospecto.scores_mini != null ? <span>mini {prospecto.scores_mini}</span> : <span />}
+        {shortDate(prospecto.updated_at) ? (
+          <span title="Last modified">{shortDate(prospecto.updated_at)}</span>
+        ) : null}
+      </div>
     </article>
   );
 }
