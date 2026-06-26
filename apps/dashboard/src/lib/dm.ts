@@ -6,7 +6,7 @@ import type { Prospecto, Rubro } from "@fixup/types";
 export type DmKind = "primer" | "segundo" | "followup" | "mini" | "bridge";
 
 // Nombre del founder que firma el primer DM. Editá esto con tu nombre real.
-const FOUNDER = "[이름]";
+const FOUNDER = "호르헤";
 
 export const DM_LABELS: Record<DmKind, string> = {
   primer: "💬 1st contact",
@@ -18,14 +18,16 @@ export const DM_LABELS: Record<DmKind, string> = {
 
 // Gancho específico por rubro (§4.3): cambia solo la línea del "por qué le escribo".
 const RUBRO_HOOK: Record<string, string> = {
-  "미용실": "네이버 사진이랑 예약 링크 쪽에서 손님 놓치는 포인트가 보여서요",
-  "에스테틱/피부과": "검색했을 때 경쟁 업체보다 아래에 나오는 이유가 몇 개 보이더라고요",
-  "카페": "인스타는 좋은데 네이버 플레이스에서 정보가 살짝 비어 있어서요",
-  "식당": "인스타는 좋은데 네이버 플레이스에서 정보가 살짝 비어 있어서요",
+  미용실: "네이버 사진이랑 예약 링크 쪽에서 손님 놓치는 포인트가 보여서요",
+  "에스테틱/피부과":
+    "검색했을 때 경쟁 업체보다 아래에 나오는 이유가 몇 개 보이더라고요",
+  카페: "인스타는 좋은데 네이버 플레이스에서 정보가 살짝 비어 있어서요",
+  식당: "인스타는 좋은데 네이버 플레이스에서 정보가 살짝 비어 있어서요",
   "필라테스/헬스장": "첫 방문 손님이 찾기엔 정보 동선이 살짝 아쉬워서요",
-  "치과": "신뢰가 중요한 업종인데 리뷰·정보 정리만 해도 효과 클 것 같아서요",
+  치과: "신뢰가 중요한 업종인데 리뷰·정보 정리만 해도 효과 클 것 같아서요",
 };
-const DEFAULT_HOOK = "살짝만 손봐도 검색에서 더 잘 보일 부분이 2~3개 있더라고요";
+const DEFAULT_HOOK =
+  "살짝만 손봐도 검색에서 더 잘 보일 부분이 2~3개 있더라고요";
 
 function hookFor(rubro?: Rubro): string {
   if (rubro && RUBRO_HOOK[rubro]) return RUBRO_HOOK[rubro];
