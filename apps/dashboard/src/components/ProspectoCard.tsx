@@ -1,23 +1,19 @@
 "use client";
 import type { Prospecto } from "@fixup/types";
+import { ESTADO_LABELS, nextEstado } from "@fixup/types";
 import { Badge } from "@fixup/ui";
-
-/** ISO → fecha corta (ej. "Jun 26"). Vacío si no hay fecha o es inválida. */
-function shortDate(iso?: string): string {
-  if (!iso) return "";
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return "";
-  return d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
-}
+import { shortDate } from "@/lib/date";
 
 export function ProspectoCard({
-  prospecto, onOpen, onDragStart, onDelete,
+  prospecto, onOpen, onDragStart, onDelete, onAdvance,
 }: {
   prospecto: Prospecto;
   onOpen: (p: Prospecto) => void;
   onDragStart: (id: string) => void;
   onDelete: (p: Prospecto) => void;
+  onAdvance: (p: Prospecto) => void;
 }) {
+  const next = nextEstado(prospecto.estado);
   return (
     <article
       draggable
@@ -49,9 +45,20 @@ export function ProspectoCard({
       <div className="mt-2 flex items-center justify-between font-mono text-xs text-ink-soft">
         {prospecto.scores_mini != null ? <span>mini {prospecto.scores_mini}</span> : <span />}
         {shortDate(prospecto.updated_at) ? (
-          <span title="Last modified">{shortDate(prospecto.updated_at)}</span>
+          <span title="Last modified (KST)">{shortDate(prospecto.updated_at)}</span>
         ) : null}
       </div>
+      {next ? (
+        <button
+          type="button"
+          title={`Move to ${ESTADO_LABELS[next]}`}
+          onClick={(e) => { e.stopPropagation(); onAdvance(prospecto); }}
+          onKeyDown={(e) => e.stopPropagation()}
+          className="mt-2 w-full rounded-sm border border-line py-1 text-xs font-medium text-ink-soft hover:border-line-2 hover:text-ink"
+        >
+          → {ESTADO_LABELS[next]}
+        </button>
+      ) : null}
     </article>
   );
 }

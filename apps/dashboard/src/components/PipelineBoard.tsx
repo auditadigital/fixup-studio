@@ -1,7 +1,7 @@
 "use client";
 import { useMemo, useRef, useState } from "react";
 import type { Estado, Prospecto } from "@fixup/types";
-import { PIPELINE_COLUMNS, columnForEstado } from "@fixup/types";
+import { PIPELINE_COLUMNS, columnForEstado, ESTADO_LABELS, nextEstado } from "@fixup/types";
 import { Metrics } from "./Metrics";
 import { Toolbar } from "./Toolbar";
 import { ProspectoCard } from "./ProspectoCard";
@@ -57,15 +57,13 @@ export function PipelineBoard({ initial }: { initial: Prospecto[] }) {
     }
   }
 
-  async function moveTo(estado: Estado) {
-    if (!dragId) return;
-    const id = dragId;
-    setDragId(null);
+  async function applyMove(id: string, estado: Estado) {
     let snapshot: Prospecto[] = [];
     setProspectos((cur) => {
       snapshot = cur;
       return cur.map((p) => (p.id === id ? { ...p, estado } : p));
     });
+    setSelected((cur) => (cur && cur.id === id ? { ...cur, estado } : cur));
     try {
       const res = await fetch(`/api/prospectos/${id}/estado`, {
         method: "POST",
@@ -82,6 +80,20 @@ export function PipelineBoard({ initial }: { initial: Prospecto[] }) {
       setProspectos(snapshot);
       showToast("변경 실패");
     }
+  }
+
+  function moveTo(estado: Estado) {
+    if (!dragId) return;
+    const id = dragId;
+    setDragId(null);
+    void applyMove(id, estado);
+  }
+
+  function advance(p: Prospecto) {
+    const next = nextEstado(p.estado);
+    if (!next) return;
+    void applyMove(p.id, next);
+    showToast(`${p["업체명"]} → ${ESTADO_LABELS[next]}`);
   }
 
   async function doDelete() {
@@ -133,14 +145,14 @@ export function PipelineBoard({ initial }: { initial: Prospecto[] }) {
                 <span className="font-mono text-xs text-ink-soft">{cards.length}</span>
               </div>
               {cards.map((p) => (
-                <ProspectoCard key={p.id} prospecto={p} onOpen={setSelected} onDragStart={setDragId} onDelete={setConfirmDelete} />
+                <ProspectoCard key={p.id} prospecto={p} onOpen={setSelected} onDragStart={setDragId} onDelete={setConfirmDelete} onAdvance={advance} />
               ))}
             </div>
           );
         })}
       </div>
 
-      <ProspectoDrawer prospecto={selected} onClose={() => setSelected(null)} onDelete={setConfirmDelete} />
+      <ProspectoDrawer prospecto={selected} onClose={() => setSelected(null)} onDelete={setConfirmDelete} onAdvance={advance} />
 
       {adding ? (
         <AddProspectoModal

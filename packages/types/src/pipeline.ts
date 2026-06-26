@@ -33,3 +33,18 @@ export function columnForEstado(estado: Estado): PipelineColumn {
   if (!col) throw new Error(`No pipeline column for estado: ${estado}`);
   return col;
 }
+
+// Flujo hacia adelante del pipeline (excluye "perdido", salida lateral).
+// El botón "avanzar" mueve a la siguiente columna usando su dropTarget.
+const FORWARD_FLOW: Estado[] = [
+  "nuevo", "contactado", "mini-enviada", "propuesta-enviada", "negociacion", "cerrado",
+];
+
+/** Siguiente estado al avanzar de columna, o null si ya está al final (cerrado) o es perdido. */
+export function nextEstado(estado: Estado): Estado | null {
+  if (estado === "perdido") return null;
+  const target = columnForEstado(estado).dropTarget;
+  const i = FORWARD_FLOW.indexOf(target);
+  if (i === -1 || i >= FORWARD_FLOW.length - 1) return null;
+  return FORWARD_FLOW[i + 1] ?? null;
+}
