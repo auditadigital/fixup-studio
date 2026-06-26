@@ -1,11 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
 import type { Prospecto, Scores } from "@fixup/types";
-import { ESTADO_LABELS } from "@fixup/types";
+import { ESTADO_LABELS, nextEstado } from "@fixup/types";
 import { Badge, Button, Card, FunnelSteps, PlanCard, Pill, ScoreRing, scoreColor } from "@fixup/ui";
 import { buildPrompt, PROMPT_LABELS, type PromptKind } from "@/lib/prompts";
+import { buildDm, DM_LABELS, type DmKind } from "@/lib/dm";
+import { shortDate } from "@/lib/date";
 
 const PROMPT_KINDS: PromptKind[] = ["mini", "completa", "propuesta"];
+const DM_KINDS: DmKind[] = ["primer", "segundo", "followup", "mini", "bridge"];
 
 function safeHref(url: string): string {
   return /^https?:\/\//i.test(url) ? url : "#";
@@ -30,8 +33,13 @@ function history(p: Prospecto): { label: string; date: string }[] {
 }
 
 export function ProspectoDrawer({
-  prospecto, onClose, onDelete,
-}: { prospecto: Prospecto | null; onClose: () => void; onDelete: (p: Prospecto) => void }) {
+  prospecto, onClose, onDelete, onAdvance,
+}: {
+  prospecto: Prospecto | null;
+  onClose: () => void;
+  onDelete: (p: Prospecto) => void;
+  onAdvance: (p: Prospecto) => void;
+}) {
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       if (e.key === "Escape") onClose();
@@ -41,10 +49,12 @@ export function ProspectoDrawer({
   }, [onClose]);
 
   const [copied, setCopied] = useState<PromptKind | null>(null);
+  const [copiedDm, setCopiedDm] = useState<DmKind | null>(null);
 
   if (!prospecto) return null;
   const p = prospecto;
   const hist = history(p);
+  const next = nextEstado(p.estado);
 
   async function copyPrompt(kind: PromptKind) {
     const text = buildPrompt(kind, p);
@@ -54,6 +64,17 @@ export function ProspectoDrawer({
       setTimeout(() => setCopied(null), 1500);
     } catch {
       // clipboard no disponible (contexto no seguro): el <details> permite copiar a mano
+    }
+  }
+
+  async function copyDm(kind: DmKind) {
+    const text = buildDm(kind, p);
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedDm(kind);
+      setTimeout(() => setCopiedDm(null), 1500);
+    } catch {
+      // clipboard no disponible: el <details> permite copiar a mano
     }
   }
   return (
@@ -95,6 +116,14 @@ export function ProspectoDrawer({
           {p.observacion ? <div className="text-ink-soft">{p.observacion}</div> : null}
         </section>
 
+        {next ? (
+          <section className="mt-4">
+            <Button variant="secondary" size="block" onClick={() => onAdvance(p)}>
+              → Move to {ESTADO_LABELS[next]}
+            </Button>
+          </section>
+        ) : null}
+
         <section className="mt-4">
           <FunnelSteps channels={{ naver: p.naver_place, instagram: p.instagram, kakao: p.kakao }} />
         </section>
@@ -126,7 +155,7 @@ export function ProspectoDrawer({
               {hist.map((h) => (
                 <div key={h.label} className="flex justify-between text-sm">
                   <span className="text-ink-2">{h.label}</span>
-                  <span className="font-mono text-ink-soft">{h.date}</span>
+                  <span className="font-mono text-ink-soft">{shortDate(h.date) || h.date}</span>
                 </div>
               ))}
             </Card>
@@ -146,6 +175,23 @@ export function ProspectoDrawer({
             </div>
           </section>
         ) : null}
+
+        <section className="mt-6">
+          <h3 className="mb-2 text-xs font-medium text-ink-soft">Instagram DM (copy &amp; paste)</h3>
+          <div className="flex flex-wrap gap-2">
+            {DM_KINDS.map((k) => (
+              <Button key={k} variant="secondary" onClick={() => copyDm(k)}>
+                {copiedDm === k ? "Copied ✓" : DM_LABELS[k]}
+              </Button>
+            ))}
+          </div>
+          <details className="mt-2">
+            <summary className="cursor-pointer text-xs text-ink-soft">Preview (1st contact)</summary>
+            <pre className="mt-1 whitespace-pre-wrap rounded-sm bg-bg-2 p-2 font-mono text-xs text-ink-2">
+{buildDm("primer", p)}
+            </pre>
+          </details>
+        </section>
 
         <section className="mt-6">
           <h3 className="mb-2 text-xs font-medium text-ink-soft">Generate prompt (paste into engine)</h3>
