@@ -3,7 +3,7 @@ import type { Prospecto, Rubro } from "@fixup/types";
 // Mensajes de DM de Instagram listos para copiar y pegar (coreano nativo).
 // Basados en PLAN-INSTAGRAM-OUTREACH.md §4. El dashboard NO envía nada: arma el
 // texto con [업체명] ya reemplazado y el operador lo pega en Instagram.
-export type DmKind = "primer" | "segundo" | "followup" | "mini" | "bridge";
+export type DmKind = "primer" | "segundo" | "followup" | "mini" | "miniFollowup" | "bridge";
 
 // Nombre del founder que firma el primer DM. Editá esto con tu nombre real.
 const FOUNDER = "호르헤";
@@ -13,6 +13,7 @@ export const DM_LABELS: Record<DmKind, string> = {
   segundo: "💬 Reply: yes",
   followup: "💬 Follow-up",
   mini: "💬 Send mini",
+  miniFollowup: "💬 Mini follow-up",
   bridge: "💬 Full-audit bridge",
 };
 
@@ -71,6 +72,12 @@ export function buildDm(kind: DmKind, p: Prospecto): string {
         "",
         "솔직하게만 봤어요 — 좋은 부분도, 아쉬운 부분도 그대로요.",
         "보시고 궁금한 점 있으면 편하게 말씀 주세요 😊",
+      ].join("\n");
+    case "miniFollowup":
+      return [
+        `사장님, 며칠 전에 보내드린 ${nombre} 미니진단 혹시 보셨을까요? 😊`,
+        "표시해둔 핵심 3가지 중에 궁금한 부분 있으면 편하게 여쭤보세요.",
+        "부담 전혀 없으시고, 천천히 보셔도 괜찮아요 🙏",
       ].join("\n");
     case "bridge":
       return [

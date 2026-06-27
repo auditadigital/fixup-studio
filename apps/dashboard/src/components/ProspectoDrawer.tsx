@@ -8,7 +8,7 @@ import { buildDm, DM_LABELS, type DmKind } from "@/lib/dm";
 import { shortDate } from "@/lib/date";
 
 const PROMPT_KINDS: PromptKind[] = ["mini", "completa", "propuesta"];
-const DM_KINDS: DmKind[] = ["primer", "segundo", "followup", "mini", "bridge"];
+const DM_KINDS: DmKind[] = ["primer", "segundo", "followup", "mini", "miniFollowup", "bridge"];
 
 function safeHref(url: string): string {
   return /^https?:\/\//i.test(url) ? url : "#";
